@@ -1,0 +1,54 @@
+{
+  "pages": [
+    {
+      "name": "survey",
+      "questions": [
+        {
+          "type": "radiogroup",
+          "choices": [
+            "jasne",
+            {
+              "value": "two",
+              "text": "ciemne"
+            },
+            {
+              "value": "three",
+              "text": "przeniczne"
+            }
+          ],
+          "name": "Jakiego gatunku piwo pijesz ?"
+        },
+        {
+          "type": "radiogroup",
+          "choices": [
+            "w butelce",
+            {
+              "value": "two",
+              "text": "w puszce"
+            },
+            {
+              "value": "three",
+              "text": "w kuflu"
+            }
+          ],
+          "name": "W czym pijesz piwo?"
+        },
+        {
+          "type": "radiogroup",
+          "choices": [
+            "Żywiec",
+            {
+              "value": "two",
+              "text": "Kompania Piwowarska"
+            },
+            {
+              "value": "three",
+              "text": "Browary regionalne"
+            }
+          ],
+          "name": "Z jakieo browaru pijesz piwo?"
+        }
+      ]
+    }
+  ]
+}
