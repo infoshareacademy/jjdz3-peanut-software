@@ -33,7 +33,7 @@ public class JsonFileMap {
             // reading json file
 
             TypeReference ref = new TypeReference<Map<String,Survey>>() { };
-            File fileJson = new File("survey1.json");
+            File fileJson = new File("survey/src/main/survey1.json");
             surveyDataMap = mapper.readValue(fileJson, ref);
 
             // mapping json string to survey object
