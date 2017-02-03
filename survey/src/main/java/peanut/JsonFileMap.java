@@ -28,8 +28,8 @@ public class JsonFileMap {
             System.out.println("let start survey");
             byte[] jsonData = Files.readAllBytes(Paths.get("survey/src/main/resources/survey2.json"));
             ObjectMapper mapper = new ObjectMapper();
-            Survey survey = mapper.readValue(jsonData, Survey.class);
-            System.out.print(survey);
+            Survey readySurvey = mapper.readValue(jsonData, Survey.class);
+            this.survey = readySurvey;
         }
 
         catch (JsonParseException e) { e.printStackTrace();}
