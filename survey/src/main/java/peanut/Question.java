@@ -3,6 +3,7 @@ package peanut;
 import java.awt.*;
 import java.lang.reflect.Array;
 import java.util.*;
+import java.util.List;
 
 /**
  * Created by bartman3000 on 2017-02-03.
@@ -10,18 +11,23 @@ import java.util.*;
 public class Question {
 
     private int number;
-    private String question;
-    private Iterator answers;
+    private String text;
+    private List<Answer> answers;
     private Answer selectedAnswer;
 
     public int getNumber() { return number; }
-    public String getQuestion() { return question; }
+    public String getText() { return text; }
 
-    public Iterator getAnswers() {
+    public List<Answer> getAnswers() {
         return answers;
     }
 
-    public void setSectedAnswer(Answer answer) {
+    public void addAnswer(Answer answer)
+    {
+        this.answers.add(answer);
+    }
+
+    public void setSelectedAnswer(Answer answer) {
         this.selectedAnswer = answer;
     }
 

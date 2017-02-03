@@ -14,4 +14,14 @@ public class Answer {
     public String getText(){
         return text;
     }
+
+    public void setName(String name)
+    {
+        this.name = name;
+    }
+
+    public void setTest(String text)
+    {
+        this.text = text;
+    }
 }

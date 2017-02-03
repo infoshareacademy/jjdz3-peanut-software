@@ -2,7 +2,7 @@
   "questions": [
     {
     "number" : 1,
-    "question" : "Jakiego gatunku piwo pijesz?",
+    "text" : "Jakiego gatunku piwo pijesz?",
     "answers": [
       {"name" : "answerA", "text" : "jasne"},
       {"name" : "answerB", "text" : "ciemne"},
@@ -11,7 +11,7 @@
     },
     {
       "number" : 2,
-      "question" : "W czym pijesz piwo?",
+      "text" : "W czym pijesz piwo?",
       "answers": [
         {"name" : "answerA", "text" : "w butelce"},
         {"name" : "answerB", "text" : "w puszce"},
@@ -20,7 +20,7 @@
     },
     {
       "number" : 3,
-      "question" : "Z jakiego browaru pijesz piwo?",
+      "text" : "Z jakiego browaru pijesz piwo?",
       "answers": [
         {"name" : "answerA", "text" : "Żywiec"},
         {"name" : "answerB", "text" : "Kompania Piwowarska"},

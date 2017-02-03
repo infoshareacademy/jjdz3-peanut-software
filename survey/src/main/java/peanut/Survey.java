@@ -11,22 +11,38 @@ import java.util.List;
 
 public class Survey {
 
-    private List questions;
+    private List<Question> questions;
 
-    public List getQuestions(){
+    public List<Question> getQuestions(){
        return questions;
     }
 
     public void addQuestion(Question question){
-        questions.add(question);
+
+        this.questions.add(question);
+    }
+
+    public Question getQuestion(int num)
+    {
+        return this.questions.get(num);
     }
 
     // return a string representation of the object.
-    //todo rewrite this method using loop on questions Iterator
     public String toString() {
-//        return "{\"question\":\"" + question + "\",\"number\":\"" + number + "\",\"answerA\":\"" + answerA + "\",\"answerB\":\"" + answerB + "\",\"answerC\":\"" + answerC + "\"}";
-        return "";
+
+        List<Question> questions = this.getQuestions();
+        String surveyDisplay = "";
+        for (Question question: questions)
+        {
+            surveyDisplay = surveyDisplay + "question:" + question.getNumber() + " : " + question.getText();
+            surveyDisplay = surveyDisplay + "answers:";
+
+            List<Answer> answers = question.getAnswers();
+            for(Answer answer : answers)
+            {
+                surveyDisplay = surveyDisplay + "answer:" + answer.getName() + " : " + answer.getText();
+            }
+        }
+        return surveyDisplay;
     }
-
-
 }
