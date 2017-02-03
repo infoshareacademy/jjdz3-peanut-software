@@ -1,0 +1,31 @@
+{
+  "questions": [
+    {
+    "number" : 1,
+    "question" : "Jakiego gatunku piwo pijesz?",
+    "answers": [
+      {"name" : "answerA", "text" : "jasne"},
+      {"name" : "answerB", "text" : "ciemne"},
+      {"name" : "answerC", "text" : "przeniczne"}
+    ]
+    },
+    {
+      "number" : 2,
+      "question" : "W czym pijesz piwo?",
+      "answers": [
+        {"name" : "answerA", "text" : "w butelce"},
+        {"name" : "answerB", "text" : "w puszce"},
+        {"name" : "answerC", "text" : "w kuflu"}
+      ]
+    },
+    {
+      "number" : 3,
+      "question" : "Z jakiego browaru pijesz piwo?",
+      "answers": [
+        {"name" : "answerA", "text" : "Żywiec"},
+        {"name" : "answerB", "text" : "Kompania Piwowarska"},
+        {"name" : "answerC", "text" : "Browary regionalne"}
+      ]
+    }
+  ]
+}
