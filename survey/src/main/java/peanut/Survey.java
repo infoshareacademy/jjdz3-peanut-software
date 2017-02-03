@@ -34,13 +34,13 @@ public class Survey {
         String surveyDisplay = "";
         for (Question question: questions)
         {
-            surveyDisplay = surveyDisplay + "question:" + question.getNumber() + " : " + question.getText();
-            surveyDisplay = surveyDisplay + "answers:";
+            surveyDisplay = surveyDisplay + "\n\n question:" + question.getNumber() + " : " + question.getText();
+            surveyDisplay = surveyDisplay + "\n answers:";
 
             List<Answer> answers = question.getAnswers();
             for(Answer answer : answers)
             {
-                surveyDisplay = surveyDisplay + "answer:" + answer.getName() + " : " + answer.getText();
+                surveyDisplay = surveyDisplay + "\n" + answer.getName() + " : " + answer.getText();
             }
         }
         return surveyDisplay;
