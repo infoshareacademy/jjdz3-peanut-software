@@ -1,64 +1,48 @@
 package peanut;
 
+import java.lang.reflect.Array;
+import java.util.Iterator;
+import java.util.List;
+
 /**
  * Created by Mariusz Szymanski on 2017-01-31.
+ * modified by bartman3000 on 2017-02-03.
  */
 
 public class Survey {
 
-    private String question;
-    private int number;
-    private String answerA;
-    private String answerB;
-    private String answerC;
+    private List<Question> questions;
 
-    // sets and gets for all variables
-
-    public void setQuestion(String question){
-        this.question = question;
+    public List<Question> getQuestions(){
+       return questions;
     }
 
-    public String getQuestion() {
-        return question;
+    public void addQuestion(Question question){
+
+        this.questions.add(question);
     }
 
-    public void setNumber(int number) {
-        this.number = number;
-    }
-
-    public int getNumber(){
-        return number;
-    }
-
-    public void setAnswerA(String answerA){
-        this.answerA = answerA;
-    }
-
-    public String getAnswerA() {
-        return answerA;
-    }
-
-    public void setAnswerB(String answerB){
-        this.answerB = answerB;
-    }
-
-    public String getAnswerB() {
-        return answerB;
-    }
-
-    public void setAnswerC(String answerC){
-        this.answerC = answerC;
-    }
-
-    public String getAnswerC() {
-        return answerC;
+    public Question getQuestion(int num)
+    {
+        return this.questions.get(num);
     }
 
     // return a string representation of the object.
-
     public String toString() {
-        return "{\"question\":\"" + question + "\",\"number\":\"" + number + "\",\"answerA\":\"" + answerA + "\",\"answerB\":\"" + answerB + "\",\"answerC\":\"" + answerC + "\"}";
+
+        List<Question> questions = this.getQuestions();
+        String surveyDisplay = "";
+        for (Question question: questions)
+        {
+            surveyDisplay = surveyDisplay + "\n\n question:" + question.getNumber() + " : " + question.getText();
+            surveyDisplay = surveyDisplay + "\n answers:";
+
+            List<Answer> answers = question.getAnswers();
+            for(Answer answer : answers)
+            {
+                surveyDisplay = surveyDisplay + "\n" + answer.getName() + " : " + answer.getText();
+            }
+        }
+        return surveyDisplay;
     }
-
-
 }
