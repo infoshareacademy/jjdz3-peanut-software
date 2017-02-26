@@ -1,3 +1,7 @@
+package Survey;
+
+import Survey.SurveyPatient;
+
 /**
  * Created by moody on 20.02.17.
  */

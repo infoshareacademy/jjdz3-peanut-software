@@ -1,3 +1,5 @@
+package Survey;
+
 import com.jayway.restassured.path.json.JsonPath;
 
 import java.util.List;

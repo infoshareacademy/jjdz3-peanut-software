@@ -1,11 +1,13 @@
+package Survey;
+
 /**
- * Created by moody on 24.02.17.
+ * Created by moody on 20.02.17.
  */
-public enum SurveyEnumOption {
+public enum Option {
+
 
     EXIT(0, "Wyjście z programu"),
-    ADD_PATIENT(1, "Dodaj pacjenta"),
-    SHOW_PATIENT(2, "Wyświetl wprowadzonych pacjentów");
+    ADD_SURVEY(1, "Wykonaj formularz dla pacjenta");
 
 
     private int value;
@@ -19,7 +21,7 @@ public enum SurveyEnumOption {
         return description;
     }
 
-    SurveyEnumOption(int value, String desc) {
+    Option(int value, String desc) {
         this.value = value;
         this.description = desc;
     }
@@ -35,3 +37,4 @@ public enum SurveyEnumOption {
 
 
 }
+

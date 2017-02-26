@@ -1,3 +1,5 @@
+package Survey;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jayway.restassured.path.json.JsonPath;
 

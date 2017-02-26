@@ -1,3 +1,7 @@
+package Survey;
+
+import Survey.SurveyAnswerReader;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;

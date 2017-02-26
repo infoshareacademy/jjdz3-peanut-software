@@ -1,3 +1,5 @@
+package Survey;
+
 import java.util.Scanner;
 
 /**
