@@ -1,5 +1,6 @@
-import com.fasterxml.jackson.databind.ObjectMapper;
-import net.fortuna.ical4j.model.Calendar;
+import Survey.SurveyJsonReader;
+import Survey.SurveyPrinter;
+import Survey.SurveyQuestionList;
 
 import java.io.File;
 import java.io.IOException;
@@ -11,32 +12,16 @@ public class AppDoctor {
 
     public static void main(String[] args) {
 
+       MainOptions mainOptions = new MainOptions();
+       mainOptions.readMainOptions();
+
+        SurveyJsonReader surveyJsonReader = new SurveyJsonReader() ;
+        SurveyQuestionList surveyQuestionList = surveyJsonReader.readfromJson();
 
 
-
-        DoctorJsonReader doctorJsonReader = new DoctorJsonReader(); //tworzymy reader
-        DocotrList docotrList = doctorJsonReader.readfromJson();  //zapisujemy wynik czytaj plik
-        DoctorWyswietl doctorWyswietl = new DoctorWyswietl() ;  // tworzymy wyswitlacza
-        doctorWyswietl.printDoctors(docotrList);  //wyswietl wynik
-        SearchDoctor searchDoctor = new SearchDoctor();
-        Doctor doctor = searchDoctor.searchByLastname(docotrList, "Kowalski"); //do czego zapisujemy = wynik wyszukiwania
-        doctorWyswietl.printOneDoctor(doctor);
-        doctor = searchDoctor.searchByLastname(docotrList, "Kowalski2");
-        doctorWyswietl.printOneDoctor(doctor);
-
-        Doctor doctorSpecjalizcja = searchDoctor.searchBySpecjalizacja(docotrList, "Ginekolog");
-        doctorWyswietl.printOneDoctor(doctorSpecjalizcja);
-
-        Doctor doctorSpecjalizcja2 = searchDoctor.searchBySpecjalizacja(docotrList, "Pediatra");
-        doctorWyswietl.printOneDoctor(doctorSpecjalizcja2);
-
-
-        CalendarReaderICS calendarReaderICS = new CalendarReaderICS();  //tworzymy to co czyta cal
-        Calendar calendar = calendarReaderICS.readCalendar(); // wczytujmy z pliku i zapisujemy do zmiennej calendar
-        ShowFileICS showFileICS = new ShowFileICS() ; //tworze obiekt ktory wyswietli
-        showFileICS.printIcsData(calendar); // wyswiewtlamy
-
-
+        SurveyPrinter surveyPrinter = new SurveyPrinter();
+        surveyPrinter.surveyPrint(surveyQuestionList);
+        //surveyShowQuestions.printQuestions(surveyQuestionList);
 
     }
 
