@@ -1,8 +1,5 @@
 package Survey;
 
-import com.jayway.restassured.path.json.JsonPath;
-
-import java.util.List;
 
 /**
  * Created by moody on 20.02.17.
