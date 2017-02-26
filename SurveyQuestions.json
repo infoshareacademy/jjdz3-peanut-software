@@ -1,0 +1,21 @@
+
+{
+  "surveyPatients": [
+    {
+     "question" : "Płeć",
+      "answers":[ "Mężczyzna", "Kobieta"
+
+      ]
+    },
+    {
+      "question" : "wiek",
+      "answers":[ "99", "88"
+
+      ]
+    }
+
+  ]
+}
+
+
+
