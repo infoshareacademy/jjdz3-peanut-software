@@ -7,7 +7,7 @@ import Survey.SurveyPatient;
  */
 public class SurveyQuestionList {
 
-    SurveyPatient[] surveyPatients ;
+   private SurveyPatient[] surveyPatients ;
 
     public SurveyPatient[] getSurveyPatients(){
         return surveyPatients ;
