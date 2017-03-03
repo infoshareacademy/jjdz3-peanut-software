@@ -10,28 +10,24 @@ import java.io.IOException;
 
 /**
  * Created by moody on 16.02.17.
+ * Updated by Mariusz on 03.03.17.
  */
-public class CalendarReaderICS {
 
-    public Calendar readCalendar(){
+public class IcalendarReaderICS {
+
+    public Calendar readCalendar(File icsFile){
 
         //Now Parsing an iCalendar file
-        //FileInputStream fin = new FileInputStream(calFile);
 
         try {
-
-
-            FileInputStream fin = new FileInputStream(new File("./mycalendar3.ics"));
-
+            FileInputStream fin = new FileInputStream(icsFile);
             CalendarBuilder builder = new CalendarBuilder();
-
             Calendar calendar = builder.build(fin);
             return calendar ;
-        }catch (IOException | ParserException e){
-            System.out.println(" ");
-
+        }
+        catch (IOException | ParserException e){
+            System.out.println(e);
         }
       return null;
     }
-
 }
