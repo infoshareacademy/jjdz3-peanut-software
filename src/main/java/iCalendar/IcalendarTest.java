@@ -18,16 +18,16 @@ public class IcalendarTest {
         IcalendarReaderICS icalr = new IcalendarReaderICS();
         Calendar calendar = icalr.readCalendar(icsFile);
 
+        // Creating a meeting of four hour duration
+        IcalendarMeeting icalendarMeeting = new IcalendarMeeting();
+        Calendar newCalendar = icalendarMeeting.setMeeting(calendar);
+
         // Showing calendar file
         ShowFileICS showFileICS = new ShowFileICS();
         showFileICS.printIcsData(calendar);
 
         // Saving calendar -> .ics file
-
         IcalendarWriterICS icalendarWriterICS = new IcalendarWriterICS();
-        icalendarWriterICS.writeCalendar(calendar,icsFile);
-
-
-
+        icalendarWriterICS.writeCalendar(newCalendar,icsFile);
     }
 }
