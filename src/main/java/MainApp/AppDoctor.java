@@ -1,3 +1,5 @@
+package MainApp;
+
 import Survey.SurveyJsonReader;
 import Survey.SurveyPrinter;
 import Survey.SurveyQuestionList;
@@ -12,17 +14,22 @@ public class AppDoctor {
 
     public static void main(String[] args) {
 
+        final String appName = "Medicine V 1.08" ;
+        System.out.printf(appName);
+
+
        MainOptions mainOptions = new MainOptions();
-       mainOptions.readMainOptions();
+       mainOptions.mainLoop();
+       //mainOptions.readMainOptions();
 
         SurveyJsonReader surveyJsonReader = new SurveyJsonReader() ;
         SurveyQuestionList surveyQuestionList = surveyJsonReader.readfromJson();
 
-
+        /*
         SurveyPrinter surveyPrinter = new SurveyPrinter();
         surveyPrinter.surveyPrint(surveyQuestionList);
         //surveyShowQuestions.printQuestions(surveyQuestionList);
-
+*/
     }
 
 

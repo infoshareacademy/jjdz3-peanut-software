@@ -1,13 +1,16 @@
 package Survey;
 
+import jdk.nashorn.internal.runtime.options.Options;
+
 /**
  * Created by moody on 24.02.17.
  */
 public enum SurveyEnumOption {
 
-    EXIT(0, "Wyjście z programu"),
-    ADD_PATIENT(1, "Dodaj pacjenta"),
-    SHOW_PATIENT(2, "Wyświetl wprowadzonych pacjentów");
+    EXIT(0, "Powrót do głownego menu"),
+    ADD_SURVEY_PATIENT(1, "Dodaj Kwestionariusz"),
+    PRINT_SURVEY_PATIENT(2, "Wyświetl wprowadzone kwestionariusze"),
+    PRINT_FIND_PATIENT_BY_LASTNAME(3, "Znajdz pacjenta : ");
 
 
     private int value;
@@ -31,8 +34,8 @@ public enum SurveyEnumOption {
         return value + " - " + description;
     }
 
-    public static Option createFromInt(int option) {
-        return Option.values()[option];
+    public static SurveyEnumOption createFromInt(int option) {
+        return SurveyEnumOption.values()[option];
     }
 
 
