@@ -1,16 +1,16 @@
-package Survey;
+package MainApp;
 
 import java.util.Scanner;
 
 /**
  * Created by moody on 23.02.17.
  */
-public class SurveyAnswerReader {
+public class AnswerReader {
 
 
     private Scanner scanner;
 
-    public SurveyAnswerReader() {
+    public AnswerReader() {
         scanner = new Scanner(System.in);
     }
 
