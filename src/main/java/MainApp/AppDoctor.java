@@ -22,8 +22,8 @@ public class AppDoctor {
        mainOptions.mainLoop();
        //mainOptions.readMainOptions();
 
-        SurveyJsonReader surveyJsonReader = new SurveyJsonReader() ;
-        SurveyQuestionList surveyQuestionList = surveyJsonReader.readfromJson();
+       // SurveyJsonReader surveyJsonReader = new SurveyJsonReader() ;
+       // SurveyQuestionList surveyQuestionList = surveyJsonReader.readfromJson();
 
         /*
         SurveyPrinter surveyPrinter = new SurveyPrinter();
