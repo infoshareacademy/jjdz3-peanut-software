@@ -1,29 +1,11 @@
-
-import net.fortuna.ical4j.data.CalendarBuilder;
-import net.fortuna.ical4j.data.CalendarOutputter;
-import net.fortuna.ical4j.data.ParserException;
-import net.fortuna.ical4j.model.Component;
-import net.fortuna.ical4j.model.Date;
-import net.fortuna.ical4j.model.Property;
-import net.fortuna.ical4j.model.ValidationException;
-import net.fortuna.ical4j.model.component.VEvent;
-import net.fortuna.ical4j.model.parameter.Value;
-import net.fortuna.ical4j.model.property.CalScale;
-import net.fortuna.ical4j.model.property.ProdId;
-import net.fortuna.ical4j.model.property.Version;
-import net.fortuna.ical4j.util.UidGenerator;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.Iterator;
-
+package iCalendar;
 
 /**
  * Created by moody on 16.02.17.
  */
 public class IcalendarClass {
+
+    /* class not used
 
     public static void main(String[] args) throws IOException, ParserException, ValidationException {
 
@@ -48,19 +30,10 @@ public class IcalendarClass {
             christmas.getProperties().add(uidGenerator.generateUid());
 
             calendar.getComponents().add(christmas);
-
-            //Saving an iCalendar file
-            FileOutputStream fout = new FileOutputStream(calFile);
-
-            CalendarOutputter outputter = new CalendarOutputter();
-            outputter.setValidating(false);
-            outputter.output(calendar, fout);
-
-
-
-
         }
-    }
+    */
+
+}
 
 
 
