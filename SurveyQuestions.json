@@ -2,13 +2,20 @@
 {
   "surveyPatients": [
     {
-     "question" : "Płeć",
+     "question" : "Imię Pacjenta",
       "answers":[ "Mężczyzna", "Kobieta"
 
       ]
     },
     {
-      "question" : "wiek",
+      "question" : "Nazwisko Pacjenta",
+      "answers":[ "99", "88"
+
+      ]
+    },
+
+    {
+      "question" : "PESEL Pacjenta ",
       "answers":[ "99", "88"
 
       ]

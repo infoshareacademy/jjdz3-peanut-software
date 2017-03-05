@@ -109,18 +109,23 @@ public class SurveyPrinter {
     }
 
     public void surveyAnswerPrint(){
-        allAnswers.get(0).get(0);
-        for (ArrayList<String> answers: allAnswers)
-              {
-                  for (String answer: answers) {
-                      if(answer != null){
-                          System.out.println("Amswer : " + answer);
-                      }
+        try {
 
-                  }
+
+            allAnswers.get(0).get(0);
+            for (ArrayList<String> answers : allAnswers) {
+                for (String answer : answers) {
+                    if (answer != null) {
+                        System.out.println("Answer : " + answer);
+                    }
+
+                }
+            }
+
+            System.out.println(allAnswers);
+        }catch (IndexOutOfBoundsException e){
+            System.out.println("Brak wprowadzonych pacjentów, proszę wprowadzić ");
         }
-
-        System.out.println(allAnswers);
     }
 
 }
