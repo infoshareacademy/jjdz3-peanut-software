@@ -14,24 +14,27 @@ public class Start {
 
     public static void main(String[] args) throws NullPointerException, IOException {
 
-//        IcalendarReaderICS icalr = new IcalendarReaderICS();
-        Doctor doctor = new Doctor("dsfs","dfsg","");
-
-
-//
         try {
+            IcalendarReaderICS icalr = new IcalendarReaderICS();
+            ClassLoader classLoader = icalr.getClass().getClassLoader();
+            String calendarsPath = classLoader.getResource("calendars").getPath();
 
-            ClassLoader classLoader = doctor.getClass().getClassLoader();
-            String p = classLoader.getResource("calendars").getPath();
+//            System.out.println(p);
 
-            System.out.println(p);
+            File calendarsDir = new File(calendarsPath );
+            File[] listOfDirs = calendarsDir.listFiles();
 
-            File folder = new File(p);
-            File[] listOfFiles = folder.listFiles();
-
-            for (File f : listOfFiles)
+            for (File f : listOfDirs)
             {
-                System.out.println((f.getName()));
+                String specialization = f.getName();
+
+//                System.out.println(specialization);
+
+                String doctorsPathPath = classLoader.getResource("calendars/"+specialization).getPath();
+                System.out.println(doctorsPathPath);
+
+
+
             }
 
         } catch (NullPointerException e)
