@@ -1,7 +1,5 @@
-package bartek.medicine;
+package infoshare.academy.peanut.medicine;
 
-import java.io.File;
-import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.util.List;
 

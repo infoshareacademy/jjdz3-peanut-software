@@ -1,4 +1,4 @@
-package bartek.medicine;
+package infoshare.academy.peanut.medicine;
 
 import java.time.LocalDate;
 
