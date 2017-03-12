@@ -10,12 +10,12 @@ public class Appointment {
 
     private Patient patient;
     private Doctor doctor;
-    private List<LocalDate> terms;
+    private LocalDate term;
 
-    public Appointment(Patient patient, Doctor doctor, List<LocalDate> terms) {
+    public Appointment(Patient patient, Doctor doctor, LocalDate term) {
         this.patient = patient;
         this.doctor = doctor;
-        this.terms = terms;
+        this.term = term;
     }
 
     public Patient getPatient() {
@@ -34,11 +34,11 @@ public class Appointment {
         this.doctor = doctor;
     }
 
-    public List<LocalDate> getTerms() {
-        return terms;
+    public LocalDate getTerm() {
+        return term;
     }
 
-    public void setTerms(List<LocalDate> terms) {
-        this.terms = terms;
+    public void setTerm(LocalDate term) {
+        this.term = term;
     }
 }

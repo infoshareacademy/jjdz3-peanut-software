@@ -18,18 +18,6 @@ public class Survey {
        return questions;
     }
 
-//    public Survey(String resource) {
-//
-//        try {
-//            JsonFileMap jsonReader = new JsonFileMap();
-//            Survey survey = jsonReader.makeSurveyFromJson(resource);
-//            System.out.println(survey);
-//        } catch (Exception e)
-//        {
-//            System.out.println("Error reading " +resource+ " file");
-//        }
-//    }
-
     public void addQuestion(Question question){
 
         this.questions.add(question);

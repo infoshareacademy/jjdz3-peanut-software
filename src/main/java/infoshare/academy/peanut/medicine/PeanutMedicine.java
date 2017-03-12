@@ -1,20 +1,25 @@
 package infoshare.academy.peanut.medicine;
 
 import infoshare.academy.peanut.medicine.iCalendar.IcalendarReaderICS;
+import infoshare.academy.peanut.medicine.iCalendar.IcalendarWriterICS;
 import infoshare.academy.peanut.medicine.survey.JsonFileMap;
 import infoshare.academy.peanut.medicine.survey.Survey;
+import net.fortuna.ical4j.model.*;
 import net.fortuna.ical4j.model.Calendar;
-import net.fortuna.ical4j.model.Component;
+import net.fortuna.ical4j.model.component.VEvent;
+import net.fortuna.ical4j.model.property.*;
+import net.fortuna.ical4j.util.UidGenerator;
 
+import javax.swing.text.DateFormatter;
 import java.io.File;
+import java.net.SocketException;
+import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Queue;
-import java.util.Set;
+import java.util.*;
+import java.util.Date;
 
 import static java.time.DayOfWeek.SATURDAY;
 import static java.time.DayOfWeek.SUNDAY;
@@ -50,10 +55,13 @@ public class PeanutMedicine {
         testPatient.setPreferedSpecialization("dentysta");
         testPatient.setPreferedDay("friday");
 
-                System.out.println(testPatient.toString());
+//                System.out.println(testPatient.toString());
 
-        peanutMedicine.findBestTerms(testPatient,doctors);
-
+        List<Appointment> appointments = peanutMedicine.findBestTerms(testPatient,doctors);
+        for(Appointment appointment : appointments)
+        {
+            peanutMedicine.generateInvitation(appointment);
+        }
     }
 
     protected void printDoctors()
@@ -168,8 +176,11 @@ public class PeanutMedicine {
             System.out.println(d.getName()+ " " + d.getSurname()+":\n");
             System.out.println(terms);
 
-            Appointment appointment = new Appointment(patient, d, terms);
-            appointments.add(appointment);
+            for (LocalDate term : terms)
+            {
+                Appointment appointment = new Appointment(patient, d, term);
+                appointments.add(appointment);
+            }
         }
         return appointments;
     }
@@ -220,6 +231,33 @@ public class PeanutMedicine {
             }
         }
         return newTerms;
+    }
+
+    public void generateInvitation(Appointment appointment) throws ParseException, SocketException {
+        IcalendarWriterICS IcalendarWriterICS = new IcalendarWriterICS();
+
+        //Creating a new calendar
+        Calendar calendar = new Calendar();
+        calendar.getProperties().add(new ProdId("/Medicine/"));
+        calendar.getProperties().add(Version.VERSION_2_0);
+        calendar.getProperties().add(CalScale.GREGORIAN);
+
+        VEvent visit = new VEvent();
+        visit.getProperties().add(new DtStamp());
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd"+"'T'"+"10:00:00");
+        String parsableDate = appointment.getTerm().format(formatter);
+
+        visit.getProperties().add(new DtStart(parsableDate));
+        visit.getProperties().add(new Summary("Appointment patient"));
+//        visit.getProperties().getProperty(Property.DTSTART).getParameters().add(Value.DATE);
+        UidGenerator uidGenerator = new UidGenerator("1");
+        visit.getProperties().add(uidGenerator.generateUid());
+        calendar.getComponents().add(visit);
+
+        ClassLoader classLoader = this.getClass().getClassLoader();
+        File icsFile = new File(classLoader.getResource("invitations/inv1.json").getFile());
+        IcalendarWriterICS.writeCalendar(calendar,icsFile);
     }
 
 }
