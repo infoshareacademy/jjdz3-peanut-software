@@ -29,7 +29,7 @@ public class PeanutMedicine {
     public static void main(String[] args) throws Exception {
 
         PeanutMedicine peanutMedicine = new PeanutMedicine();
-        peanutMedicine.getDoctorsEvents();
+        List<Doctor> doctors = peanutMedicine.getDoctorsEvents();
         peanutMedicine.printDoctors();
 
         JsonFileMap jsonReader = new JsonFileMap();
@@ -46,7 +46,7 @@ public class PeanutMedicine {
         }
     }
 
-    protected void getDoctorsEvents()
+    protected List<Doctor> getDoctorsEvents()
     {
         this.IcalendarReader = new IcalendarReaderICS();
         File[] listOfDirs = this.getElementsInDir("calendars");
@@ -80,6 +80,7 @@ public class PeanutMedicine {
                 this.doctors.add(doc);
             }
         }
+        return this.doctors;
     }
 
     protected LocalDate getDateTimeFromICalParam(String dtstamp)
@@ -102,6 +103,25 @@ public class PeanutMedicine {
 //        System.out.println(resource + ":" + elementsPath);
         File elementsDir = new File(elementsPath);
         return elementsDir.listFiles();
+    }
+
+    public void findBestTerms (Patient patient, List<Doctor> doctors)
+    {
+        String specialization = patient.getPreferedSpecialization();
+        String preferedDay = patient.getPreferedDay();
+
+        //take only doctor with specialization
+        for(Doctor d : doctors)
+        {
+            if(d.getSpecialization().equals(specialization))
+            {
+                doctors.remove(d);
+            }
+        }
+
+        System.out.println(doctors);
+        List<LocalDate> terms = new ArrayList<>();
+
     }
 
 
