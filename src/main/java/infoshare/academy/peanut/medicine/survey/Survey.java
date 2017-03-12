@@ -75,9 +75,6 @@ public class Survey {
             }
 
             patient.setParam(q.getName(),answerToSave);
-
-//            System.out.println(patient.toString());
-
         }
 
         return patient;

@@ -42,23 +42,23 @@ public class PeanutMedicine {
 
         PeanutMedicine peanutMedicine = new PeanutMedicine();
         List<Doctor> doctors = peanutMedicine.getDoctorsEvents();
-//        peanutMedicine.printDoctors();
+        peanutMedicine.printDoctors();
 
         JsonFileMap jsonReader = new JsonFileMap();
         Survey survey = jsonReader.makeSurveyFromJson("survey.json");
-//        survey.runSurvey();
+        Patient patient = survey.runSurvey();
 
-        Patient testPatient = new Patient();
-        testPatient.setName("Jan");
-        testPatient.setSurname("Nowak");
-        testPatient.setSex("man");
-        testPatient.setPesel(12344);
-        testPatient.setPreferedSpecialization("dentysta");
-        testPatient.setPreferedDay("friday");
+//        Patient testPatient = new Patient();
+//        testPatient.setName("Jan");
+//        testPatient.setSurname("Nowak");
+//        testPatient.setSex("man");
+//        testPatient.setPesel(12344);
+//        testPatient.setPreferedSpecialization("dentysta");
+//        testPatient.setPreferedDay("friday");
 
 //                System.out.println(testPatient.toString());
 
-        List<Appointment> appointments = peanutMedicine.findBestTerms(testPatient,doctors);
+        List<Appointment> appointments = peanutMedicine.findBestTerms(patient,doctors);
         for(Appointment appointment : appointments)
         {
             peanutMedicine.generateInvitation(appointment);
@@ -67,9 +67,10 @@ public class PeanutMedicine {
 
     protected void printDoctors()
     {
+        System.out.println("Imported doctors");
         for(Doctor d : this.doctors)
         {
-//            System.out.println(d.toString());
+            System.out.println(d.toString());
         }
     }
 
@@ -80,8 +81,6 @@ public class PeanutMedicine {
         for (File d : listOfDirs)
         {
             String doctorSpecialization = d.getName();
-//            System.out.println(doctorSpecialization);
-
             File[] listOfFiles = this.getElementsInDir("calendars/"+doctorSpecialization);
 
             for (File f : listOfFiles)
@@ -90,7 +89,6 @@ public class PeanutMedicine {
                 String[] doctorIdenitySplitted = doctorIdenityString.split("\\.");
                 String doctorName = doctorIdenitySplitted[0];
                 String doctorSurname = doctorIdenitySplitted[1];
-
                 Doctor doc = new Doctor(doctorName,doctorSurname, doctorSpecialization);
 
                 Calendar calendar = this.IcalendarReader.readCalendar(f);
@@ -101,9 +99,7 @@ public class PeanutMedicine {
                     String dtStart = event.getProperty("DTSTART").getValue();
                     LocalDate term = this.getDateTimeFromICalParam(dtStart);
                     doc.addTerm(term);
-                    System.out.println(doc.toString());
                 }
-
                 this.doctors.add(doc);
             }
         }
@@ -127,7 +123,6 @@ public class PeanutMedicine {
     {
         ClassLoader classLoader = this.getClass().getClassLoader();
         String elementsPath = classLoader.getResource(resource).getPath();
-//        System.out.println(resource + ":" + elementsPath);
         File elementsDir = new File(elementsPath);
         return elementsDir.listFiles();
     }
@@ -139,8 +134,6 @@ public class PeanutMedicine {
         String preferedDay = patient.getPreferedDay();
         List<Doctor> doctors = new ArrayList<>(Alldoctors);
 
-        System.out.println(doctors);
-
         //take only doctor with specialization
         for(Doctor d : Alldoctors)
         {
@@ -150,7 +143,7 @@ public class PeanutMedicine {
             }
         }
 
-        System.out.println(doctors);
+//        System.out.println(doctors);
         List<LocalDate> terms = new ArrayList<>();
 
         //prepare list of 2 available terms for every doctor
@@ -224,8 +217,8 @@ public class PeanutMedicine {
         List<LocalDate> newTerms = new ArrayList<>(terms);
         for(LocalDate term : terms)
         {
-            System.out.println(term.getDayOfWeek().toString());
-            System.out.println(preferedDay.toUpperCase());
+//            System.out.println(term.getDayOfWeek().toString());
+//            System.out.println(preferedDay.toUpperCase());
             if(term.getDayOfWeek().toString().equals(preferedDay.toUpperCase()))
             {
                 moveElementToTop(newTerms,term);
@@ -235,7 +228,6 @@ public class PeanutMedicine {
     }
 
     public void generateInvitation(Appointment appointment) throws ParseException, SocketException, NullPointerException {
-        IcalendarWriterICS IcalendarWriterICS = new IcalendarWriterICS();
 
         //Creating a new calendar
         Calendar calendar = new Calendar();
@@ -243,10 +235,11 @@ public class PeanutMedicine {
         calendar.getProperties().add(Version.VERSION_2_0);
         calendar.getProperties().add(CalScale.GREGORIAN);
 
+        LocalDate term = appointment.getTerm();
         java.util.Calendar startDate = new GregorianCalendar();
-        startDate.set(java.util.Calendar.MONTH, java.util.Calendar.APRIL);
-        startDate.set(java.util.Calendar.DAY_OF_MONTH, 1);
-        startDate.set(java.util.Calendar.YEAR, 2008);
+        startDate.set(java.util.Calendar.MONTH, term.getMonthValue());
+        startDate.set(java.util.Calendar.DAY_OF_MONTH, term.getDayOfMonth());
+        startDate.set(java.util.Calendar.YEAR, term.getYear());
         startDate.set(java.util.Calendar.HOUR_OF_DAY, 9);
         startDate.set(java.util.Calendar.MINUTE, 0);
         startDate.set(java.util.Calendar.SECOND, 0);
@@ -260,14 +253,13 @@ public class PeanutMedicine {
         visit.getProperties().add(uidGenerator.generateUid());
         calendar.getComponents().add(visit);
 
+        //save file
         ClassLoader classLoader = this.getClass().getClassLoader();
         String invitationsPath = classLoader.getResource("invitations").getPath();
-
-        System.out.println("savein:"+invitationsPath);
-
         File icsFile = new File(invitationsPath+"/mycalendar2.ics");
-//
+        IcalendarWriterICS IcalendarWriterICS = new IcalendarWriterICS();
         IcalendarWriterICS.writeCalendar(calendar,icsFile);
+        System.out.println("Invitation saved in  :"+invitationsPath);
     }
 
 }
