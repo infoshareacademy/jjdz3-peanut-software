@@ -58,7 +58,7 @@ public class Survey {
         return surveyDisplay;
     }
 
-    public void runSurvey()
+    public Patient runSurvey()
     {
         AnswerReader answerReader = new AnswerReader();
         Patient patient = new Patient();
@@ -88,7 +88,10 @@ public class Survey {
 
             patient.setParam(q.getName(),answerToSave);
 
-            System.out.println(patient.toString());
+//            System.out.println(patient.toString());
+
         }
+
+        return patient;
     }
 }

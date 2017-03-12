@@ -28,14 +28,14 @@ public class PeanutMedicine {
 
     public static void main(String[] args) throws Exception {
 
-//        PeanutMedicine peanutMedicine = new PeanutMedicine();
-//        peanutMedicine.getDoctorsEvents();
-//        peanutMedicine.printDoctors();
+        PeanutMedicine peanutMedicine = new PeanutMedicine();
+        peanutMedicine.getDoctorsEvents();
+        peanutMedicine.printDoctors();
 
         JsonFileMap jsonReader = new JsonFileMap();
         Survey survey = jsonReader.makeSurveyFromJson("survey.json");
-        survey.runSurvey();
-
+        Patient patient = survey.runSurvey();
+        System.out.println(patient.toString());
     }
 
     protected void printDoctors()
