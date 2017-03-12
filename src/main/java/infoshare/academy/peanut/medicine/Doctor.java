@@ -1,7 +1,12 @@
 package infoshare.academy.peanut.medicine;
 
+import java.lang.reflect.Array;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by bartman3000 on 2017-03-11.
@@ -11,12 +16,13 @@ public class Doctor {
     private String name;
     private String surname;
     private String specialization;
-    private List<Term> terms;
+    private Set<LocalDate> terms;
 
     public Doctor(String name, String surname, String specialization) {
         this.name = name;
         this.surname = surname;
         this.specialization = specialization;
+        this.terms = new HashSet<LocalDate>();
     }
 
     public String getName() {
@@ -43,16 +49,17 @@ public class Doctor {
         this.specialization = specialization;
     }
 
-    public List<Term> getTerms() {
+    public Set<LocalDate> getTerms() {
         return terms;
     }
 
-    public void setTerms(List<Term> terms) {
-        this.terms = terms;
+    public void addTerm(LocalDate d)
+    {
+        terms.add(d);
     }
 
-    public void addTerm(LocalDate date)
+    public String toString()
     {
-        this.terms.add(new Term(date));
+        return this.specialization + " " + this.name + " "+this.surname + "" + this.terms.toString();
     }
 }

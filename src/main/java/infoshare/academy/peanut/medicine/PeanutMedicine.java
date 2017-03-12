@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -20,18 +21,23 @@ public class PeanutMedicine {
     private IcalendarReaderICS IcalendarReader;
     private List<Doctor> doctors;
 
+    public PeanutMedicine()
+    {
+        this.doctors = new ArrayList<Doctor>();
+    }
+
     public static void main(String[] args) {
 
         PeanutMedicine peanutMedicine = new PeanutMedicine();
         peanutMedicine.getDoctorsEvents();
-//        peanutMedicine.printDoctors();
+        peanutMedicine.printDoctors();
     }
 
     protected void printDoctors()
     {
         for(Doctor d : this.doctors)
         {
-            System.out.println(d.toString());
+//            System.out.println(d.toString());
         }
     }
 
@@ -55,19 +61,18 @@ public class PeanutMedicine {
 
                 Doctor doc = new Doctor(doctorName,doctorSurname, doctorSpecialization);
 
-                System.out.println(doc.toString());
-
                 Calendar calendar = this.IcalendarReader.readCalendar(f);
                 List<Component> vevents = calendar.getComponents("VEVENT");
 
                 for(Component event : vevents)
                 {
                     String dtStart = event.getProperty("DTSTART").getValue();
-                    LocalDate doctorTerm = this.getDateTimeFromICalParam(dtStart);
-                    System.out.println(doctorTerm);
-//                    doc.addTerm(doctorTerm);
+                    LocalDate term = this.getDateTimeFromICalParam(dtStart);
+                    doc.addTerm(term);
+                    System.out.println(doc.toString());
                 }
-//                doctors.add(doc);
+
+                this.doctors.add(doc);
             }
         }
     }
