@@ -94,4 +94,8 @@ public class Patient {
     public String toString() {
         return this.getName()+" "+this.getSurname()+ " "+this.getSex()+" "+this.getPesel()+ " "+this.getPreferedSpecialization()+ " "+this.getPreferedDay();
     }
+
+    public String displayPatient() {
+        return this.getName()+" "+this.getSurname();
+    }
 }

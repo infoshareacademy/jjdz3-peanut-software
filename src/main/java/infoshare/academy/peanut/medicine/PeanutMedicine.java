@@ -13,6 +13,7 @@ import net.fortuna.ical4j.util.UidGenerator;
 import javax.swing.text.DateFormatter;
 import java.io.File;
 import java.net.SocketException;
+import java.nio.file.Path;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -233,7 +234,7 @@ public class PeanutMedicine {
         return newTerms;
     }
 
-    public void generateInvitation(Appointment appointment) throws ParseException, SocketException {
+    public void generateInvitation(Appointment appointment) throws ParseException, SocketException, NullPointerException {
         IcalendarWriterICS IcalendarWriterICS = new IcalendarWriterICS();
 
         //Creating a new calendar
@@ -242,21 +243,30 @@ public class PeanutMedicine {
         calendar.getProperties().add(Version.VERSION_2_0);
         calendar.getProperties().add(CalScale.GREGORIAN);
 
-        VEvent visit = new VEvent();
-        visit.getProperties().add(new DtStamp());
+        java.util.Calendar startDate = new GregorianCalendar();
+        startDate.set(java.util.Calendar.MONTH, java.util.Calendar.APRIL);
+        startDate.set(java.util.Calendar.DAY_OF_MONTH, 1);
+        startDate.set(java.util.Calendar.YEAR, 2008);
+        startDate.set(java.util.Calendar.HOUR_OF_DAY, 9);
+        startDate.set(java.util.Calendar.MINUTE, 0);
+        startDate.set(java.util.Calendar.SECOND, 0);
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd"+"'T'"+"10:00:00");
-        String parsableDate = appointment.getTerm().format(formatter);
+        String eventName = "Appointment patient "+ appointment.getPatient().displayPatient();
+        DateTime start = new DateTime(startDate.getTime());
+        DateTime end = new DateTime(startDate.getTime());
+        VEvent visit = new VEvent(start, end, eventName);
 
-        visit.getProperties().add(new DtStart(parsableDate));
-        visit.getProperties().add(new Summary("Appointment patient"));
-//        visit.getProperties().getProperty(Property.DTSTART).getParameters().add(Value.DATE);
         UidGenerator uidGenerator = new UidGenerator("1");
         visit.getProperties().add(uidGenerator.generateUid());
         calendar.getComponents().add(visit);
 
         ClassLoader classLoader = this.getClass().getClassLoader();
-        File icsFile = new File(classLoader.getResource("invitations/inv1.json").getFile());
+        String invitationsPath = classLoader.getResource("invitations").getPath();
+
+        System.out.println("savein:"+invitationsPath);
+
+        File icsFile = new File(invitationsPath+"/mycalendar2.ics");
+//
         IcalendarWriterICS.writeCalendar(calendar,icsFile);
     }
 
