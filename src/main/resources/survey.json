@@ -21,8 +21,8 @@
       "questionType" : "closed",
       "answerExpectedType" : "String",
       "answers": [
-        {"number" : "1", "text" : "Kobieta"},
-        {"number" : "2", "text" : "Mężczyzna"}
+        {"number" : "1", "text" : "Kobieta", "value" : "woman"},
+        {"number" : "2", "text" : "Mężczyzna", "value" : "man"}
       ]
     },
     {
@@ -39,10 +39,10 @@
       "questionType" : "closed",
       "answerExpectedType" : "String",
       "answers": [
-        {"number" : "1", "text" : "dentysta"},
-        {"number" : "2", "text" : "internista"},
-        {"number" : "3", "text" : "laryngolog"},
-        {"number" : "4", "text" : "urolog"}
+        {"number" : "1", "text" : "dentysta", "value" : "dentysta"},
+        {"number" : "2", "text" : "internista", "value" : "internista"},
+        {"number" : "3", "text" : "laryngolog", "value" : "laryngolog"},
+        {"number" : "4", "text" : "urolog", "value" : "urolog"}
       ]
     },
     {
@@ -52,11 +52,11 @@
       "questionType" : "closed",
       "answerExpectedType" : "String",
       "answers": [
-        {"number" : "1", "text" : "poniedziałek"},
-        {"number" : "2", "text" : "wtorek"},
-        {"number" : "3", "text" : "środa"},
-        {"number" : "4", "text" : "czwartek"},
-        {"number" : "5", "text" : "piątek"}
+        {"number" : "1", "text" : "poniedziałek", "value" : "monday"},
+        {"number" : "2", "text" : "wtorek", "value" : "tuesday"},
+        {"number" : "3", "text" : "środa", "value" : "wednesday"},
+        {"number" : "4", "text" : "czwartek", "value" : "thursday"},
+        {"number" : "5", "text" : "piątek", "value" : "friday"}
       ]
     }
   ]

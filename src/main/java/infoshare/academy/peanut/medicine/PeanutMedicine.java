@@ -8,10 +8,16 @@ import net.fortuna.ical4j.model.Component;
 
 import java.io.File;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Queue;
+import java.util.Set;
+
+import static java.time.DayOfWeek.SATURDAY;
+import static java.time.DayOfWeek.SUNDAY;
 
 /**
  * Created by bartman3000 on 2017-03-11.
@@ -30,12 +36,24 @@ public class PeanutMedicine {
 
         PeanutMedicine peanutMedicine = new PeanutMedicine();
         List<Doctor> doctors = peanutMedicine.getDoctorsEvents();
-        peanutMedicine.printDoctors();
+//        peanutMedicine.printDoctors();
 
         JsonFileMap jsonReader = new JsonFileMap();
         Survey survey = jsonReader.makeSurveyFromJson("survey.json");
-        Patient patient = survey.runSurvey();
-        System.out.println(patient.toString());
+//        survey.runSurvey();
+
+        Patient testPatient = new Patient();
+        testPatient.setName("Jan");
+        testPatient.setSurname("Nowak");
+        testPatient.setSex("man");
+        testPatient.setPesel(12344);
+        testPatient.setPreferedSpecialization("dentysta");
+        testPatient.setPreferedDay("friday");
+
+                System.out.println(testPatient.toString());
+
+        peanutMedicine.findBestTerms(testPatient,doctors);
+
     }
 
     protected void printDoctors()
@@ -105,15 +123,19 @@ public class PeanutMedicine {
         return elementsDir.listFiles();
     }
 
-    public void findBestTerms (Patient patient, List<Doctor> doctors)
+    public List<Appointment> findBestTerms (Patient patient, List<Doctor> Alldoctors)
     {
+        List<Appointment> appointments = new ArrayList<>();
         String specialization = patient.getPreferedSpecialization();
         String preferedDay = patient.getPreferedDay();
+        List<Doctor> doctors = new ArrayList<>(Alldoctors);
+
+        System.out.println(doctors);
 
         //take only doctor with specialization
-        for(Doctor d : doctors)
+        for(Doctor d : Alldoctors)
         {
-            if(d.getSpecialization().equals(specialization))
+            if(!d.getSpecialization().equals(specialization))
             {
                 doctors.remove(d);
             }
@@ -122,7 +144,82 @@ public class PeanutMedicine {
         System.out.println(doctors);
         List<LocalDate> terms = new ArrayList<>();
 
+        //prepare list of 2 available terms for every doctor
+        for(Doctor d : doctors)
+        {
+            //step1: prepare list of days for next 10 days
+            LocalDate today = LocalDate.now();
+            for (int i = 1; i <= 10; i++)
+            {
+                terms.add(today.plusDays(i));
+            }
+
+            //step2: remove days where doctor(s) already have appointment
+            terms = this.filterBusyDays(terms,d.getTerms());
+
+            //step3: remove Saturday and Sundays
+            terms = this.filterWeekendDays(terms);
+
+            //step4: move preferable days to top of the list
+            terms = this.forcePreferredDays(terms,preferedDay);
+
+            //step 5: return 2 terms for this doctor from top of the list
+            terms = terms.subList(0, 2);
+            System.out.println(d.getName()+ " " + d.getSurname()+":\n");
+            System.out.println(terms);
+
+            Appointment appointment = new Appointment(patient, d, terms);
+            appointments.add(appointment);
+        }
+        return appointments;
     }
 
+    protected static <T> void moveElementToTop(List<T> items, T input){
+        int i = items.indexOf(input);
+        if(i>=0){
+            items.add(0, items.remove(i));
+        }
+    }
+
+    protected List<LocalDate> filterBusyDays(List<LocalDate> terms, Set<LocalDate> doctorBusyDays)
+    {
+        List<LocalDate> newTerms = new ArrayList<>(terms);
+        for(LocalDate term : terms)
+        {
+            if(doctorBusyDays.contains(term))
+            {
+                newTerms.remove(term);
+            }
+        }
+        return newTerms;
+    }
+
+    protected List<LocalDate> filterWeekendDays(List<LocalDate> terms)
+    {
+        List<LocalDate> newTerms = new ArrayList<>(terms);
+        for(LocalDate term : terms)
+        {
+            if(term.getDayOfWeek() == SATURDAY || term.getDayOfWeek() == SUNDAY)
+            {
+                newTerms.remove(term);
+            }
+        }
+        return newTerms;
+    }
+
+    protected List<LocalDate> forcePreferredDays(List<LocalDate> terms, String preferedDay)
+    {
+        List<LocalDate> newTerms = new ArrayList<>(terms);
+        for(LocalDate term : terms)
+        {
+            System.out.println(term.getDayOfWeek().toString());
+            System.out.println(preferedDay.toUpperCase());
+            if(term.getDayOfWeek().toString().equals(preferedDay.toUpperCase()))
+            {
+                moveElementToTop(newTerms,term);
+            }
+        }
+        return newTerms;
+    }
 
 }

@@ -7,10 +7,7 @@ package infoshare.academy.peanut.medicine.survey;
 public class Answer {
     private Integer number;
     private String text;
-
-    public String getText(){
-        return text;
-    }
+    private String value;
 
     public Integer getNumber() {
         return number;
@@ -18,5 +15,21 @@ public class Answer {
 
     public void setNumber(Integer number) {
         this.number = number;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
     }
 }

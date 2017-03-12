@@ -81,7 +81,7 @@ public class Question {
         {
             if (a.getNumber().equals(number))
             {
-                return a.getText();
+                return a.getValue();
             }
         }
         return "";
