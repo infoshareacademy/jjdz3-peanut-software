@@ -56,13 +56,8 @@ public class PeanutMedicine {
 //        testPatient.setPreferedSpecialization("dentysta");
 //        testPatient.setPreferedDay("friday");
 
-//                System.out.println(testPatient.toString());
-
         List<Appointment> appointments = peanutMedicine.findBestTerms(patient,doctors);
-        for(Appointment appointment : appointments)
-        {
-            peanutMedicine.generateInvitation(appointment);
-        }
+        peanutMedicine.generateInvitation(appointments.get(0));
     }
 
     protected void printDoctors()
@@ -236,8 +231,10 @@ public class PeanutMedicine {
         calendar.getProperties().add(CalScale.GREGORIAN);
 
         LocalDate term = appointment.getTerm();
+        Patient patient = appointment.getPatient();
+
         java.util.Calendar startDate = new GregorianCalendar();
-        startDate.set(java.util.Calendar.MONTH, term.getMonthValue());
+        startDate.set(java.util.Calendar.MONTH, term.getMonthValue()-1);
         startDate.set(java.util.Calendar.DAY_OF_MONTH, term.getDayOfMonth());
         startDate.set(java.util.Calendar.YEAR, term.getYear());
         startDate.set(java.util.Calendar.HOUR_OF_DAY, 9);
@@ -256,7 +253,7 @@ public class PeanutMedicine {
         //save file
         ClassLoader classLoader = this.getClass().getClassLoader();
         String invitationsPath = classLoader.getResource("invitations").getPath();
-        File icsFile = new File(invitationsPath+"/mycalendar2.ics");
+        File icsFile = new File(invitationsPath+"/"+patient.getName()+""+patient.getSurname()+".ics");
         IcalendarWriterICS IcalendarWriterICS = new IcalendarWriterICS();
         IcalendarWriterICS.writeCalendar(calendar,icsFile);
         System.out.println("Invitation saved in  :"+invitationsPath);
