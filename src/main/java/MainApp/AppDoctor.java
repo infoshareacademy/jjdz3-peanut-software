@@ -1,12 +1,5 @@
 package MainApp;
 
-import Survey.SurveyJsonReader;
-import Survey.SurveyPrinter;
-import Survey.SurveyQuestionList;
-
-import java.io.File;
-import java.io.IOException;
-
 /**
  * Created by moody on 16.02.17.
  */

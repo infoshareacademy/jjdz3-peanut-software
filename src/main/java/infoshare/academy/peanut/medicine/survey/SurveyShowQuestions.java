@@ -1,4 +1,4 @@
-package Survey;
+package infoshare.academy.peanut.medicine.survey;
 
 /**
  * Created by moody on 22.02.17.

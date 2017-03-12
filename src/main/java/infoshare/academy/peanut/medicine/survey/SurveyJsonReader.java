@@ -1,11 +1,9 @@
-package Survey;
+package infoshare.academy.peanut.medicine.survey;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.jayway.restassured.path.json.JsonPath;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
 import java.util.Scanner;
 
 /**

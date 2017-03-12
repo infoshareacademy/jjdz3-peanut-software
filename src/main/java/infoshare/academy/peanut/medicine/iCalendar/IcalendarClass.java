@@ -1,4 +1,4 @@
-package iCalendar;
+package infoshare.academy.peanut.medicine.iCalendar;
 
 /**
  * Created by moody on 16.02.17.

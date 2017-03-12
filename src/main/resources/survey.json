@@ -1,0 +1,57 @@
+{
+  "questions": [
+    {
+      "number" : 1,
+      "text" : "Imię",
+      "questionType" : "open",
+      "answerExpectedType" : "String"
+    },
+    {
+      "number" : 2,
+      "text" : "Nazwisko",
+      "questionType" : "open",
+      "answerExpectedType" : "String"
+    },
+    {
+      "number" : 3,
+      "text" : "Płeć",
+      "questionType" : "closed",
+      "answerExpectedType" : "String",
+      "answers": [
+        {"number" : "1", "text" : "Kobieta"},
+        {"number" : "2", "text" : "Mężczyzna"}
+      ]
+    },
+    {
+      "number" : 4,
+      "text" : "Pesel",
+      "questionType" : "open",
+      "answerExpectedType" : "Integer"
+    },
+    {
+      "number" : 5,
+      "text" : "Jaka specjalizacja lekarza?",
+      "questionType" : "closed",
+      "answerExpectedType" : "String",
+      "answers": [
+        {"number" : "1", "text" : "dentysta"},
+        {"number" : "2", "text" : "internista"},
+        {"number" : "3", "text" : "laryngolog"},
+        {"number" : "4", "text" : "urolog"}
+      ]
+    },
+    {
+      "number" : 6,
+      "text" : "Jaki dzień tygodnia?",
+      "questionType" : "closed",
+      "answerExpectedType" : "String",
+      "answers": [
+        {"number" : "1", "text" : "poniedziałek"},
+        {"number" : "2", "text" : "wtorek"},
+        {"number" : "3", "text" : "środa"},
+        {"number" : "4", "text" : "czwartek"},
+        {"number" : "5", "text" : "piątek"}
+      ]
+    }
+  ]
+}

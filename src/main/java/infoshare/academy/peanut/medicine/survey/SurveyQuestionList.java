@@ -1,6 +1,4 @@
-package Survey;
-
-import Survey.SurveyPatient;
+package infoshare.academy.peanut.medicine.survey;
 
 /**
  * Created by moody on 20.02.17.

@@ -1,4 +1,4 @@
-package Survey;
+package infoshare.academy.peanut.medicine.survey;
 
 
 /**

@@ -1,12 +1,12 @@
 package infoshare.academy.peanut.medicine;
 
-import iCalendar.IcalendarReaderICS;
+import infoshare.academy.peanut.medicine.iCalendar.IcalendarReaderICS;
+import infoshare.academy.peanut.medicine.survey.JsonFileMap;
+import infoshare.academy.peanut.medicine.survey.Survey;
 import net.fortuna.ical4j.model.Calendar;
 import net.fortuna.ical4j.model.Component;
-import net.fortuna.ical4j.model.ComponentList;
 
 import java.io.File;
-import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -26,11 +26,16 @@ public class PeanutMedicine {
         this.doctors = new ArrayList<Doctor>();
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
 
-        PeanutMedicine peanutMedicine = new PeanutMedicine();
-        peanutMedicine.getDoctorsEvents();
-        peanutMedicine.printDoctors();
+//        PeanutMedicine peanutMedicine = new PeanutMedicine();
+//        peanutMedicine.getDoctorsEvents();
+//        peanutMedicine.printDoctors();
+
+        JsonFileMap jsonReader = new JsonFileMap();
+        Survey survey = jsonReader.makeSurveyFromJson("survey.json");
+        survey.runSurvey();
+
     }
 
     protected void printDoctors()

@@ -1,6 +1,5 @@
-package MainApp;
+package infoshare.academy.peanut.medicine.survey;
 
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 /**
@@ -20,15 +19,9 @@ public class AnswerReader {
     }
 
     public int getValueInt() {
-        try {
-            int number = scanner.nextInt();
-            scanner.nextLine();
-            return number;
-        } catch (InputMismatchException e)
-        {
-            scanner.nextLine();
-            return 0;
-        }
+        int number = scanner.nextInt();
+        scanner.nextLine();
+        return number;
     }
 
     public String getValueString(){

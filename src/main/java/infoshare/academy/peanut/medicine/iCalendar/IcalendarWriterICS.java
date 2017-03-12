@@ -1,4 +1,4 @@
-package iCalendar;
+package infoshare.academy.peanut.medicine.iCalendar;
 
 import net.fortuna.ical4j.data.CalendarOutputter;
 import net.fortuna.ical4j.model.Calendar;

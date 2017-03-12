@@ -1,6 +1,4 @@
-package Survey;
-
-import jdk.nashorn.internal.runtime.options.Options;
+package infoshare.academy.peanut.medicine.survey;
 
 /**
  * Created by moody on 24.02.17.
