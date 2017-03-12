@@ -6,6 +6,7 @@ package infoshare.academy.peanut.medicine.survey;
 
 import MainApp.AnswerReader;
 import com.sun.org.apache.xpath.internal.operations.Bool;
+import infoshare.academy.peanut.medicine.Patient;
 
 import java.util.List;
 
@@ -60,10 +61,12 @@ public class Survey {
     public void runSurvey()
     {
         AnswerReader answerReader = new AnswerReader();
+        Patient patient = new Patient();
 
         for(Question q : this.getQuestions())
         {
             Boolean isValidAnswer = false;
+            String answerToSave = "";
             while (!isValidAnswer)
             {
                 System.out.println(q.getText());
@@ -73,19 +76,19 @@ public class Survey {
                     q.displayAnswers();
                     Integer answer = answerReader.getValueInt();
                     isValidAnswer = q.isValidClosedAnswer(answer);
+                    answerToSave = q.getAnswerValue(answer);
                 }
                 else
                 {
                     String answer = answerReader.getValueString();
                     isValidAnswer = q.isValidOpenAnswer(answer);
+                    answerToSave = answer;
                 }
-
-
-
-
             }
 
+            patient.setParam(q.getName(),answerToSave);
 
+            System.out.println(patient.toString());
         }
     }
 }

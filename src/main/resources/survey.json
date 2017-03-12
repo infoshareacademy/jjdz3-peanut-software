@@ -2,18 +2,21 @@
   "questions": [
     {
       "number" : 1,
+      "name" : "name",
       "text" : "Imię",
       "questionType" : "open",
       "answerExpectedType" : "String"
     },
     {
       "number" : 2,
+      "name" : "surname",
       "text" : "Nazwisko",
       "questionType" : "open",
       "answerExpectedType" : "String"
     },
     {
       "number" : 3,
+      "name" : "sex",
       "text" : "Płeć",
       "questionType" : "closed",
       "answerExpectedType" : "String",
@@ -24,12 +27,14 @@
     },
     {
       "number" : 4,
+      "name" : "pesel",
       "text" : "Pesel",
       "questionType" : "open",
       "answerExpectedType" : "Integer"
     },
     {
       "number" : 5,
+      "name" : "preferedSpecialization",
       "text" : "Jaka specjalizacja lekarza?",
       "questionType" : "closed",
       "answerExpectedType" : "String",
@@ -42,6 +47,7 @@
     },
     {
       "number" : 6,
+      "name" : "preferedDay",
       "text" : "Jaki dzień tygodnia?",
       "questionType" : "closed",
       "answerExpectedType" : "String",

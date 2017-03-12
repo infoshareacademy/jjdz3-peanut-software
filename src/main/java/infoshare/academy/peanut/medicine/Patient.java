@@ -12,10 +12,34 @@ public class Patient {
     private String preferedSpecialization;
     private String preferedDay;
 
-    public Patient(String name, String surname, String sex) {
-        this.name = name;
-        this.surname = surname;
-        this.sex = sex;
+    public <T> void setParam(String param, T value)
+    {
+        switch(param)
+        {
+            case "name":
+                this.setName(value.toString());
+                break;
+
+            case "surname":
+                this.setSurname(value.toString());
+                break;
+
+            case "sex":
+                this.setSex(value.toString());
+                break;
+
+            case "pesel":
+                this.setPesel( Integer.parseInt(value.toString()));
+                break;
+
+            case "preferedSpecialization":
+                this.setPreferedSpecialization(value.toString());
+                break;
+
+            case "preferedDay":
+                this.setPreferedDay(value.toString());
+                break;
+        }
     }
 
     public String getName() {
@@ -64,5 +88,10 @@ public class Patient {
 
     public void setPreferedDay(String preferedDay) {
         this.preferedDay = preferedDay;
+    }
+
+    @Override
+    public String toString() {
+        return this.getName()+" "+this.getSurname()+ " "+this.getSex()+" "+this.getPesel()+ " "+this.getPreferedSpecialization()+ " "+this.getPreferedDay();
     }
 }

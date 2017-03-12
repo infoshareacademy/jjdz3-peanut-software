@@ -12,6 +12,7 @@ import java.util.List;
 public class Question {
 
     private int number;
+    private String name;
     private String text;
     private String questionType;
     private String answerExpectedType;
@@ -74,6 +75,18 @@ public class Question {
         }
     }
 
+    public String getAnswerValue(Integer number)
+    {
+        for(Answer a : this.answers)
+        {
+            if (a.getNumber().equals(number))
+            {
+                return a.getText();
+            }
+        }
+        return "";
+    }
+
     public boolean isValidOpenAnswer(String answer)
     {
         String answerType = NumberUtils.isNumber(answer) ? "Integer" : answer.getClass().getSimpleName();
@@ -110,5 +123,13 @@ public class Question {
             System.out.println("Zły wybór. Wybierz jeden z numerów odpowiedzi");
             return false;
         }
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }
