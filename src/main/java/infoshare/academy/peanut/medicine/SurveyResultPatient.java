@@ -90,12 +90,16 @@ public class SurveyResultPatient {
         this.preferedDay = preferedDay;
     }
 
-    @Override
-    public String toString() {
-        return this.getName()+" "+this.getSurname()+ " "+this.getSex()+" "+this.getPesel()+ " "+this.getPreferedSpecialization()+ " "+this.getPreferedDay();
+    public String displayPatient() {
+        return "Imię: "+ this.getName()+"\nNazwisko: "+this.getSurname()+ "\nPłeć: "+this.getSex()+"\nPesel: "+this.getPesel()+ "\nPotrzebny lekarz: "+this.getPreferedSpecialization()+ "\nPreferowany dzień tygodnia na wizytę"+this.getPreferedDay();
     }
 
-    public String displayPatient() {
+    @Override
+    public String toString() {
+        return this.getName()+" | "+this.getSurname()+ " | "+this.getSex()+" | "+this.getPesel()+ " | "+this.getPreferedSpecialization()+ " | "+this.getPreferedDay();
+    }
+
+    public String displayPatientName() {
         return this.getName()+" "+this.getSurname();
     }
 }

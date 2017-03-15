@@ -56,6 +56,11 @@ public class MainOptions {
                 case PRINT_SURVEY_PATIENT:
                     peanutMedicine.showAllPatientResults();
                     break;
+
+                case FIND_BEST_TERM:
+//                    peanutMedicine.findBestTerms()
+                    break;
+
                 default:
                     System.out.println("Błędne parametry");
             }

@@ -12,8 +12,9 @@ public enum MainMenuEnum {
 
     EXIT(0, "Wyjście z programu"),
     ADD_SURVEY_PATIENT(1, "Dodaj kwestionariusz"),
-    PRINT_SURVEY_PATIENT(2, "Wyświetl kwestionariusze");
-
+    PRINT_SURVEY_PATIENT(2, "Wyświetl kwestionariusze"),
+    FIND_BEST_TERM(3, "Znajdz termin")
+    ;
 
     private int value;
     private String description;

@@ -236,7 +236,7 @@ public class PeanutMedicine {
         calendar2.set(java.util.Calendar.DAY_OF_MONTH, term.getDayOfMonth());
 
         // initialise as an all-day event..
-        VEvent visit = new VEvent(new net.fortuna.ical4j.model.Date(calendar2.getTime()), "Appointment surveyResultPatient "+ appointment.getSurveyResultPatient().displayPatient());
+        VEvent visit = new VEvent(new net.fortuna.ical4j.model.Date(calendar2.getTime()), "Appointment surveyResultPatient "+ appointment.getSurveyResultPatient().displayPatientName());
 
         // Generate a UID for the event..
         UidGenerator ug = new UidGenerator("1");
@@ -262,7 +262,13 @@ public class PeanutMedicine {
     {
         if(!this.surveyResultPatients.isEmpty())
         {
-            this.surveyResultPatients.forEach(s -> System.out.println(s.toString()));
+            System.out.println("\n------------------");
+            this.surveyResultPatients.forEach(s -> System.out.println(s.displayPatient()));
+            System.out.println("------------------");
+        }
+        else
+        {
+            System.out.println("Nie wprowadzono jeszcze żadnyck kwestionariuszy.");
         }
     }
 

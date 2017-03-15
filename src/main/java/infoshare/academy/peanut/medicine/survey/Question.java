@@ -71,7 +71,7 @@ public class Question {
     {
         for(Answer a : this.answers)
         {
-            System.out.println(a.getNumber()+":"+a.getText()+"\n");
+            System.out.println(a.getNumber()+":"+a.getText());
         }
     }
 

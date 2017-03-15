@@ -56,7 +56,7 @@ public class Survey {
             String answerToSave = "";
             while (!isValidAnswer)
             {
-                System.out.println(q.getText());
+                System.out.println("\n"+q.getText()+":");
 
                 if(q.getQuestionType().equals("closed"))
                 {
