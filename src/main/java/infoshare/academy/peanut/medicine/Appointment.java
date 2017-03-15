@@ -1,29 +1,28 @@
 package infoshare.academy.peanut.medicine;
 
 import java.time.LocalDate;
-import java.util.List;
 
 /**
  * Created by bartman3000 on 2017-03-12.
  */
 public class Appointment {
 
-    private Patient patient;
+    private SurveyResultPatient surveyResultPatient;
     private Doctor doctor;
     private LocalDate term;
 
-    public Appointment(Patient patient, Doctor doctor, LocalDate term) {
-        this.patient = patient;
+    public Appointment(SurveyResultPatient surveyResultPatient, Doctor doctor, LocalDate term) {
+        this.surveyResultPatient = surveyResultPatient;
         this.doctor = doctor;
         this.term = term;
     }
 
-    public Patient getPatient() {
-        return patient;
+    public SurveyResultPatient getSurveyResultPatient() {
+        return surveyResultPatient;
     }
 
-    public void setPatient(Patient patient) {
-        this.patient = patient;
+    public void setSurveyResultPatient(SurveyResultPatient surveyResultPatient) {
+        this.surveyResultPatient = surveyResultPatient;
     }
 
     public Doctor getDoctor() {

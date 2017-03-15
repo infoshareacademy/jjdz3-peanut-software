@@ -10,17 +10,13 @@ import net.fortuna.ical4j.model.component.VEvent;
 import net.fortuna.ical4j.model.property.*;
 import net.fortuna.ical4j.util.UidGenerator;
 
-import javax.swing.text.DateFormatter;
 import java.io.File;
 import java.net.SocketException;
-import java.nio.file.Path;
 import java.text.ParseException;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.*;
-import java.util.Date;
 
 import static java.time.DayOfWeek.SATURDAY;
 import static java.time.DayOfWeek.SUNDAY;
@@ -32,33 +28,35 @@ public class PeanutMedicine {
 
     private IcalendarReaderICS IcalendarReader;
     private List<Doctor> doctors;
+    private List<SurveyResultPatient> surveyResultPatients;
 
     public PeanutMedicine()
     {
         this.doctors = new ArrayList<Doctor>();
+        this.surveyResultPatients = new ArrayList<SurveyResultPatient>();
     }
 
-    public static void main(String[] args) throws Exception {
-
-        PeanutMedicine peanutMedicine = new PeanutMedicine();
-        List<Doctor> doctors = peanutMedicine.getDoctorsEvents();
-        peanutMedicine.printDoctors();
-
-        JsonFileMap jsonReader = new JsonFileMap();
-        Survey survey = jsonReader.makeSurveyFromJson("survey.json");
-        Patient patient = survey.runSurvey();
-
-//        Patient testPatient = new Patient();
-//        testPatient.setName("Jan");
-//        testPatient.setSurname("Nowak");
-//        testPatient.setSex("man");
-//        testPatient.setPesel(12344);
-//        testPatient.setPreferedSpecialization("dentysta");
-//        testPatient.setPreferedDay("friday");
-
-        List<Appointment> appointments = peanutMedicine.findBestTerms(patient,doctors);
-        peanutMedicine.generateInvitation(appointments.get(0));
-    }
+//    public static void main(String[] args) throws Exception {
+//
+//        PeanutMedicine peanutMedicine = new PeanutMedicine();
+//        List<Doctor> doctors = peanutMedicine.getDoctorsEvents();
+//        peanutMedicine.printDoctors();
+//
+//        JsonFileMap jsonReader = new JsonFileMap();
+//        Survey survey = jsonReader.makeSurveyFromJson("survey.json");
+//        SurveyResultPatient patient = survey.runSurvey();
+//
+//        SurveyResultPatient testSurveyResultPatient = new SurveyResultPatient();
+//        testSurveyResultPatient.setName("Jan");
+//        testSurveyResultPatient.setSurname("Nowak");
+//        testSurveyResultPatient.setSex("man");
+//        testSurveyResultPatient.setPesel(12344);
+//        testSurveyResultPatient.setPreferedSpecialization("dentysta");
+//        testSurveyResultPatient.setPreferedDay("friday");
+//
+//        List<Appointment> appointments = peanutMedicine.findBestTerms(testSurveyResultPatient,doctors);
+//        peanutMedicine.generateInvitation(appointments.get(0));
+//    }
 
     protected void printDoctors()
     {
@@ -122,11 +120,11 @@ public class PeanutMedicine {
         return elementsDir.listFiles();
     }
 
-    public List<Appointment> findBestTerms (Patient patient, List<Doctor> Alldoctors)
+    public List<Appointment> findBestTerms (SurveyResultPatient surveyResultPatient, List<Doctor> Alldoctors)
     {
         List<Appointment> appointments = new ArrayList<>();
-        String specialization = patient.getPreferedSpecialization();
-        String preferedDay = patient.getPreferedDay();
+        String specialization = surveyResultPatient.getPreferedSpecialization();
+        String preferedDay = surveyResultPatient.getPreferedDay();
         List<Doctor> doctors = new ArrayList<>(Alldoctors);
 
         //take only doctor with specialization
@@ -167,7 +165,7 @@ public class PeanutMedicine {
 
             for (LocalDate term : terms)
             {
-                Appointment appointment = new Appointment(patient, d, term);
+                Appointment appointment = new Appointment(surveyResultPatient, d, term);
                 appointments.add(appointment);
             }
         }
@@ -226,37 +224,46 @@ public class PeanutMedicine {
 
         //Creating a new calendar
         Calendar calendar = new Calendar();
-        calendar.getProperties().add(new ProdId("/Medicine/"));
+        calendar.getProperties().add(new ProdId("/Peanut Medicine/"));
         calendar.getProperties().add(Version.VERSION_2_0);
         calendar.getProperties().add(CalScale.GREGORIAN);
 
         LocalDate term = appointment.getTerm();
-        Patient patient = appointment.getPatient();
+        SurveyResultPatient surveyResultPatient = appointment.getSurveyResultPatient();
 
-        java.util.Calendar startDate = new GregorianCalendar();
-        startDate.set(java.util.Calendar.MONTH, term.getMonthValue()-1);
-        startDate.set(java.util.Calendar.DAY_OF_MONTH, term.getDayOfMonth());
-        startDate.set(java.util.Calendar.YEAR, term.getYear());
-        startDate.set(java.util.Calendar.HOUR_OF_DAY, 9);
-        startDate.set(java.util.Calendar.MINUTE, 0);
-        startDate.set(java.util.Calendar.SECOND, 0);
+        java.util.Calendar calendar2 = java.util.Calendar.getInstance();
+        calendar2.set(java.util.Calendar.MONTH, term.getMonthValue()-1);
+        calendar2.set(java.util.Calendar.DAY_OF_MONTH, term.getDayOfMonth());
 
-        String eventName = "Appointment patient "+ appointment.getPatient().displayPatient();
-        DateTime start = new DateTime(startDate.getTime());
-        DateTime end = new DateTime(startDate.getTime());
-        VEvent visit = new VEvent(start, end, eventName);
+        // initialise as an all-day event..
+        VEvent visit = new VEvent(new net.fortuna.ical4j.model.Date(calendar2.getTime()), "Appointment surveyResultPatient "+ appointment.getSurveyResultPatient().displayPatient());
 
-        UidGenerator uidGenerator = new UidGenerator("1");
-        visit.getProperties().add(uidGenerator.generateUid());
+        // Generate a UID for the event..
+        UidGenerator ug = new UidGenerator("1");
+        visit.getProperties().add(ug.generateUid());
+
         calendar.getComponents().add(visit);
 
         //save file
         ClassLoader classLoader = this.getClass().getClassLoader();
         String invitationsPath = classLoader.getResource("invitations").getPath();
-        File icsFile = new File(invitationsPath+"/"+patient.getName()+""+patient.getSurname()+".ics");
+        File icsFile = new File(invitationsPath+"/"+ surveyResultPatient.getName()+""+ surveyResultPatient.getSurname()+".ics");
         IcalendarWriterICS IcalendarWriterICS = new IcalendarWriterICS();
         IcalendarWriterICS.writeCalendar(calendar,icsFile);
         System.out.println("Invitation saved in  :"+invitationsPath);
+    }
+
+    public void addSurveyResult(SurveyResultPatient patient)
+    {
+        this.surveyResultPatients.add(patient);
+    }
+
+    public void showAllPatientResults()
+    {
+        if(!this.surveyResultPatients.isEmpty())
+        {
+            this.surveyResultPatients.forEach(s -> System.out.println(s.toString()));
+        }
     }
 
 }

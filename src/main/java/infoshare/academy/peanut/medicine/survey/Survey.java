@@ -5,8 +5,7 @@
 package infoshare.academy.peanut.medicine.survey;
 
 import MainApp.AnswerReader;
-import com.sun.org.apache.xpath.internal.operations.Bool;
-import infoshare.academy.peanut.medicine.Patient;
+import infoshare.academy.peanut.medicine.SurveyResultPatient;
 
 import java.util.List;
 
@@ -46,10 +45,10 @@ public class Survey {
         return surveyDisplay;
     }
 
-    public Patient runSurvey()
+    public SurveyResultPatient runSurvey()
     {
         AnswerReader answerReader = new AnswerReader();
-        Patient patient = new Patient();
+        SurveyResultPatient surveyResultPatient = new SurveyResultPatient();
 
         for(Question q : this.getQuestions())
         {
@@ -74,9 +73,9 @@ public class Survey {
                 }
             }
 
-            patient.setParam(q.getName(),answerToSave);
+            surveyResultPatient.setParam(q.getName(),answerToSave);
         }
 
-        return patient;
+        return surveyResultPatient;
     }
 }

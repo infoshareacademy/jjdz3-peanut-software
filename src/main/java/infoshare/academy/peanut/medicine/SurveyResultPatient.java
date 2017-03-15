@@ -3,7 +3,7 @@ package infoshare.academy.peanut.medicine;
 /**
  * Created by bartman3000 on 2017-03-12.
  */
-public class Patient {
+public class SurveyResultPatient {
 
     private String name;
     private String surname;

@@ -5,11 +5,10 @@ package MainApp;
  */
 public class AppDoctor {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
 
         final String appName = "Medicine V 1.08" ;
-        System.out.printf(appName);
-
+        System.out.printf(appName+"\n");
 
        MainOptions mainOptions = new MainOptions();
        mainOptions.mainLoop();

@@ -1,6 +1,10 @@
 package MainApp;
 
 import Exceptions.WrongOptionsExeption;
+import infoshare.academy.peanut.medicine.PeanutMedicine;
+import infoshare.academy.peanut.medicine.SurveyResultPatient;
+import infoshare.academy.peanut.medicine.survey.JsonFileMap;
+import infoshare.academy.peanut.medicine.survey.Survey;
 import infoshare.academy.peanut.medicine.survey.SurveyPrinter;
 
 /**
@@ -18,14 +22,14 @@ public class MainOptions {
     public void readMainOptions() {
         for (MainMenuEnum option : options) {
             System.out.println(option);
-
         }
     }
 
-    public void mainLoop() {
+    public void mainLoop() throws Exception {
 
-
-
+        PeanutMedicine peanutMedicine = new PeanutMedicine();
+        JsonFileMap jsonReader = new JsonFileMap();
+        Survey survey = jsonReader.makeSurveyFromJson("survey.json");
 
         MainMenuEnum selectedOption = null;
         while (selectedOption == null || selectedOption != MainMenuEnum.EXIT) {
@@ -43,14 +47,14 @@ public class MainOptions {
 
             // MainMenuEnum selectedOption = MainMenuEnum.createFromInt(answerReader.getValueInt());
             switch (selectedOption) {
-                case ADD_SURVEY_PATIENT:
-                    SurveyPrinter surveyPrinter = new SurveyPrinter();
-                    surveyPrinter.controlLoop();
-                    break;
                 case EXIT:
                     break;
+                case ADD_SURVEY_PATIENT:
+                    SurveyResultPatient patient = survey.runSurvey();
+                    peanutMedicine.addSurveyResult(patient);
+                    break;
                 case PRINT_SURVEY_PATIENT:
-                    System.out.println("wyświetl pacjentów");
+                    peanutMedicine.showAllPatientResults();
                     break;
                 default:
                     System.out.println("Błędne parametry");

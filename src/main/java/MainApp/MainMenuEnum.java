@@ -11,8 +11,8 @@ public enum MainMenuEnum {
 
 
     EXIT(0, "Wyjście z programu"),
-    ADD_SURVEY_PATIENT(1, "Przejdz do kwestionariusza"),
-    PRINT_SURVEY_PATIENT(2, "Przejść do ICalendara");
+    ADD_SURVEY_PATIENT(1, "Dodaj kwestionariusz"),
+    PRINT_SURVEY_PATIENT(2, "Wyświetl kwestionariusze");
 
 
     private int value;

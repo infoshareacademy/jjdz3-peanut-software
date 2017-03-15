@@ -17,7 +17,6 @@ public class JsonFileMap {
      */
     public Survey makeSurveyFromJson(String resource) throws Exception
     {
-        System.out.println("Let's start survey");
         ClassLoader classLoader = this.getClass().getClassLoader();
         File file = new File(classLoader.getResource("survey.json").getFile());
         byte[] jsonData = Files.readAllBytes(file.toPath());
