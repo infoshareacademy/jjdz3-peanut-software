@@ -1,0 +1,296 @@
+package peanut.medicine.patient2doctor;
+
+import peanut.medicine.AnswerReader;
+import peanut.medicine.newSurvey.JsonFileMap;
+import peanut.medicine.newSurvey.Survey;
+import peanut.medicine.newSurvey.SurveyResultPatient;
+import peanut.medicine.iCalendar.IcalendarReaderICS;
+import peanut.medicine.iCalendar.IcalendarWriterICS;
+import net.fortuna.ical4j.model.*;
+import net.fortuna.ical4j.model.Calendar;
+import net.fortuna.ical4j.model.component.VEvent;
+import net.fortuna.ical4j.model.property.*;
+import net.fortuna.ical4j.util.UidGenerator;
+
+import java.io.File;
+import java.net.SocketException;
+import java.text.ParseException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.*;
+
+import static java.time.DayOfWeek.SATURDAY;
+import static java.time.DayOfWeek.SUNDAY;
+
+/**
+ * Created by bartman3000 on 2017-03-11.
+ */
+public class PeanutMedicine {
+
+    private IcalendarReaderICS IcalendarReader;
+    private List<Doctor> doctors;
+    private List<SurveyResultPatient> surveyResultPatients;
+
+    public PeanutMedicine()
+    {
+        this.doctors = new ArrayList<Doctor>();
+        this.surveyResultPatients = new ArrayList<SurveyResultPatient>();
+    }
+
+    public List<SurveyResultPatient> getSurveyResultPatients()
+    {
+        return this.surveyResultPatients;
+    }
+
+    public void printDoctors()
+    {
+        System.out.println("Imported doctors");
+        for(Doctor d : this.doctors)
+        {
+            System.out.println(d.toString());
+        }
+    }
+
+    public List<Doctor> getDoctorsEvents()
+    {
+        this.IcalendarReader = new IcalendarReaderICS();
+        File[] listOfDirs = this.getElementsInDir("calendars");
+        for (File d : listOfDirs)
+        {
+            String doctorSpecialization = d.getName();
+            File[] listOfFiles = this.getElementsInDir("calendars/"+doctorSpecialization);
+
+            for (File f : listOfFiles)
+            {
+                String doctorIdenityString = f.getName();
+                String[] doctorIdenitySplitted = doctorIdenityString.split("\\.");
+                String doctorName = doctorIdenitySplitted[0];
+                String doctorSurname = doctorIdenitySplitted[1];
+                Doctor doc = new Doctor(doctorName,doctorSurname, doctorSpecialization);
+
+                Calendar calendar = this.IcalendarReader.readCalendar(f);
+                List<Component> vevents = calendar.getComponents("VEVENT");
+
+                for(Component event : vevents)
+                {
+                    String dtStart = event.getProperty("DTSTART").getValue();
+                    LocalDate term = this.getDateTimeFromICalParam(dtStart);
+                    doc.addTerm(term);
+                }
+                this.doctors.add(doc);
+            }
+        }
+        return this.doctors;
+    }
+
+    protected LocalDate getDateTimeFromICalParam(String dtstamp)
+    {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+        try {
+            return LocalDate.parse(dtstamp,formatter);
+        } catch (DateTimeParseException e)
+        {
+            formatter = DateTimeFormatter.ofPattern("yyyyMMdd'T'HHmmss");
+            return LocalDate.parse(dtstamp,formatter);
+        }
+    }
+
+
+    protected File[] getElementsInDir(String resource) throws NullPointerException
+    {
+        ClassLoader classLoader = this.getClass().getClassLoader();
+        String elementsPath = classLoader.getResource(resource).getPath();
+        File elementsDir = new File(elementsPath);
+        return elementsDir.listFiles();
+    }
+
+    public List<Appointment> findBestTerms (SurveyResultPatient surveyResultPatient, List<Doctor> Alldoctors)
+    {
+        List<Appointment> appointments = new ArrayList<>();
+        String specialization = surveyResultPatient.getPreferedSpecialization();
+        String preferedDay = surveyResultPatient.getPreferedDay();
+        List<Doctor> doctors = new ArrayList<>(Alldoctors);
+
+        //take only doctor with specialization
+        for(Doctor d : Alldoctors)
+        {
+            if(!d.getSpecialization().equals(specialization))
+            {
+                doctors.remove(d);
+            }
+        }
+
+//        System.out.println(doctors);
+        List<LocalDate> terms = new ArrayList<>();
+
+        //prepare list of 2 available terms for every doctor
+        for(Doctor d : doctors)
+        {
+            //step1: prepare list of days for next 10 days
+            LocalDate today = LocalDate.now();
+            for (int i = 1; i <= 10; i++)
+            {
+                terms.add(today.plusDays(i));
+            }
+
+            //step2: remove days where doctor(s) already have appointment
+            terms = this.filterBusyDays(terms,d.getTerms());
+
+            //step3: remove Saturday and Sundays
+            terms = this.filterWeekendDays(terms);
+
+            //step4: move preferable days to top of the list
+            terms = this.forcePreferredDays(terms,preferedDay);
+
+            //step 5: return 2 terms for this doctor from top of the list
+            terms = terms.subList(0, 2);
+            System.out.println("Odpowiedni lekarz i 2 najlepsze terminy:\n");
+            System.out.println(d.getName()+ " " + d.getSurname()+":");
+            System.out.println(terms);
+
+            for (LocalDate term : terms)
+            {
+                Appointment appointment = new Appointment(surveyResultPatient, d, term);
+                appointments.add(appointment);
+            }
+        }
+        return appointments;
+    }
+
+    protected static <T> void moveElementToTop(List<T> items, T input){
+        int i = items.indexOf(input);
+        if(i>=0){
+            items.add(0, items.remove(i));
+        }
+    }
+
+    protected List<LocalDate> filterBusyDays(List<LocalDate> terms, Set<LocalDate> doctorBusyDays)
+    {
+        List<LocalDate> newTerms = new ArrayList<>(terms);
+        for(LocalDate term : terms)
+        {
+            if(doctorBusyDays.contains(term))
+            {
+                newTerms.remove(term);
+            }
+        }
+        return newTerms;
+    }
+
+    protected List<LocalDate> filterWeekendDays(List<LocalDate> terms)
+    {
+        List<LocalDate> newTerms = new ArrayList<>(terms);
+        for(LocalDate term : terms)
+        {
+            if(term.getDayOfWeek() == SATURDAY || term.getDayOfWeek() == SUNDAY)
+            {
+                newTerms.remove(term);
+            }
+        }
+        return newTerms;
+    }
+
+    protected List<LocalDate> forcePreferredDays(List<LocalDate> terms, String preferedDay)
+    {
+        List<LocalDate> newTerms = new ArrayList<>(terms);
+        for(LocalDate term : terms)
+        {
+//            System.out.println(term.getDayOfWeek().toString());
+//            System.out.println(preferedDay.toUpperCase());
+            if(term.getDayOfWeek().toString().equals(preferedDay.toUpperCase()))
+            {
+                moveElementToTop(newTerms,term);
+            }
+        }
+        return newTerms;
+    }
+
+    public void generateInvitation(Appointment appointment) throws ParseException, SocketException, NullPointerException {
+
+        //Creating a new calendar
+        Calendar calendar = new Calendar();
+        calendar.getProperties().add(new ProdId("/Peanut Medicine/"));
+        calendar.getProperties().add(Version.VERSION_2_0);
+        calendar.getProperties().add(CalScale.GREGORIAN);
+
+        LocalDate term = appointment.getTerm();
+        SurveyResultPatient surveyResultPatient = appointment.getSurveyResultPatient();
+
+        java.util.Calendar calendar2 = java.util.Calendar.getInstance();
+        calendar2.set(java.util.Calendar.MONTH, term.getMonthValue()-1);
+        calendar2.set(java.util.Calendar.DAY_OF_MONTH, term.getDayOfMonth());
+
+        // initialise as an all-day event..
+        String summary = "Appointment patient "+ appointment.getSurveyResultPatient().displayPatientName();
+        VEvent visit = new VEvent(new net.fortuna.ical4j.model.Date(calendar2.getTime()), summary);
+
+        // Generate a UID for the event..
+        UidGenerator ug = new UidGenerator("1");
+        visit.getProperties().add(ug.generateUid());
+
+        calendar.getComponents().add(visit);
+
+        //save file
+        ClassLoader classLoader = this.getClass().getClassLoader();
+        String invitationsPath = classLoader.getResource("invitations").getPath();
+        File icsFile = new File(invitationsPath+"/"+ surveyResultPatient.getName()+""+ surveyResultPatient.getSurname()+"-"+term.toString()+".ics");
+        IcalendarWriterICS IcalendarWriterICS = new IcalendarWriterICS();
+        IcalendarWriterICS.writeCalendar(calendar,icsFile);
+        System.out.println("Invitation saved in  :"+icsFile.getPath());
+    }
+
+    public void addSurveyResult(SurveyResultPatient patient)
+    {
+        this.surveyResultPatients.add(patient);
+    }
+
+    public void showAllPatientResults()
+    {
+        if(!this.surveyResultPatients.isEmpty())
+        {
+            int surveysCnt = this.surveyResultPatients.size();
+            System.out.println("\n --------------------------------");
+            System.out.println("\n Liczba kwestionariuszy: "+surveysCnt);
+
+            for (int i = 0; i < surveysCnt; i++)
+            {
+                SurveyResultPatient survey = surveyResultPatients.get(i);
+                System.out.println("\nId:"+i+"____________");
+                System.out.println(survey.displayPatient());
+            }
+            System.out.println("\n --------------------------------");
+        }
+        else
+        {
+            System.out.println("Nie wprowadzono jeszcze żadnyck kwestionariuszy.");
+        }
+    }
+
+    public void chooseSurveyToFindTerms() throws ParseException, SocketException {
+        Boolean isSurveyChosen = false;
+        while (!isSurveyChosen)
+        {
+            System.out.println("\nPodaj id kwestionariusza:");
+            AnswerReader answerReader = new AnswerReader();
+            int surveyId = answerReader.getValueInt();
+
+            try {
+                SurveyResultPatient survey = surveyResultPatients.get(surveyId);
+                List<Appointment> appointments = this.findBestTerms(survey, this.doctors);
+                for (Appointment visit : appointments)
+                {
+                    this.generateInvitation(visit);
+                }
+
+                isSurveyChosen = true;
+            }
+            catch (IndexOutOfBoundsException e)
+            {
+                System.out.println("\nNie ma kwestionariusza o taki id!");
+                isSurveyChosen = false;
+            }
+        }
+    }
+
+}
