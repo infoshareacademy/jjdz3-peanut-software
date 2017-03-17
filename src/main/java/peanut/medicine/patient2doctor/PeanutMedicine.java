@@ -113,15 +113,12 @@ public class PeanutMedicine {
     public List<Appointment> findBestTerms (SurveyResultPatient surveyResultPatient, List<Doctor> Alldoctors)
     {
         LOGGER.info("findBestTerms()");
-
         LOGGER.debug("findBestTerms:surveyResultPatient:"+surveyResultPatient.toString());
         LOGGER.debug("findBestTerms:Alldoctors:"+Alldoctors);
 
         List<Appointment> appointments = new ArrayList<>();
         String specialization = surveyResultPatient.getPreferedSpecialization();
         String preferedDay = surveyResultPatient.getPreferedDay();
-//        List<Doctor> doctors = new ArrayList<>(Alldoctors);
-
         LOGGER.debug("findBestTerms:specialization:"+specialization);
 
         //take only doctor with specialization
@@ -142,22 +139,11 @@ public class PeanutMedicine {
                 terms.add(today.plusDays(i));
             }
 
-            Predicate<LocalDate> filterBusyDays = new Predicate<LocalDate>() {
-                @Override
-                public boolean test(LocalDate localDate) {
-                    return !doctor.getTerms().contains(localDate);
-                }
-            };
-
-            Predicate<LocalDate> filterWeekendDays = new Predicate<LocalDate>() {
-                @Override
-                public boolean test(LocalDate localDate) {
-                   return localDate.getDayOfWeek() != SATURDAY && localDate.getDayOfWeek() != SUNDAY;
-                }
-            };
-
             //step2: remove days where doctor(s) already have appointment
             //step3: remove Saturday and Sundays
+            Predicate<LocalDate> filterBusyDays = localDate -> !doctor.getTerms().contains(localDate);
+            Predicate<LocalDate> filterWeekendDays = localDate -> localDate.getDayOfWeek() != SATURDAY && localDate.getDayOfWeek() != SUNDAY;
+
             List<LocalDate> selectedTerms = terms.stream()
                     .filter(filterBusyDays)
                     .filter(filterWeekendDays)
