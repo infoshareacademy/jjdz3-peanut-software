@@ -1,8 +1,10 @@
 package infoshare.academy.peanut.medicine.ICDReader;
 
 import MainApp.AnswerReader;
+import infoshare.academy.peanut.medicine.iCalendar.IcalendarWriterICS;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.file.Files;
@@ -65,8 +67,17 @@ public class ICDreaderclass {
 
         list.forEach(System.out::println);
 
+        // save ICD to file
+        try {
+            Files.write(Paths.get("ICDcodehistory.txt"), list);
+            System.out.println("Visit code has been saved to ICDhistoryfile");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-    // save ICD to file
+
+
+
 
 }
