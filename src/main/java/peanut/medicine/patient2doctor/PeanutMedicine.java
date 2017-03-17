@@ -1,8 +1,8 @@
 package peanut.medicine.patient2doctor;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import peanut.medicine.AnswerReader;
-import peanut.medicine.newSurvey.JsonFileMap;
-import peanut.medicine.newSurvey.Survey;
 import peanut.medicine.newSurvey.SurveyResultPatient;
 import peanut.medicine.iCalendar.IcalendarReaderICS;
 import peanut.medicine.iCalendar.IcalendarWriterICS;
@@ -28,6 +28,8 @@ import static java.time.DayOfWeek.SUNDAY;
  */
 public class PeanutMedicine {
 
+    private final static Logger LOGGER = LoggerFactory.getLogger(PeanutMedicine.class);
+
     private IcalendarReaderICS IcalendarReader;
     private List<Doctor> doctors;
     private List<SurveyResultPatient> surveyResultPatients;
@@ -45,6 +47,7 @@ public class PeanutMedicine {
 
     public void printDoctors()
     {
+        LOGGER.info("printDoctors()");
         System.out.println("Imported doctors");
         for(Doctor d : this.doctors)
         {
@@ -107,10 +110,17 @@ public class PeanutMedicine {
 
     public List<Appointment> findBestTerms (SurveyResultPatient surveyResultPatient, List<Doctor> Alldoctors)
     {
+        LOGGER.info("findBestTerms()");
+
+        LOGGER.debug("findBestTerms:surveyResultPatient:"+surveyResultPatient.toString());
+        LOGGER.debug("findBestTerms:Alldoctors:"+Alldoctors);
+
         List<Appointment> appointments = new ArrayList<>();
         String specialization = surveyResultPatient.getPreferedSpecialization();
         String preferedDay = surveyResultPatient.getPreferedDay();
         List<Doctor> doctors = new ArrayList<>(Alldoctors);
+
+        LOGGER.debug("findBestTerms:specialization:"+specialization);
 
         //take only doctor with specialization
         for(Doctor d : Alldoctors)
@@ -121,7 +131,7 @@ public class PeanutMedicine {
             }
         }
 
-//        System.out.println(doctors);
+        LOGGER.debug("findBestTerms:Alldoctors with preffered specialization:"+doctors);
         List<LocalDate> terms = new ArrayList<>();
 
         //prepare list of 2 available terms for every doctor
@@ -193,11 +203,13 @@ public class PeanutMedicine {
 
     protected List<LocalDate> forcePreferredDays(List<LocalDate> terms, String preferedDay)
     {
+        LOGGER.info("forcePreferredDays()");
         List<LocalDate> newTerms = new ArrayList<>(terms);
         for(LocalDate term : terms)
         {
-//            System.out.println(term.getDayOfWeek().toString());
-//            System.out.println(preferedDay.toUpperCase());
+            LOGGER.debug("forcePreferredDays:term.getDayOfWeek:"+term.getDayOfWeek().toString());
+            LOGGER.debug("forcePreferredDays:term.preferedDay.toUpperCase():"+preferedDay.toUpperCase());
+
             if(term.getDayOfWeek().toString().equals(preferedDay.toUpperCase()))
             {
                 moveElementToTop(newTerms,term);
@@ -207,6 +219,9 @@ public class PeanutMedicine {
     }
 
     public void generateInvitation(Appointment appointment) throws ParseException, SocketException, NullPointerException {
+
+        LOGGER.info("generateInvitation()");
+        LOGGER.debug("generateInvitation:appointmnet:"+appointment.toString());
 
         //Creating a new calendar
         Calendar calendar = new Calendar();
@@ -234,10 +249,15 @@ public class PeanutMedicine {
         //save file
         ClassLoader classLoader = this.getClass().getClassLoader();
         String invitationsPath = classLoader.getResource("invitations").getPath();
+        LOGGER.debug("generateInvitation:invitationsPath:"+invitationsPath.toString());
+
         File icsFile = new File(invitationsPath+"/"+ surveyResultPatient.getName()+""+ surveyResultPatient.getSurname()+"-"+term.toString()+".ics");
+        LOGGER.debug("generateInvitation:icsFile:"+icsFile.getPath());
+
         IcalendarWriterICS IcalendarWriterICS = new IcalendarWriterICS();
         IcalendarWriterICS.writeCalendar(calendar,icsFile);
-        System.out.println("Invitation saved in  :"+icsFile.getPath());
+
+        LOGGER.info("Invitation saved in:"+icsFile.getPath());
     }
 
     public void addSurveyResult(SurveyResultPatient patient)
@@ -247,6 +267,7 @@ public class PeanutMedicine {
 
     public void showAllPatientResults()
     {
+        LOGGER.info("showAllPatientResults()");
         if(!this.surveyResultPatients.isEmpty())
         {
             int surveysCnt = this.surveyResultPatients.size();

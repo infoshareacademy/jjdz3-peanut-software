@@ -1,9 +1,14 @@
 package peanut.medicine;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * Created by moody on 16.02.17.
  */
 public class AppDoctor {
+
+    private final static Logger LOGGER = LoggerFactory.getLogger(AppDoctor.class);
 
     public static void main(String[] args) throws Exception {
 

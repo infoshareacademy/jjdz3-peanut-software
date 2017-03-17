@@ -1,5 +1,7 @@
 package peanut.medicine;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import peanut.medicine.Exceptions.WrongOptionsExeption;
 import peanut.medicine.patient2doctor.PeanutMedicine;
 import peanut.medicine.newSurvey.SurveyResultPatient;
@@ -10,6 +12,9 @@ import peanut.medicine.newSurvey.Survey;
  * Created by moody on 24.02.17.
  */
 public class MainOptions {
+
+    private final static Logger LOGGER = LoggerFactory.getLogger(MainOptions.class);
+
     AnswerReader answerReader;
 
     public MainOptions() {
@@ -40,6 +45,7 @@ public class MainOptions {
                     selectedOption = MainMenuEnum.createFromInt(option);
 
                 } catch (WrongOptionsExeption e) {
+                    LOGGER.warn(e.getMessage());
                     System.out.println(e.getMessage());
                 }
             }

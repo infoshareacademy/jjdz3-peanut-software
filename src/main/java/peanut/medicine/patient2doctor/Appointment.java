@@ -41,4 +41,9 @@ public class Appointment {
     public void setTerm(LocalDate term) {
         this.term = term;
     }
+
+    public String toString()
+    {
+        return this.surveyResultPatient.displayPatient() + " " + this.doctor.toString() + " "+this.term.getYear()+"-"+this.term.getMonth()+"-"+term.getDayOfMonth();
+    }
 }

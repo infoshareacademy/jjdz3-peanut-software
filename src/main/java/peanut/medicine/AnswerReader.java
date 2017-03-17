@@ -1,5 +1,8 @@
 package peanut.medicine;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -8,6 +11,7 @@ import java.util.Scanner;
  */
 public class AnswerReader {
 
+    private final static Logger LOGGER = LoggerFactory.getLogger(AnswerReader.class);
 
     private Scanner scanner;
 
@@ -23,6 +27,7 @@ public class AnswerReader {
         try {
             int number = scanner.nextInt();
             scanner.nextLine();
+            LOGGER.debug(String.valueOf(number));
             return number;
         } catch (InputMismatchException e)
         {
@@ -34,7 +39,7 @@ public class AnswerReader {
     public String getValueString(){
         System.out.println();
         String answer = scanner.nextLine();
-
+        LOGGER.debug(answer);
         return answer ;
 
     }
