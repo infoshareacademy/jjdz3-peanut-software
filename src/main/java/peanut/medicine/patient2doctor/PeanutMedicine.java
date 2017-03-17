@@ -19,6 +19,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.*;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 import static java.time.DayOfWeek.SATURDAY;
 import static java.time.DayOfWeek.SUNDAY;
@@ -118,24 +120,20 @@ public class PeanutMedicine {
         List<Appointment> appointments = new ArrayList<>();
         String specialization = surveyResultPatient.getPreferedSpecialization();
         String preferedDay = surveyResultPatient.getPreferedDay();
-        List<Doctor> doctors = new ArrayList<>(Alldoctors);
+//        List<Doctor> doctors = new ArrayList<>(Alldoctors);
 
         LOGGER.debug("findBestTerms:specialization:"+specialization);
 
         //take only doctor with specialization
-        for(Doctor d : Alldoctors)
-        {
-            if(!d.getSpecialization().equals(specialization))
-            {
-                doctors.remove(d);
-            }
-        }
+        List<Doctor> doctors = Alldoctors.stream()
+                .filter(d -> d.getSpecialization().equals(specialization))
+                .collect(Collectors.toList());
 
         LOGGER.debug("findBestTerms:Alldoctors with preffered specialization:"+doctors);
         List<LocalDate> terms = new ArrayList<>();
 
         //prepare list of 2 available terms for every doctor
-        for(Doctor d : doctors)
+        for(Doctor doctor : doctors)
         {
             //step1: prepare list of days for next 10 days
             LocalDate today = LocalDate.now();
@@ -144,24 +142,39 @@ public class PeanutMedicine {
                 terms.add(today.plusDays(i));
             }
 
-            //step2: remove days where doctor(s) already have appointment
-            terms = this.filterBusyDays(terms,d.getTerms());
+            Predicate<LocalDate> filterBusyDays = new Predicate<LocalDate>() {
+                @Override
+                public boolean test(LocalDate localDate) {
+                    return !doctor.getTerms().contains(localDate);
+                }
+            };
 
+            Predicate<LocalDate> filterWeekendDays = new Predicate<LocalDate>() {
+                @Override
+                public boolean test(LocalDate localDate) {
+                   return localDate.getDayOfWeek() != SATURDAY && localDate.getDayOfWeek() != SUNDAY;
+                }
+            };
+
+            //step2: remove days where doctor(s) already have appointment
             //step3: remove Saturday and Sundays
-            terms = this.filterWeekendDays(terms);
+            List<LocalDate> selectedTerms = terms.stream()
+                    .filter(filterBusyDays)
+                    .filter(filterWeekendDays)
+                    .collect(Collectors.toList());
 
             //step4: move preferable days to top of the list
-            terms = this.forcePreferredDays(terms,preferedDay);
+            terms = this.forcePreferredDays(selectedTerms,preferedDay);
 
             //step 5: return 2 terms for this doctor from top of the list
             terms = terms.subList(0, 2);
             System.out.println("Odpowiedni lekarz i 2 najlepsze terminy:\n");
-            System.out.println(d.getName()+ " " + d.getSurname()+":");
+            System.out.println(doctor.getName()+ " " + doctor.getSurname()+":");
             System.out.println(terms);
 
             for (LocalDate term : terms)
             {
-                Appointment appointment = new Appointment(surveyResultPatient, d, term);
+                Appointment appointment = new Appointment(surveyResultPatient, doctor, term);
                 appointments.add(appointment);
             }
         }
@@ -173,32 +186,6 @@ public class PeanutMedicine {
         if(i>=0){
             items.add(0, items.remove(i));
         }
-    }
-
-    protected List<LocalDate> filterBusyDays(List<LocalDate> terms, Set<LocalDate> doctorBusyDays)
-    {
-        List<LocalDate> newTerms = new ArrayList<>(terms);
-        for(LocalDate term : terms)
-        {
-            if(doctorBusyDays.contains(term))
-            {
-                newTerms.remove(term);
-            }
-        }
-        return newTerms;
-    }
-
-    protected List<LocalDate> filterWeekendDays(List<LocalDate> terms)
-    {
-        List<LocalDate> newTerms = new ArrayList<>(terms);
-        for(LocalDate term : terms)
-        {
-            if(term.getDayOfWeek() == SATURDAY || term.getDayOfWeek() == SUNDAY)
-            {
-                newTerms.remove(term);
-            }
-        }
-        return newTerms;
     }
 
     protected List<LocalDate> forcePreferredDays(List<LocalDate> terms, String preferedDay)
