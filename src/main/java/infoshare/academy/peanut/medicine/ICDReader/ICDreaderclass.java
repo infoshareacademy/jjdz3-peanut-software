@@ -1,5 +1,7 @@
 package infoshare.academy.peanut.medicine.ICDReader;
 
+import MainApp.AnswerReader;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -39,28 +41,21 @@ public class ICDreaderclass {
 
 //  ICD value input
         System.out.println("ICD code: ");
+        AnswerReader answerReader = new AnswerReader();
+        String inputString = answerReader.getValueString();
 
+//            BufferedReader bufferRead = new BufferedReader(new InputStreamReader(System.in));
+//            String inputString = bufferRead.readLine();
 
-        try{
-            BufferedReader bufferRead = new BufferedReader(new InputStreamReader(System.in));
-            String inputString = bufferRead.readLine();
-
-            System.out.println("ICD code : " + inputString);
-        }
-
-        catch(IOException ex)
-        {
-            ex.printStackTrace();
-        }
+        System.out.println("ICD code : " + inputString);
 
 //        String fileName = "icd.txt";
 //        List<String> list = new ArrayList<>();
 
         try (Stream<String> stream = Files.lines(Paths.get(fileName))) {
 
-
             list = stream
-                    .filter(line -> line.contains("100.31")) //1. filter line by inputString
+                    .filter(line -> line.contains(inputString)) //1. filter line by inputString
                     .map(String::toUpperCase)               //2. convert all content to upper case
                     .collect(Collectors.toList());          //3. convert it into a List
 
