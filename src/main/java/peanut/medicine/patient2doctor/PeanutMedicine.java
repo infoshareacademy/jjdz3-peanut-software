@@ -338,9 +338,9 @@ public class PeanutMedicine {
     public void addVisitForDoctor(Appointment appointment, Doctor doctor)
     {
         IcalendarMeeting icalendarMeeting = new IcalendarMeeting();
-        VEvent event = icalendarMeeting.makeVeventFromApp(appointment);
-        Calendar calendar = this.getCalendarForDoctor(doctor);
-        icalendarMeeting.addEventToCalendar(event, calendar);
+//        VEvent event = icalendarMeeting.makeVeventFromApp(appointment);
+//        Calendar calendar = this.getCalendarForDoctor(doctor);
+//        icalendarMeeting.addEventToCalendar(event, calendar);
     }
 
     public Calendar getCalendarForDoctor(Doctor doctor)
