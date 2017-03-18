@@ -57,7 +57,7 @@ public class Doctor {
 
     public String toString()
     {
-        return this.specialization + " " + this.name + " "+this.surname + "" + this.terms.toString();
+        return this.specialization + " " + this.name + " "+this.surname + " " +this.calendarFile+ " " + this.terms.toString();
     }
 
     public String getCalendarFile() {
