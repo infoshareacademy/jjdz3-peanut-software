@@ -1,0 +1,57 @@
+{
+  "questions": [
+    {
+      "number" : 1,
+      "name" : "name",
+      "text" : "Imię",
+      "questionType" : "open"
+    },
+    {
+      "number" : 2,
+      "name" : "surname",
+      "text" : "Nazwisko",
+      "questionType" : "open"
+    },
+    {
+      "number" : 3,
+      "name" : "sex",
+      "text" : "Płeć",
+      "questionType" : "closed",
+      "answers": [
+        {"number" : "1", "text" : "Kobieta", "value" : "woman"},
+        {"number" : "2", "text" : "Mężczyzna", "value" : "man"}
+      ]
+    },
+    {
+      "number" : 4,
+      "name" : "pesel",
+      "text" : "Pesel",
+      "questionType" : "open"
+    },
+    {
+      "number" : 5,
+      "name" : "preferedSpecialization",
+      "text" : "Jaka specjalizacja lekarza?",
+      "questionType" : "closed",
+      "answers": [
+        {"number" : "1", "text" : "dentysta", "value" : "dentysta"},
+        {"number" : "2", "text" : "internista", "value" : "internista"},
+        {"number" : "3", "text" : "laryngolog", "value" : "laryngolog"},
+        {"number" : "4", "text" : "urolog", "value" : "urolog"}
+      ]
+    },
+    {
+      "number" : 6,
+      "name" : "preferedDay",
+      "text" : "Jaki dzień tygodnia?",
+      "questionType" : "closed",
+      "answers": [
+        {"number" : "1", "text" : "poniedziałek", "value" : "monday"},
+        {"number" : "2", "text" : "wtorek", "value" : "tuesday"},
+        {"number" : "3", "text" : "środa", "value" : "wednesday"},
+        {"number" : "4", "text" : "czwartek", "value" : "thursday"},
+        {"number" : "5", "text" : "piątek", "value" : "friday"}
+      ]
+    }
+  ]
+}
