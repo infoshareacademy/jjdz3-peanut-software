@@ -13,6 +13,7 @@ public class Doctor {
     private String surname;
     private String specialization;
     private Set<LocalDate> terms;
+    private String calendarFile;
 
     public Doctor(String name, String surname, String specialization) {
         this.name = name;
@@ -57,5 +58,13 @@ public class Doctor {
     public String toString()
     {
         return this.specialization + " " + this.name + " "+this.surname + "" + this.terms.toString();
+    }
+
+    public String getCalendarFile() {
+        return calendarFile;
+    }
+
+    public void setCalendarFile(String calendarFile) {
+        this.calendarFile = calendarFile;
     }
 }

@@ -3,6 +3,7 @@ package peanut.medicine.patient2doctor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import peanut.medicine.AnswerReader;
+import peanut.medicine.iCalendar.IcalendarMeeting;
 import peanut.medicine.newSurvey.SurveyResultPatient;
 import peanut.medicine.iCalendar.IcalendarReaderICS;
 import peanut.medicine.iCalendar.IcalendarWriterICS;
@@ -79,6 +80,7 @@ public class PeanutMedicine {
                 String doctorName = doctorIdenitySplitted[0];
                 String doctorSurname = doctorIdenitySplitted[1];
                 Doctor doc = new Doctor(doctorName,doctorSurname, doctorSpecialization);
+                doc.setCalendarFile(f.toString());
 
                 Calendar calendar = this.IcalendarReader.readCalendar(f);
                 List<Component> vevents = calendar.getComponents("VEVENT");
@@ -331,6 +333,23 @@ public class PeanutMedicine {
             }
         }
         return appointmentChosen;
+    }
+
+    public void addVisitForDoctor(Appointment appointment, Doctor doctor)
+    {
+        IcalendarMeeting icalendarMeeting = new IcalendarMeeting();
+        VEvent event = icalendarMeeting.makeVeventFromApp(appointment);
+        Calendar calendar = this.getCalendarForDoctor(doctor);
+        icalendarMeeting.addEventToCalendar(event, calendar);
+    }
+
+    public Calendar getCalendarForDoctor(Doctor doctor)
+    {
+        String filename = doctor.getCalendarFile();
+        File icsFile = new File("calendars/"+filename);
+        IcalendarReaderICS iReader = new IcalendarReaderICS();
+        Calendar calendar = this.IcalendarReader.readCalendar(icsFile);
+
     }
 
 }
