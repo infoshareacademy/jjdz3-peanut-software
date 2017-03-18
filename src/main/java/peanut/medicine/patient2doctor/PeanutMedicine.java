@@ -1,17 +1,18 @@
 package peanut.medicine.patient2doctor;
 
+import net.fortuna.ical4j.model.Calendar;
+import net.fortuna.ical4j.model.Component;
+import net.fortuna.ical4j.model.component.VEvent;
+import net.fortuna.ical4j.model.property.CalScale;
+import net.fortuna.ical4j.model.property.ProdId;
+import net.fortuna.ical4j.model.property.Version;
+import net.fortuna.ical4j.util.UidGenerator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import peanut.medicine.AnswerReader;
-import peanut.medicine.iCalendar.IcalendarMeeting;
-import peanut.medicine.newSurvey.SurveyResultPatient;
 import peanut.medicine.iCalendar.IcalendarReaderICS;
 import peanut.medicine.iCalendar.IcalendarWriterICS;
-import net.fortuna.ical4j.model.*;
-import net.fortuna.ical4j.model.Calendar;
-import net.fortuna.ical4j.model.component.VEvent;
-import net.fortuna.ical4j.model.property.*;
-import net.fortuna.ical4j.util.UidGenerator;
+import peanut.medicine.newSurvey.SurveyResultPatient;
 
 import java.io.File;
 import java.net.SocketException;
@@ -19,7 +20,8 @@ import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -334,22 +336,4 @@ public class PeanutMedicine {
         }
         return appointmentChosen;
     }
-
-    public void addVisitForDoctor(Appointment appointment, Doctor doctor)
-    {
-        IcalendarMeeting icalendarMeeting = new IcalendarMeeting();
-//        VEvent event = icalendarMeeting.makeVeventFromApp(appointment);
-//        Calendar calendar = this.getCalendarForDoctor(doctor);
-//        icalendarMeeting.addEventToCalendar(event, calendar);
-    }
-
-    public Calendar getCalendarForDoctor(Doctor doctor)
-    {
-        String filename = doctor.getCalendarFile();
-        File icsFile = new File("calendars/"+filename);
-        IcalendarReaderICS iReader = new IcalendarReaderICS();
-        Calendar calendar = this.IcalendarReader.readCalendar(icsFile);
-
-    }
-
 }
