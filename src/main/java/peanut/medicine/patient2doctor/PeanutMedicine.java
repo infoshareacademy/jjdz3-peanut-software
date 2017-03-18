@@ -80,7 +80,7 @@ public class PeanutMedicine {
                 String doctorName = doctorIdenitySplitted[0];
                 String doctorSurname = doctorIdenitySplitted[1];
                 Doctor doc = new Doctor(doctorName,doctorSurname, doctorSpecialization);
-                doc.setCalendarFile(f.toString());
+                doc.setCalendarFile(doctorSpecialization+"/"+doctorIdenityString);
 
                 Calendar calendar = this.IcalendarReader.readCalendar(f);
                 List<Component> vevents = calendar.getComponents("VEVENT");
@@ -335,6 +335,7 @@ public class PeanutMedicine {
         return appointmentChosen;
     }
 
+    //todo: uncomment after implementation of IcalendarMeeting's makeVeventFromApp() and addEventToCalendar
     public void addVisitForDoctor(Appointment appointment, Doctor doctor)
     {
         IcalendarMeeting icalendarMeeting = new IcalendarMeeting();
@@ -345,11 +346,11 @@ public class PeanutMedicine {
 
     public Calendar getCalendarForDoctor(Doctor doctor)
     {
-        String filename = doctor.getCalendarFile();
-        File icsFile = new File("calendars/"+filename);
+        String calendarPath = doctor.getCalendarFile();
+        ClassLoader classLoader = this.getClass().getClassLoader();
+        File icsFile = new File(classLoader.getResource("calendars/"+calendarPath).getFile());
         IcalendarReaderICS iReader = new IcalendarReaderICS();
-        Calendar calendar = this.IcalendarReader.readCalendar(icsFile);
-
+        return this.IcalendarReader.readCalendar(icsFile);
     }
 
 }
