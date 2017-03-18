@@ -57,6 +57,12 @@ public class PeanutMedicine {
         }
     }
 
+    public List<Doctor> getDoctors()
+    {
+        return this.doctors;
+    }
+
+
     public List<Doctor> getDoctorsEvents()
     {
         this.IcalendarReader = new IcalendarReaderICS();
@@ -167,6 +173,7 @@ public class PeanutMedicine {
         return appointments;
     }
 
+
     protected static <T> void moveElementToTop(List<T> items, T input){
         int i = items.indexOf(input);
         if(i>=0){
@@ -210,7 +217,7 @@ public class PeanutMedicine {
         calendar2.set(java.util.Calendar.DAY_OF_MONTH, term.getDayOfMonth());
 
         // initialise as an all-day event..
-        String summary = "Appointment patient "+ appointment.getSurveyResultPatient().displayPatientName();
+        String summary = "Appointment with doctor "+ appointment.getDoctor().getName()+" "+appointment.getDoctor().getSurname();
         VEvent visit = new VEvent(new net.fortuna.ical4j.model.Date(calendar2.getTime()), summary);
 
         // Generate a UID for the event..
@@ -261,7 +268,9 @@ public class PeanutMedicine {
         }
     }
 
-    public void chooseSurveyToFindTerms() throws ParseException, SocketException {
+    public SurveyResultPatient chooseSurveyToFindTerms() throws ParseException, SocketException {
+
+        SurveyResultPatient survey = new SurveyResultPatient();
         Boolean isSurveyChosen = false;
         while (!isSurveyChosen)
         {
@@ -270,14 +279,15 @@ public class PeanutMedicine {
             int surveyId = answerReader.getValueInt();
 
             try {
-                SurveyResultPatient survey = surveyResultPatients.get(surveyId);
-                List<Appointment> appointments = this.findBestTerms(survey, this.doctors);
-                for (Appointment visit : appointments)
-                {
-                    this.generateInvitation(visit);
-                }
 
+                survey = surveyResultPatients.get(surveyId);
+//                List<Appointment> appointments = this.findBestTerms(survey, this.doctors);
+//                for (Appointment visit : appointments)
+//                {
+//                    this.generateInvitation(visit);
+//                }
                 isSurveyChosen = true;
+                return survey;
             }
             catch (IndexOutOfBoundsException e)
             {
@@ -285,6 +295,42 @@ public class PeanutMedicine {
                 isSurveyChosen = false;
             }
         }
+        return survey;
+    }
+
+
+    public Appointment chooseOneTermFromProposed(List<Appointment> appointments)
+    {
+        for (int i = 1; i <= appointments.size(); i++)
+        {
+            Appointment ap = appointments.get(i-1);
+            String doctorS = ap.getDoctor().getName()+" "+ap.getDoctor().getSurname();
+            String termS = ap.getTerm().getYear()+"-"+ap.getTerm().getMonth()+"-"+ap.getTerm().getDayOfMonth();
+
+            System.out.println(i+"."+doctorS+" : "+ termS);
+        }
+
+        Appointment appointmentChosen = new Appointment(new SurveyResultPatient(),new Doctor("","",""),LocalDate.now());
+        Boolean isTermChosen = false;
+        while (!isTermChosen)
+        {
+            System.out.println("\nWybierz numer terminu dla którego chcesz wygenerować zaproszenie:");
+            AnswerReader answerReader = new AnswerReader();
+            int termId = answerReader.getValueInt();
+
+            try {
+
+                appointmentChosen = appointments.get(termId-1);
+                isTermChosen = true;
+//                return appointmentChosen;
+            }
+            catch (IndexOutOfBoundsException e)
+            {
+                System.out.println("\nWybierz jeden z podanych terminów!");
+                isTermChosen = false;
+            }
+        }
+        return appointmentChosen;
     }
 
 }

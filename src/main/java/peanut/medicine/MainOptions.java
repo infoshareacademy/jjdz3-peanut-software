@@ -3,10 +3,13 @@ package peanut.medicine;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import peanut.medicine.Exceptions.WrongOptionsExeption;
+import peanut.medicine.patient2doctor.Appointment;
 import peanut.medicine.patient2doctor.PeanutMedicine;
 import peanut.medicine.newSurvey.SurveyResultPatient;
 import peanut.medicine.newSurvey.JsonFileMap;
 import peanut.medicine.newSurvey.Survey;
+
+import java.util.List;
 
 /**
  * Created by moody on 24.02.17.
@@ -72,7 +75,10 @@ public class MainOptions {
                     }
                     else
                     {
-                        peanutMedicine.chooseSurveyToFindTerms();
+                        SurveyResultPatient patientSurvey = peanutMedicine.chooseSurveyToFindTerms();
+                        List<Appointment> bestTerms = peanutMedicine.findBestTerms(patientSurvey,peanutMedicine.getDoctors());
+                        Appointment visit = peanutMedicine.chooseOneTermFromProposed(bestTerms);
+                        peanutMedicine.generateInvitation(visit);
                     }
                     break;
 
