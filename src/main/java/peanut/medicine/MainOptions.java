@@ -3,6 +3,7 @@ package peanut.medicine;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import peanut.medicine.Exceptions.WrongOptionsExeption;
+import peanut.medicine.iCalendar.IcalendarVEvent;
 import peanut.medicine.patient2doctor.Appointment;
 import peanut.medicine.patient2doctor.PeanutMedicine;
 import peanut.medicine.newSurvey.SurveyResultPatient;
@@ -79,6 +80,7 @@ public class MainOptions {
                         List<Appointment> bestTerms = peanutMedicine.findBestTerms(patientSurvey,peanutMedicine.getDoctors());
                         Appointment visit = peanutMedicine.chooseOneTermFromProposed(bestTerms);
                         peanutMedicine.generateInvitation(visit);
+                        IcalendarVEvent.addVisitForDoctor(visit);
                     }
                     break;
 

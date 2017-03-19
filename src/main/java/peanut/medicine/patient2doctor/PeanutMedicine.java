@@ -1,17 +1,18 @@
 package peanut.medicine.patient2doctor;
 
+import net.fortuna.ical4j.model.Calendar;
+import net.fortuna.ical4j.model.Component;
+import net.fortuna.ical4j.model.component.VEvent;
+import net.fortuna.ical4j.model.property.CalScale;
+import net.fortuna.ical4j.model.property.ProdId;
+import net.fortuna.ical4j.model.property.Version;
+import net.fortuna.ical4j.util.UidGenerator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import peanut.medicine.AnswerReader;
-import peanut.medicine.iCalendar.IcalendarMeeting;
-import peanut.medicine.newSurvey.SurveyResultPatient;
 import peanut.medicine.iCalendar.IcalendarReaderICS;
 import peanut.medicine.iCalendar.IcalendarWriterICS;
-import net.fortuna.ical4j.model.*;
-import net.fortuna.ical4j.model.Calendar;
-import net.fortuna.ical4j.model.component.VEvent;
-import net.fortuna.ical4j.model.property.*;
-import net.fortuna.ical4j.util.UidGenerator;
+import peanut.medicine.newSurvey.SurveyResultPatient;
 
 import java.io.File;
 import java.net.SocketException;
@@ -19,7 +20,8 @@ import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -283,11 +285,6 @@ public class PeanutMedicine {
             try {
 
                 survey = surveyResultPatients.get(surveyId);
-//                List<Appointment> appointments = this.findBestTerms(survey, this.doctors);
-//                for (Appointment visit : appointments)
-//                {
-//                    this.generateInvitation(visit);
-//                }
                 isSurveyChosen = true;
                 return survey;
             }
@@ -335,22 +332,20 @@ public class PeanutMedicine {
         return appointmentChosen;
     }
 
-    //todo: uncomment after implementation of IcalendarMeeting's makeVeventFromApp() and addEventToCalendar
-    public void addVisitForDoctor(Appointment appointment, Doctor doctor)
-    {
-        IcalendarMeeting icalendarMeeting = new IcalendarMeeting();
-//        VEvent event = icalendarMeeting.makeVeventFromApp(appointment);
-//        Calendar calendar = this.getCalendarForDoctor(doctor);
-//        icalendarMeeting.addEventToCalendar(event, calendar);
-    }
+//     public void addVisitForDoctor(Appointment appointment, Doctor doctor)
+//     {
+//         IcalendarMeeting icalendarMeeting = new IcalendarMeeting();
+//         VEvent event = icalendarMeeting.makeVeventFromApp(appointment);
+//         Calendar calendar = this.getCalendarForDoctor(doctor);
+//         icalendarMeeting.addEventToCalendar(event, calendar);
+//     }
 
-    public Calendar getCalendarForDoctor(Doctor doctor)
-    {
-        String calendarPath = doctor.getCalendarFile();
-        ClassLoader classLoader = this.getClass().getClassLoader();
-        File icsFile = new File(classLoader.getResource("calendars/"+calendarPath).getFile());
-        IcalendarReaderICS iReader = new IcalendarReaderICS();
-        return this.IcalendarReader.readCalendar(icsFile);
-    }
-
+//     public Calendar getCalendarForDoctor(Doctor doctor)
+//     {
+//         String calendarPath = doctor.getCalendarFile();
+//         ClassLoader classLoader = this.getClass().getClassLoader();
+//         File icsFile = new File(classLoader.getResource("calendars/"+calendarPath).getFile());
+//         IcalendarReaderICS iReader = new IcalendarReaderICS();
+//         return this.IcalendarReader.readCalendar(icsFile);
+//     }
 }
