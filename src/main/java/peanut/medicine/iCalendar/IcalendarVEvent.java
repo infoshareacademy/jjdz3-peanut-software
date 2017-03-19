@@ -26,7 +26,11 @@ public class IcalendarVEvent {
 //        Reading doctor calendar .ics file
         Doctor doctor = appointment.getDoctor();
         String filename = doctor.getCalendarFile();
-        File icsFile = new File(filename);
+
+        ClassLoader classLoader = doctor.getClass().getClassLoader();
+        String calendarsPath = classLoader.getResource("calendars").getPath();
+
+        File icsFile = new File(calendarsPath+"/"+filename);
         IcalendarReaderICS iReader = new IcalendarReaderICS();
         Calendar doctorCalendar = iReader.readCalendar(icsFile);
 
