@@ -82,7 +82,7 @@ public class PeanutMedicine {
                 String doctorName = doctorIdenitySplitted[0];
                 String doctorSurname = doctorIdenitySplitted[1];
                 Doctor doc = new Doctor(doctorName,doctorSurname, doctorSpecialization);
-                doc.setCalendarFile(f.toString());
+                doc.setCalendarFile(doctorSpecialization+"/"+doctorIdenityString);
 
                 Calendar calendar = this.IcalendarReader.readCalendar(f);
                 List<Component> vevents = calendar.getComponents("VEVENT");
@@ -285,11 +285,6 @@ public class PeanutMedicine {
             try {
 
                 survey = surveyResultPatients.get(surveyId);
-//                List<Appointment> appointments = this.findBestTerms(survey, this.doctors);
-//                for (Appointment visit : appointments)
-//                {
-//                    this.generateInvitation(visit);
-//                }
                 isSurveyChosen = true;
                 return survey;
             }
@@ -336,4 +331,21 @@ public class PeanutMedicine {
         }
         return appointmentChosen;
     }
+
+//     public void addVisitForDoctor(Appointment appointment, Doctor doctor)
+//     {
+//         IcalendarMeeting icalendarMeeting = new IcalendarMeeting();
+//         VEvent event = icalendarMeeting.makeVeventFromApp(appointment);
+//         Calendar calendar = this.getCalendarForDoctor(doctor);
+//         icalendarMeeting.addEventToCalendar(event, calendar);
+//     }
+
+//     public Calendar getCalendarForDoctor(Doctor doctor)
+//     {
+//         String calendarPath = doctor.getCalendarFile();
+//         ClassLoader classLoader = this.getClass().getClassLoader();
+//         File icsFile = new File(classLoader.getResource("calendars/"+calendarPath).getFile());
+//         IcalendarReaderICS iReader = new IcalendarReaderICS();
+//         return this.IcalendarReader.readCalendar(icsFile);
+//     }
 }
