@@ -1,8 +1,7 @@
 package peanut.medicine;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import peanut.medicine.Exceptions.WrongOptionsExeption;
+import peanut.medicine.ICDReader.ICDreaderclass;
 import peanut.medicine.iCalendar.IcalendarVEvent;
 import peanut.medicine.patient2doctor.Appointment;
 import peanut.medicine.patient2doctor.PeanutMedicine;
@@ -16,9 +15,6 @@ import java.util.List;
  * Created by moody on 24.02.17.
  */
 public class MainOptions {
-
-    private final static Logger LOGGER = LoggerFactory.getLogger(MainOptions.class);
-
     AnswerReader answerReader;
 
     public MainOptions() {
@@ -49,7 +45,7 @@ public class MainOptions {
                     selectedOption = MainMenuEnum.createFromInt(option);
 
                 } catch (WrongOptionsExeption e) {
-                    LOGGER.warn(e.getMessage());
+                    //LOGGER.warn(e.getMessage());
                     System.out.println(e.getMessage());
                 }
             }
@@ -83,6 +79,10 @@ public class MainOptions {
                         IcalendarVEvent.addVisitForDoctor(visit);
                     }
                     break;
+                case ICD_CLASSIFICATION:
+                    ICDreaderclass icd = new ICDreaderclass();
+                    icd.usingBufferedReader();
+
 
                 default:
                     System.out.println("Błędne parametry");
