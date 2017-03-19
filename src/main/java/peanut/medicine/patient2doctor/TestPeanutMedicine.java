@@ -14,14 +14,14 @@ public class TestPeanutMedicine {
 
     public static void main(String[] args) throws Exception {
 
-        PeanutMedicine peanutMedicine = new PeanutMedicine();
-        List<Doctor> doctors = peanutMedicine.getDoctorsEvents();
-
-        Doctor testDoctor = doctors.get(1);
-//        System.out.println(testDoctor.toString());
-
-        Calendar testCal = peanutMedicine.getCalendarForDoctor(testDoctor);
-        System.out.println(testCal);
+//        PeanutMedicine peanutMedicine = new PeanutMedicine();
+//        List<Doctor> doctors = peanutMedicine.getDoctorsEvents();
+//
+//        Doctor testDoctor = doctors.get(1);
+////        System.out.println(testDoctor.toString());
+//
+//        Calendar testCal = peanutMedicine.getCalendarForDoctor(testDoctor);
+//        System.out.println(testCal);
 
 //        JsonFileMap jsonReader = new JsonFileMap();
 //        Survey survey = jsonReader.makeSurveyFromJson("survey.json");

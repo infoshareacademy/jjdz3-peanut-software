@@ -79,7 +79,7 @@ public class MainOptions {
                         SurveyResultPatient patientSurvey = peanutMedicine.chooseSurveyToFindTerms();
                         List<Appointment> bestTerms = peanutMedicine.findBestTerms(patientSurvey,peanutMedicine.getDoctors());
                         Appointment visit = peanutMedicine.chooseOneTermFromProposed(bestTerms);
-                        peanutMedicine.generateInvitation(visit);
+//                        peanutMedicine.generateInvitation(visit);
                         IcalendarVEvent.addVisitForDoctor(visit);
                     }
                     break;
