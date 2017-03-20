@@ -84,10 +84,10 @@ public class MainOptions {
                         IcalendarVEvent.addVisitForDoctor(visit);
                     }
                     break;
-                    case ICD_CLASSIFICATION:
+                case ICD_CLASSIFICATION:
                     ICDreaderclass icd = new ICDreaderclass();
                     icd.usingBufferedReader();
-
+                    break;
                 default:
                     System.out.println("Błędne parametry");
             }
