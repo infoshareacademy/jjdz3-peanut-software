@@ -1,4 +1,4 @@
-package infoshare.academy.peanut.medicine.ICDReader;
+package peanut.medicine.ICDReader;
 
 /**
  * Created by Matheo on 16.03.2017.

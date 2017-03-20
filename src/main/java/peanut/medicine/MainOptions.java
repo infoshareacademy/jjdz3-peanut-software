@@ -1,5 +1,6 @@
 package peanut.medicine;
 
+import peanut.medicine.ICDReader.ICDreaderclass;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import peanut.medicine.Exceptions.WrongOptionsExeption;
@@ -83,6 +84,9 @@ public class MainOptions {
                         IcalendarVEvent.addVisitForDoctor(visit);
                     }
                     break;
+                    case ICD_CLASSIFICATION:
+                    ICDreaderclass icd = new ICDreaderclass();
+                    icd.usingBufferedReader();
 
                 default:
                     System.out.println("Błędne parametry");

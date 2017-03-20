@@ -1,6 +1,6 @@
-package infoshare.academy.peanut.medicine.ICDReader;
+package peanut.medicine.ICDReader;
 
-import MainApp.AnswerReader;
+import .AnswerReader;
 import infoshare.academy.peanut.medicine.iCalendar.IcalendarWriterICS;
 
 import java.io.BufferedReader;
