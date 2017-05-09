@@ -18,8 +18,8 @@
       "text" : "Płeć",
       "questionType" : "closed",
       "answers": [
-        {"number" : "1", "text" : "Kobieta", "value" : "woman"},
-        {"number" : "2", "text" : "Mężczyzna", "value" : "man"}
+        {"number" : "1", "text" : "Kobieta", "value" : "Kobieta"},
+        {"number" : "2", "text" : "Mężczyzna", "value" : "Mężczyzna"}
       ]
     },
     {
@@ -30,7 +30,7 @@
     },
     {
       "number" : 5,
-      "name" : "preferedSpecialization",
+      "name" : "preferredSpecialization",
       "text" : "Jaka specjalizacja lekarza?",
       "questionType" : "closed",
       "answers": [
@@ -42,15 +42,15 @@
     },
     {
       "number" : 6,
-      "name" : "preferedDay",
+      "name" : "preferredDay",
       "text" : "Jaki dzień tygodnia?",
       "questionType" : "closed",
       "answers": [
-        {"number" : "1", "text" : "poniedziałek", "value" : "monday"},
-        {"number" : "2", "text" : "wtorek", "value" : "tuesday"},
-        {"number" : "3", "text" : "środa", "value" : "wednesday"},
-        {"number" : "4", "text" : "czwartek", "value" : "thursday"},
-        {"number" : "5", "text" : "piątek", "value" : "friday"}
+        {"number" : "1", "text" : "poniedziałek", "value" : "Monday"},
+        {"number" : "2", "text" : "wtorek", "value" : "Tuesday"},
+        {"number" : "3", "text" : "środa", "value" : "Wednesday"},
+        {"number" : "4", "text" : "czwartek", "value" : "Thursday"},
+        {"number" : "5", "text" : "piątek", "value" : "Friday"}
       ]
     }
   ]

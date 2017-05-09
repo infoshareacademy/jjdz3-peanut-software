@@ -1,7 +1,7 @@
-package peanut.medicine.patient2doctor;
+package peanut.medicine.appointment;
 
 import peanut.medicine.doctor.Doctor;
-import peanut.medicine.survey.Patient;
+import peanut.medicine.patient2doctor.Patient;
 
 import java.time.LocalDate;
 

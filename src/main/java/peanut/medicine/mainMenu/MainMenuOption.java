@@ -9,8 +9,8 @@ public enum MainMenuOption {
 
     EXIT(0, "Wyjście z programu"),
     READ_DOCTORS_ICALS(1, "Wczytaj kalendarze lekarzy"),
-    ADD_SURVEY_PATIENT(2, "Dodaj kwestionariusz"),
-    PRINT_SURVEY_PATIENT(3, "Wyświetl kwestionariusze"),
+    ADD_PATIENT_SURVEY(2, "Dodaj kwestionariusz"),
+    PRINT_PATIENT_SURVEY(3, "Wyświetl kwestionariusze"),
     FIND_BEST_TERM(4, "Znajdz termin"),
     ICD_CLASSIFICATION(5, "Wczytaj klasyfikację");
 

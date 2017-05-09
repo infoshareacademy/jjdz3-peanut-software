@@ -5,6 +5,7 @@
 package peanut.medicine.survey;
 
 import peanut.medicine.mainMenu.InputReader;
+import peanut.medicine.patient2doctor.Patient;
 
 import java.util.List;
 
@@ -13,11 +14,10 @@ public class Survey {
     private List<Question> questions;
 
     public List<Question> getQuestions() {
-        return questions;
+        return this.questions;
     }
 
     public void addQuestion(Question question) {
-
         this.questions.add(question);
     }
 
@@ -36,7 +36,6 @@ public class Survey {
                     surveyDisplay = surveyDisplay + "\n" + answer.getNumber() + " : " + answer.getText();
                 }
             }
-
         }
         return surveyDisplay;
     }
@@ -64,6 +63,7 @@ public class Survey {
             }
             patient.setParam(q.getName(), answerToSave);
         }
+        System.out.println("Dziękujemy za wypełnienie kwestionariusza.");
         return patient;
     }
 }

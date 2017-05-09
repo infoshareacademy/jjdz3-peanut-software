@@ -1,4 +1,4 @@
-package peanut.medicine.survey;
+package peanut.medicine.patient2doctor;
 
 /**
  * Created by bartman3000 on 2017-03-12.
@@ -9,8 +9,8 @@ public class Patient {
     private String surname;
     private String sex;
     private String pesel;
-    private String preferedSpecialization;
-    private String preferedDay;
+    private String preferredSpecialization;
+    private String preferredDay;
 
     public <T> void setParam(String param, T value)
     {
@@ -32,12 +32,12 @@ public class Patient {
                 this.setPesel(value.toString());
                 break;
 
-            case "preferedSpecialization":
-                this.setPreferedSpecialization(value.toString());
+            case "preferredSpecialization":
+                this.setPreferredSpecialization(value.toString());
                 break;
 
-            case "preferedDay":
-                this.setPreferedDay(value.toString());
+            case "preferredDay":
+                this.setPreferredDay(value.toString());
                 break;
         }
     }
@@ -74,29 +74,29 @@ public class Patient {
         this.pesel = pesel;
     }
 
-    public String getPreferedSpecialization() {
-        return preferedSpecialization;
+    public String getPreferredSpecialization() {
+        return preferredSpecialization;
     }
 
-    public void setPreferedSpecialization(String preferedSpecialization) {
-        this.preferedSpecialization = preferedSpecialization;
+    public void setPreferredSpecialization(String preferredSpecialization) {
+        this.preferredSpecialization = preferredSpecialization;
     }
 
-    public String getPreferedDay() {
-        return preferedDay;
+    public String getPreferredDay() {
+        return preferredDay;
     }
 
-    public void setPreferedDay(String preferedDay) {
-        this.preferedDay = preferedDay;
+    public void setPreferredDay(String preferredDay) {
+        this.preferredDay = preferredDay;
     }
 
     public String displayPatient() {
-        return "Imię: "+ this.getName()+"\nNazwisko: "+this.getSurname()+ "\nPłeć: "+this.getSex()+"\nPesel: "+this.getPesel()+ "\nPotrzebny lekarz: "+this.getPreferedSpecialization()+ "\nPreferowany dzień tygodnia na wizytę: "+this.getPreferedDay();
+        return "Imię: "+ this.getName()+"\nNazwisko: "+this.getSurname()+ "\nPłeć: "+this.getSex()+"\nPesel: "+this.getPesel()+ "\nPotrzebny lekarz: "+this.getPreferredSpecialization()+ "\nPreferowany dzień tygodnia na wizytę: "+this.getPreferredDay();
     }
 
     @Override
     public String toString() {
-        return this.getName()+" | "+this.getSurname()+ " | "+this.getSex()+" | "+this.getPesel()+ " | "+this.getPreferedSpecialization()+ " | "+this.getPreferedDay();
+        return this.getName()+" | "+this.getSurname()+ " | "+this.getSex()+" | "+this.getPesel()+ " | "+this.getPreferredSpecialization()+ " | "+this.getPreferredDay();
     }
 
     public String displayPatientName() {

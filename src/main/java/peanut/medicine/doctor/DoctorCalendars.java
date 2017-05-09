@@ -5,7 +5,6 @@ import net.fortuna.ical4j.model.Component;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import peanut.medicine.iCalendar.IcalendarReaderICS;
-import peanut.medicine.patient2doctor.PeanutMedicine;
 
 import java.io.File;
 import java.time.LocalDate;
@@ -19,7 +18,7 @@ import java.util.List;
  */
 public class DoctorCalendars {
 
-    private final static Logger LOGGER = LoggerFactory.getLogger(PeanutMedicine.class);
+    private final static Logger LOGGER = LoggerFactory.getLogger(DoctorCalendars.class);
 
     private List<Doctor> doctors = new ArrayList<>();
 

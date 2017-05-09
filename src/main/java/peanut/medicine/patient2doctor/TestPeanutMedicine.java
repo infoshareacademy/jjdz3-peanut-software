@@ -28,8 +28,8 @@ public class TestPeanutMedicine {
 //        testSurveyResultPatient.setSurname("Nowak");
 //        testSurveyResultPatient.setSex("man");
 //        testSurveyResultPatient.setPesel("12344");
-//        testSurveyResultPatient.setPreferedSpecialization("dentysta");
-//        testSurveyResultPatient.setPreferedDay("friday");
+//        testSurveyResultPatient.setPreferredSpecialization("dentysta");
+//        testSurveyResultPatient.setPreferredDay("friday");
 //        patient = testSurveyResultPatient;
 
 //        List<Appointment> appointments = peanutMedicine.findBestTerms(patient,doctors);
