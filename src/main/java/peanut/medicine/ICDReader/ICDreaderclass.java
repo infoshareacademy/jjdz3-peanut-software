@@ -1,12 +1,9 @@
 package peanut.medicine.ICDReader;
 
-import peanut.medicine.AnswerReader;
+import peanut.medicine.mainMenu.InputReader;
 //import infoshare.academy.peanut.medicine.iCalendar.IcalendarWriterICS;
 
-import java.io.BufferedReader;
-import java.io.File;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -43,8 +40,8 @@ public class ICDreaderclass {
 
 //  ICD value input
         System.out.println("ICD code: ");
-        AnswerReader answerReader = new AnswerReader();
-        String inputString = answerReader.getValueString();
+        InputReader inputReader = new InputReader();
+        String inputString = inputReader.getValueString();
 
 //            BufferedReader bufferRead = new BufferedReader(new InputStreamReader(System.in));
 //            String inputString = bufferRead.readLine();

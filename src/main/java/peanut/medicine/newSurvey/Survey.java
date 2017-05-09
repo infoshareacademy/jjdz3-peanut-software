@@ -4,7 +4,7 @@
 
 package peanut.medicine.newSurvey;
 
-import peanut.medicine.AnswerReader;
+import peanut.medicine.mainMenu.InputReader;
 
 import java.util.List;
 
@@ -46,7 +46,7 @@ public class Survey {
 
     public SurveyResultPatient runSurvey()
     {
-        AnswerReader answerReader = new AnswerReader();
+        InputReader inputReader = new InputReader();
         SurveyResultPatient surveyResultPatient = new SurveyResultPatient();
 
         for(Question q : this.getQuestions())
@@ -60,13 +60,13 @@ public class Survey {
                 if(q.getQuestionType().equals("closed"))
                 {
                     q.displayAnswers();
-                    Integer answer = answerReader.getValueInt();
+                    Integer answer = inputReader.getValueInt();
                     isValidAnswer = q.isValidClosedAnswer(answer);
                     answerToSave = q.getAnswerValue(answer);
                 }
                 else
                 {
-                    String answer = answerReader.getValueString();
+                    String answer = inputReader.getValueString();
                     isValidAnswer = q.isValidOpenAnswer(answer);
                     answerToSave = answer;
                 }

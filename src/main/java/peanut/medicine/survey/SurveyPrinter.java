@@ -1,6 +1,6 @@
 package peanut.medicine.survey;
 
-import peanut.medicine.AnswerReader;
+import peanut.medicine.mainMenu.InputReader;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -28,12 +28,12 @@ public class SurveyPrinter {
 
     private ArrayList<ArrayList<String>> allAnswers = new ArrayList<>();
     private SurveyShowQuestions surveyShowQuestions;
-    private AnswerReader answerReader;
+    private InputReader inputReader;
     private ArrayList patientAnswers = new ArrayList();
 
     public SurveyPrinter() {
         surveyShowQuestions = new SurveyShowQuestions();
-        answerReader = new AnswerReader();
+        inputReader = new InputReader();
     }
 
     public void controlLoop() {
@@ -42,7 +42,7 @@ public class SurveyPrinter {
 
         printOptions();
 
-        while ((option = SurveyEnumOption.createFromInt(answerReader.getValueInt())) != SurveyEnumOption.EXIT) {
+        while ((option = SurveyEnumOption.createFromInt(inputReader.getValueInt())) != SurveyEnumOption.EXIT) {
 
             switch (option) {
                 case ADD_SURVEY_PATIENT:
@@ -56,7 +56,7 @@ public class SurveyPrinter {
                     break;
                 case PRINT_FIND_PATIENT_BY_LASTNAME:
 
-                    String lastName = answerReader.getValueString();
+                    String lastName = inputReader.getValueString();
 
                   ArrayList<String> writeAnswers =  findByLastName(allAnswers, lastName);
                     System.out.println(writeAnswers);
@@ -68,7 +68,7 @@ public class SurveyPrinter {
             printOptions();
 
         }
-        //   answerReader.close();
+        //   inputReader.close();
     }
 
 
@@ -90,7 +90,7 @@ public class SurveyPrinter {
 
 
                 surveyShowQuestions.printOneQuestions(surveyPatient);
-                String answer = answerReader.getValueString();
+                String answer = inputReader.getValueString();
                 answers.add(answer);
                 index++ ;
 

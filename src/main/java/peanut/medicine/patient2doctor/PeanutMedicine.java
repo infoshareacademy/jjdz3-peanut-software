@@ -9,7 +9,7 @@ import net.fortuna.ical4j.model.property.Version;
 import net.fortuna.ical4j.util.UidGenerator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import peanut.medicine.AnswerReader;
+import peanut.medicine.mainMenu.InputReader;
 import peanut.medicine.iCalendar.IcalendarReaderICS;
 import peanut.medicine.iCalendar.IcalendarWriterICS;
 import peanut.medicine.newSurvey.SurveyResultPatient;
@@ -279,8 +279,8 @@ public class PeanutMedicine {
         while (!isSurveyChosen)
         {
             System.out.println("\nPodaj id kwestionariusza:");
-            AnswerReader answerReader = new AnswerReader();
-            int surveyId = answerReader.getValueInt();
+            InputReader inputReader = new InputReader();
+            int surveyId = inputReader.getValueInt();
 
             try {
 
@@ -314,8 +314,8 @@ public class PeanutMedicine {
         while (!isTermChosen)
         {
             System.out.println("\nWybierz numer terminu dla którego chcesz wygenerować zaproszenie:");
-            AnswerReader answerReader = new AnswerReader();
-            int termId = answerReader.getValueInt();
+            InputReader inputReader = new InputReader();
+            int termId = inputReader.getValueInt();
 
             try {
 

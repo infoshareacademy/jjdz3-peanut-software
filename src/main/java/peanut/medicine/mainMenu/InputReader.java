@@ -1,4 +1,4 @@
-package peanut.medicine;
+package peanut.medicine.mainMenu;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,13 +9,13 @@ import java.util.Scanner;
 /**
  * Created by moody on 23.02.17.
  */
-public class AnswerReader {
+public class InputReader {
 
-    private final static Logger LOGGER = LoggerFactory.getLogger(AnswerReader.class);
+    private final static Logger LOGGER = LoggerFactory.getLogger(InputReader.class);
 
     private Scanner scanner;
 
-    public AnswerReader() {
+    public InputReader() {
         scanner = new Scanner(System.in);
     }
 
@@ -32,7 +32,7 @@ public class AnswerReader {
         } catch (InputMismatchException e)
         {
             scanner.nextLine();
-            return 0;
+            return 99;
         }
     }
 
