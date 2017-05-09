@@ -1,7 +1,6 @@
 package peanut.medicine.patient2doctor;
 
 import net.fortuna.ical4j.model.Calendar;
-import net.fortuna.ical4j.model.Component;
 import net.fortuna.ical4j.model.component.VEvent;
 import net.fortuna.ical4j.model.property.CalScale;
 import net.fortuna.ical4j.model.property.ProdId;
@@ -9,17 +8,16 @@ import net.fortuna.ical4j.model.property.Version;
 import net.fortuna.ical4j.util.UidGenerator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import peanut.medicine.mainMenu.InputReader;
-import peanut.medicine.iCalendar.IcalendarReaderICS;
+import peanut.medicine.doctor.Doctor;
+import peanut.medicine.doctor.Doctors;
 import peanut.medicine.iCalendar.IcalendarWriterICS;
-import peanut.medicine.newSurvey.SurveyResultPatient;
+import peanut.medicine.mainMenu.InputReader;
+import peanut.medicine.survey.Patient;
 
 import java.io.File;
 import java.net.SocketException;
 import java.text.ParseException;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
@@ -35,100 +33,94 @@ public class PeanutMedicine {
 
     private final static Logger LOGGER = LoggerFactory.getLogger(PeanutMedicine.class);
 
-    private IcalendarReaderICS IcalendarReader;
-    private List<Doctor> doctors;
-    private List<SurveyResultPatient> surveyResultPatients;
+    private Doctors doctors;
+//    private List<Doctor> doctors;
+    private List<Patient> patients;
 
-    public PeanutMedicine()
-    {
-        this.doctors = new ArrayList<Doctor>();
-        this.surveyResultPatients = new ArrayList<SurveyResultPatient>();
+    public PeanutMedicine() {
+        this.doctors = new Doctors();
+//        this.doctors = new ArrayList<Doctor>();
+        this.patients = new ArrayList<>();
     }
 
-    public List<SurveyResultPatient> getSurveyResultPatients()
-    {
-        return this.surveyResultPatients;
+    public List<Patient> getPatients() {
+        return this.patients;
     }
 
-    public void printDoctors()
-    {
-        LOGGER.info("printDoctors()");
-        System.out.println("Imported doctors");
-        for(Doctor d : this.doctors)
-        {
-            System.out.println(d.toString());
-        }
-    }
+//    public void printDoctorsWithEvents() {
+//        LOGGER.info("printDoctorsWithEvents()");
+//        System.out.println("Imported doctors");
+//        for(Doctor d : this.doctors) {
+//            System.out.println(d.toString());
+//        }
+//    }
 
     public List<Doctor> getDoctors()
     {
-        return this.doctors;
+        return doctors.getDoctors();
     }
 
 
-    public List<Doctor> getDoctorsEvents()
-    {
-        this.IcalendarReader = new IcalendarReaderICS();
-        File[] listOfDirs = this.getElementsInDir("calendars");
-        for (File d : listOfDirs)
-        {
-            String doctorSpecialization = d.getName();
-            File[] listOfFiles = this.getElementsInDir("calendars/"+doctorSpecialization);
+//    public List<Doctor> getDoctorsCalendars() {
+//        IcalendarReaderICS icalendarReader = new IcalendarReaderICS();
+//        File[] listOfDirs = this.getElementsInDir("calendars");
+//        for (File d : listOfDirs)
+//        {
+//            String doctorSpecialization = d.getName();
+//            File[] listOfFiles = this.getElementsInDir("calendars/"+doctorSpecialization);
+//
+//            for (File f : listOfFiles)
+//            {
+//                String doctorIdenityString = f.getName();
+//                String[] doctorIdenitySplitted = doctorIdenityString.split("\\.");
+//                String doctorName = doctorIdenitySplitted[0];
+//                String doctorSurname = doctorIdenitySplitted[1];
+//                Doctor doc = new Doctor(doctorName,doctorSurname, doctorSpecialization);
+//                doc.setCalendarFile(doctorSpecialization+"/"+doctorIdenityString);
+//
+//                Calendar calendar = icalendarReader.readCalendar(f);
+//                List<Component> vevents = calendar.getComponents("VEVENT");
+//
+//                for(Component event : vevents)
+//                {
+//                    String dtStart = event.getProperty("DTSTART").getValue();
+//                    LocalDate term = this.getDateTimeFromICalParam(dtStart);
+//                    doc.addTerm(term);
+//                }
+//                this.doctors.add(doc);
+//            }
+//        }
+//        return this.doctors;
+//    }
+//
+//    protected LocalDate getDateTimeFromICalParam(String dtstamp) {
+//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+//        try {
+//            return LocalDate.parse(dtstamp,formatter);
+//        } catch (DateTimeParseException e) {
+//            formatter = DateTimeFormatter.ofPattern("yyyyMMdd'T'HHmmss");
+//            return LocalDate.parse(dtstamp,formatter);
+//        }
+//    }
+//
+//
+//    protected File[] getElementsInDir(String resource) throws NullPointerException
+//    {
+//        ClassLoader classLoader = this.getClass().getClassLoader();
+//        String elementsPath = classLoader.getResource(resource).getPath();
+//        File elementsDir = new File(elementsPath);
+//        return elementsDir.listFiles();
+//    }
 
-            for (File f : listOfFiles)
-            {
-                String doctorIdenityString = f.getName();
-                String[] doctorIdenitySplitted = doctorIdenityString.split("\\.");
-                String doctorName = doctorIdenitySplitted[0];
-                String doctorSurname = doctorIdenitySplitted[1];
-                Doctor doc = new Doctor(doctorName,doctorSurname, doctorSpecialization);
-                doc.setCalendarFile(doctorSpecialization+"/"+doctorIdenityString);
-
-                Calendar calendar = this.IcalendarReader.readCalendar(f);
-                List<Component> vevents = calendar.getComponents("VEVENT");
-
-                for(Component event : vevents)
-                {
-                    String dtStart = event.getProperty("DTSTART").getValue();
-                    LocalDate term = this.getDateTimeFromICalParam(dtStart);
-                    doc.addTerm(term);
-                }
-                this.doctors.add(doc);
-            }
-        }
-        return this.doctors;
-    }
-
-    protected LocalDate getDateTimeFromICalParam(String dtstamp)
-    {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
-        try {
-            return LocalDate.parse(dtstamp,formatter);
-        } catch (DateTimeParseException e)
-        {
-            formatter = DateTimeFormatter.ofPattern("yyyyMMdd'T'HHmmss");
-            return LocalDate.parse(dtstamp,formatter);
-        }
-    }
-
-
-    protected File[] getElementsInDir(String resource) throws NullPointerException
-    {
-        ClassLoader classLoader = this.getClass().getClassLoader();
-        String elementsPath = classLoader.getResource(resource).getPath();
-        File elementsDir = new File(elementsPath);
-        return elementsDir.listFiles();
-    }
-
-    public List<Appointment> findBestTerms (SurveyResultPatient surveyResultPatient, List<Doctor> Alldoctors)
+    public List<Appointment> findBestTerms (Patient patient, List<Doctor> Alldoctors)
     {
         LOGGER.info("findBestTerms()");
-        LOGGER.debug("findBestTerms:surveyResultPatient:"+surveyResultPatient.toString());
+        LOGGER.debug("findBestTerms:patient:"+ patient.toString());
         LOGGER.debug("findBestTerms:Alldoctors:"+Alldoctors);
 
         List<Appointment> appointments = new ArrayList<>();
-        String specialization = surveyResultPatient.getPreferedSpecialization();
-        String preferedDay = surveyResultPatient.getPreferedDay();
+        String specialization = patient.getPreferedSpecialization();
+        String preferedDay = patient.getPreferedDay();
         LOGGER.debug("findBestTerms:specialization:"+specialization);
 
         //take only doctor with specialization
@@ -170,7 +162,7 @@ public class PeanutMedicine {
 
             for (LocalDate term : terms)
             {
-                Appointment appointment = new Appointment(surveyResultPatient, doctor, term);
+                Appointment appointment = new Appointment(patient, doctor, term);
                 appointments.add(appointment);
             }
         }
@@ -214,7 +206,7 @@ public class PeanutMedicine {
         calendar.getProperties().add(CalScale.GREGORIAN);
 
         LocalDate term = appointment.getTerm();
-        SurveyResultPatient surveyResultPatient = appointment.getSurveyResultPatient();
+        Patient patient = appointment.getPatient();
 
         java.util.Calendar calendar2 = java.util.Calendar.getInstance();
         calendar2.set(java.util.Calendar.MONTH, term.getMonthValue()-1);
@@ -235,7 +227,7 @@ public class PeanutMedicine {
         String invitationsPath = classLoader.getResource("invitations").getPath();
         LOGGER.debug("generateInvitation:invitationsPath:"+invitationsPath.toString());
 
-        File icsFile = new File(invitationsPath+"/"+ surveyResultPatient.getName()+""+ surveyResultPatient.getSurname()+"-"+term.toString()+".ics");
+        File icsFile = new File(invitationsPath+"/"+ patient.getName()+""+ patient.getSurname()+"-"+term.toString()+".ics");
         LOGGER.debug("generateInvitation:icsFile:"+icsFile.getPath());
 
         IcalendarWriterICS IcalendarWriterICS = new IcalendarWriterICS();
@@ -244,23 +236,23 @@ public class PeanutMedicine {
         LOGGER.info("Invitation saved in:"+icsFile.getPath());
     }
 
-    public void addSurveyResult(SurveyResultPatient patient)
+    public void addSurveyResult(Patient patient)
     {
-        this.surveyResultPatients.add(patient);
+        this.patients.add(patient);
     }
 
     public void showAllPatientResults()
     {
         LOGGER.info("showAllPatientResults()");
-        if(!this.surveyResultPatients.isEmpty())
+        if(!this.patients.isEmpty())
         {
-            int surveysCnt = this.surveyResultPatients.size();
+            int surveysCnt = this.patients.size();
             System.out.println("\n --------------------------------");
             System.out.println("\n Liczba kwestionariuszy: "+surveysCnt);
 
             for (int i = 0; i < surveysCnt; i++)
             {
-                SurveyResultPatient survey = surveyResultPatients.get(i);
+                Patient survey = patients.get(i);
                 System.out.println("\nId:"+i+"____________");
                 System.out.println(survey.displayPatient());
             }
@@ -272,9 +264,9 @@ public class PeanutMedicine {
         }
     }
 
-    public SurveyResultPatient chooseSurveyToFindTerms() throws ParseException, SocketException {
+    public Patient chooseSurveyToFindTerms() throws ParseException, SocketException {
 
-        SurveyResultPatient survey = new SurveyResultPatient();
+        Patient survey = new Patient();
         Boolean isSurveyChosen = false;
         while (!isSurveyChosen)
         {
@@ -284,7 +276,7 @@ public class PeanutMedicine {
 
             try {
 
-                survey = surveyResultPatients.get(surveyId);
+                survey = patients.get(surveyId);
                 isSurveyChosen = true;
                 return survey;
             }
@@ -309,7 +301,7 @@ public class PeanutMedicine {
             System.out.println(i+"."+doctorS+" : "+ termS);
         }
 
-        Appointment appointmentChosen = new Appointment(new SurveyResultPatient(),new Doctor("","",""),LocalDate.now());
+        Appointment appointmentChosen = new Appointment(new Patient(),new Doctor("","",""),LocalDate.now());
         Boolean isTermChosen = false;
         while (!isTermChosen)
         {

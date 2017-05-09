@@ -1,9 +1,9 @@
-package peanut.medicine.newSurvey;
+package peanut.medicine.survey;
 
 /**
  * Created by bartman3000 on 2017-03-12.
  */
-public class SurveyResultPatient {
+public class Patient {
 
     private String name;
     private String surname;
@@ -96,7 +96,6 @@ public class SurveyResultPatient {
 
     @Override
     public String toString() {
-
         return this.getName()+" | "+this.getSurname()+ " | "+this.getSex()+" | "+this.getPesel()+ " | "+this.getPreferedSpecialization()+ " | "+this.getPreferedDay();
     }
 

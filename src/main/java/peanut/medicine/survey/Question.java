@@ -1,4 +1,4 @@
-package peanut.medicine.newSurvey;
+package peanut.medicine.survey;
 
 import org.apache.commons.lang.math.NumberUtils;
 
@@ -23,6 +23,14 @@ public class Question {
 
     public void setNumber(int number) {
         this.number = number;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getText() {
@@ -57,64 +65,40 @@ public class Question {
         this.selectedAnswer = selectedAnswer;
     }
 
-    public void displayAnswers()
-    {
-        for(Answer a : this.answers)
-        {
+    public void displayAnswers() {
+        for(Answer a : this.answers) {
             System.out.println(a.getNumber()+":"+a.getText());
         }
     }
 
-    public String getAnswerValue(Integer number)
-    {
-        for(Answer a : this.answers)
-        {
-            if (a.getNumber().equals(number))
-            {
+    public String getAnswerValue(Integer number) {
+        for(Answer a : this.answers) {
+            if (a.getNumber().equals(number)) {
                 return a.getValue();
             }
         }
         return "";
     }
 
-    public boolean isValidOpenAnswer(String answer)
-    {
+    public boolean isValidOpenAnswer(String answer) {
         String answerType = NumberUtils.isNumber(answer) ? "Integer" : answer.getClass().getSimpleName();
-
-//        System.out.println("answerType:"+answerType);
-
-        if(answer.isEmpty())
-        {
+        if(answer.isEmpty()) {
             System.out.println("Podaj odpowiedź.");
             return false;
         }
-
         return true;
     }
 
-    public boolean isValidClosedAnswer(Integer answer)
-    {
+    public boolean isValidClosedAnswer(Integer answer) {
         List<Integer> possibleNumbers = new ArrayList<>();
-        for(Answer a : this.getAnswers())
-        {
+        for(Answer a : this.getAnswers()) {
             possibleNumbers.add(a.getNumber());
         }
-
-        if(possibleNumbers.contains(answer.intValue()))
-        {
+        if(possibleNumbers.contains(answer)) {
             return true;
-        }
-        else {
+        } else {
             System.out.println("Zły wybór. Wybierz jeden z numerów odpowiedzi");
             return false;
         }
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 }

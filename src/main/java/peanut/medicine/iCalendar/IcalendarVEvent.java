@@ -8,7 +8,7 @@ import net.fortuna.ical4j.util.UidGenerator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import peanut.medicine.patient2doctor.Appointment;
-import peanut.medicine.patient2doctor.Doctor;
+import peanut.medicine.doctor.Doctor;
 
 import java.io.File;
 import java.net.SocketException;
@@ -35,7 +35,7 @@ public class IcalendarVEvent {
         Calendar doctorCalendar = iReader.readCalendar(icsFile);
 
         // Create the event
-        String patientName = appointment.getSurveyResultPatient().getName() + " " + appointment.getSurveyResultPatient().getSurname();
+        String patientName = appointment.getPatient().getName() + " " + appointment.getPatient().getSurname();
         String eventName = "Appointment for patient " + patientName;
 
         LocalDate term = appointment.getTerm();

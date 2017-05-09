@@ -1,4 +1,4 @@
-package peanut.medicine.patient2doctor;
+package peanut.medicine.doctor;
 
 import java.time.LocalDate;
 import java.util.HashSet;
@@ -19,7 +19,7 @@ public class Doctor {
         this.name = name;
         this.surname = surname;
         this.specialization = specialization;
-        this.terms = new HashSet<LocalDate>();
+        this.terms = new HashSet<>();
     }
 
     public String getName() {
@@ -50,14 +50,12 @@ public class Doctor {
         return terms;
     }
 
-    public void addTerm(LocalDate d)
-    {
+    public void addTerm(LocalDate d) {
         terms.add(d);
     }
 
-    public String toString()
-    {
-        return this.specialization + " " + this.name + " "+this.surname + " " +this.calendarFile+ " " + this.terms.toString();
+    public String toString() {
+        return this.specialization + " " + this.name + " " + this.surname + " - zajęte terminy: " + this.terms.toString();
     }
 
     public String getCalendarFile() {

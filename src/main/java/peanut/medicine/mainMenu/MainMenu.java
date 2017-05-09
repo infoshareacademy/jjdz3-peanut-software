@@ -5,9 +5,10 @@ import org.slf4j.LoggerFactory;
 import peanut.medicine.exceptions.WrongOptionException;
 import peanut.medicine.ICDReader.ICDreaderclass;
 import peanut.medicine.iCalendar.IcalendarVEvent;
-import peanut.medicine.newSurvey.JsonFileMap;
-import peanut.medicine.newSurvey.Survey;
-import peanut.medicine.newSurvey.SurveyResultPatient;
+import peanut.medicine.doctor.DoctorCalendars;
+import peanut.medicine.survey.JsonFileMap;
+import peanut.medicine.survey.Patient;
+import peanut.medicine.survey.Survey;
 import peanut.medicine.patient2doctor.Appointment;
 import peanut.medicine.patient2doctor.PeanutMedicine;
 
@@ -29,8 +30,10 @@ public class MainMenu {
     public void runMainMenu() throws Exception {
 
         PeanutMedicine peanutMedicine = new PeanutMedicine();
+        DoctorCalendars doctorCalendars = new DoctorCalendars();
         JsonFileMap jsonReader = new JsonFileMap();
-        Survey survey = jsonReader.makeSurveyFromJson("survey.json");
+        String jsonFile = "survey.json";
+        Survey survey = jsonReader.makeSurveyFromJson(jsonFile);
         MainMenuOption selectedOption = null;
 
         while (selectedOption == null || selectedOption != MainMenuOption.EXIT) {
@@ -41,21 +44,21 @@ public class MainMenu {
                 case EXIT:
                     break;
                 case READ_DOCTORS_ICALS:
-                    peanutMedicine.getDoctorsEvents();
-                    peanutMedicine.printDoctors();
+                    doctorCalendars.getDoctorsCalendars();
+                    doctorCalendars.printDoctorsWithEvents();
                     break;
                 case ADD_SURVEY_PATIENT:
-                    SurveyResultPatient patient = survey.runSurvey();
+                    Patient patient = survey.runSurvey();
                     peanutMedicine.addSurveyResult(patient);
                     break;
                 case PRINT_SURVEY_PATIENT:
                     peanutMedicine.showAllPatientResults();
                     break;
                 case FIND_BEST_TERM:
-                    if (peanutMedicine.getSurveyResultPatients().isEmpty()) {
+                    if (peanutMedicine.getPatients().isEmpty()) {
                         System.out.println("\nNie wprowadzono jeszcze żadnych kwestionariuszy.");
                     } else {
-                        SurveyResultPatient patientSurvey = peanutMedicine.chooseSurveyToFindTerms();
+                        Patient patientSurvey = peanutMedicine.chooseSurveyToFindTerms();
                         List<Appointment> bestTerms = peanutMedicine.findBestTerms(patientSurvey, peanutMedicine.getDoctors());
                         Appointment visit = peanutMedicine.chooseOneTermFromProposed(bestTerms);
                         peanutMedicine.generateInvitation(visit);
