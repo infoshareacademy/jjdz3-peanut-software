@@ -17,11 +17,11 @@ import java.time.LocalDate;
 /**
  * Created by Mariusz on 2017-03-18.
  */
-public class IcalendarVEvent {
+public class IcalendarVisitEvent {
 
-    private final static Logger LOGGER = LoggerFactory.getLogger(IcalendarVEvent.class);
+    private final static Logger LOGGER = LoggerFactory.getLogger(IcalendarVisitEvent.class);
 
-    public static void addVisitForDoctor(Appointment appointment) {
+    public static void addVisitToDoctorCalendar(Appointment appointment) {
 
 //        Reading doctor calendar .ics file
         Doctor doctor = appointment.getDoctor();

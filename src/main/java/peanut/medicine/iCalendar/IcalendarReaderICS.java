@@ -15,19 +15,17 @@ import java.io.IOException;
 
 public class IcalendarReaderICS {
 
-    public Calendar readCalendar(File icsFile){
+    public Calendar readCalendar(File icsFile) {
 
         //Now Parsing an iCalendar file
-
         try {
             FileInputStream fin = new FileInputStream(icsFile);
             CalendarBuilder builder = new CalendarBuilder();
             Calendar calendar = builder.build(fin);
-            return calendar ;
-        }
-        catch (IOException | ParserException e){
+            return calendar;
+        } catch (IOException | ParserException e) {
             System.out.println(e);
         }
-      return null;
+        return null;
     }
 }

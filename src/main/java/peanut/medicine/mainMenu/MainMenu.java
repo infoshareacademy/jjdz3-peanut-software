@@ -10,7 +10,7 @@ import peanut.medicine.appointment.ProposedTerms;
 import peanut.medicine.doctor.DoctorCalendars;
 import peanut.medicine.doctor.Doctors;
 import peanut.medicine.exceptions.WrongOptionException;
-import peanut.medicine.iCalendar.IcalendarVEvent;
+import peanut.medicine.iCalendar.IcalendarVisitEvent;
 import peanut.medicine.patient.Patient;
 import peanut.medicine.patient.Patients;
 import peanut.medicine.survey.JsonFileMap;
@@ -70,7 +70,7 @@ public class MainMenu {
                         List<Appointment> appointmentsBestTerms = appointments.findBestTerms(patientChosen, doctors);
                         Appointment visit = proposedTerms.chooseOneTerm(appointmentsBestTerms);
                         invitation.generateInvitationForPatient(visit);
-                        IcalendarVEvent.addVisitForDoctor(visit);
+                        IcalendarVisitEvent.addVisitToDoctorCalendar(visit);
                     }
                     break;
                 case ICD_CLASSIFICATION:
