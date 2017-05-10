@@ -3,6 +3,7 @@ package peanut.medicine.mainMenu;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import peanut.medicine.appointment.BestTerms;
+import peanut.medicine.appointment.ProposedTerms;
 import peanut.medicine.doctor.Doctors;
 import peanut.medicine.exceptions.WrongOptionException;
 import peanut.medicine.ICDReader.ICDreaderclass;
@@ -37,6 +38,7 @@ public class MainMenu {
         Doctors doctors = new Doctors();
         Patients patients = new Patients();
         BestTerms appointments = new BestTerms();
+        ProposedTerms proposedTerms = new ProposedTerms();
         JsonFileMap jsonReader = new JsonFileMap();
         String jsonFile = "survey.json";
         Survey survey = jsonReader.makeSurveyFromJson(jsonFile);
@@ -66,7 +68,7 @@ public class MainMenu {
                     } else {
                         Patient patientChosen = patients.choosePatient();
                         List<Appointment> appointmentsBestTerms = appointments.findBestTerms(patientChosen, doctors);
-                        Appointment visit = peanutMedicine.chooseOneTermFromProposed(appointmentsBestTerms);
+                        Appointment visit = proposedTerms.chooseOneTerm(appointmentsBestTerms);
                         peanutMedicine.generateInvitation(visit);
                         IcalendarVEvent.addVisitForDoctor(visit);
                     }

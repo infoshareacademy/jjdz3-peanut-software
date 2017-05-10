@@ -63,9 +63,6 @@ public class BestTerms {
 
             //step 5: return 2 terms for this doctor from top of the list
             terms = terms.subList(0, 2);
-            System.out.println("Odpowiedni lekarz i 2 najlepsze terminy:\n");
-            System.out.println(doctor.getName() + " " + doctor.getSurname() + ":");
-            System.out.println(terms);
 
             for (LocalDate term : terms) {
                 Appointment appointment = new Appointment(patient, doctor, term);

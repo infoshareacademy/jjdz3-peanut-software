@@ -9,15 +9,12 @@ import net.fortuna.ical4j.util.UidGenerator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import peanut.medicine.appointment.Appointment;
-import peanut.medicine.doctor.Doctor;
 import peanut.medicine.iCalendar.IcalendarWriterICS;
-import peanut.medicine.mainMenu.InputReader;
 
 import java.io.File;
 import java.net.SocketException;
 import java.text.ParseException;
 import java.time.LocalDate;
-import java.util.List;
 
 /**
  * Created by bartman3000 on 2017-03-11.
@@ -67,35 +64,5 @@ public class PeanutMedicine {
         IcalendarWriterICS.writeCalendar(calendar, icsFile);
 
         LOGGER.info("Invitation saved in:" + icsFile.getPath());
-    }
-
-
-    public Appointment chooseOneTermFromProposed(List<Appointment> appointments) {
-        for (int i = 1; i <= appointments.size(); i++) {
-            Appointment ap = appointments.get(i - 1);
-            String doctorS = ap.getDoctor().getName() + " " + ap.getDoctor().getSurname();
-            String termS = ap.getTerm().getYear() + "-" + ap.getTerm().getMonth() + "-" + ap.getTerm().getDayOfMonth();
-
-            System.out.println(i + "." + doctorS + " : " + termS);
-        }
-
-        Appointment appointmentChosen = new Appointment(new Patient(), new Doctor("", "", ""), LocalDate.now());
-        Boolean isTermChosen = false;
-        while (!isTermChosen) {
-            System.out.println("\nWybierz numer terminu dla którego chcesz wygenerować zaproszenie:");
-            InputReader inputReader = new InputReader();
-            int termId = inputReader.getValueInt();
-
-            try {
-
-                appointmentChosen = appointments.get(termId - 1);
-                isTermChosen = true;
-//                return appointmentChosen;
-            } catch (IndexOutOfBoundsException e) {
-                System.out.println("\nWybierz jeden z podanych terminów!");
-                isTermChosen = false;
-            }
-        }
-        return appointmentChosen;
     }
 }

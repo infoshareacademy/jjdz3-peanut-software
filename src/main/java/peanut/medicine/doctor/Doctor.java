@@ -65,4 +65,8 @@ public class Doctor {
     public void setCalendarFile(String calendarFile) {
         this.calendarFile = calendarFile;
     }
+
+    public String getFullName() {
+        return String.format("%s %s", this.name, this.surname);
+    }
 }
