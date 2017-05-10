@@ -4,7 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import peanut.medicine.doctor.Doctor;
 import peanut.medicine.doctor.Doctors;
-import peanut.medicine.patient2doctor.Patient;
+import peanut.medicine.patient.Patient;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

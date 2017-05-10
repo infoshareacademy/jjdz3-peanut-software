@@ -1,4 +1,4 @@
-package peanut.medicine.patient2doctor;
+package peanut.medicine.appointment;
 
 import net.fortuna.ical4j.model.Calendar;
 import net.fortuna.ical4j.model.component.VEvent;
@@ -8,8 +8,8 @@ import net.fortuna.ical4j.model.property.Version;
 import net.fortuna.ical4j.util.UidGenerator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import peanut.medicine.appointment.Appointment;
 import peanut.medicine.iCalendar.IcalendarWriterICS;
+import peanut.medicine.patient.Patient;
 
 import java.io.File;
 import java.net.SocketException;
@@ -17,12 +17,11 @@ import java.text.ParseException;
 import java.time.LocalDate;
 
 /**
- * Created by bartman3000 on 2017-03-11.
- * Refactoring by Mariusz Szymanski on 2017-05-09
+ * Created by Mariusz Szymanski on 2017-05-10.
  */
-public class PeanutMedicine {
+public class Invitation {
 
-    private final static Logger LOGGER = LoggerFactory.getLogger(PeanutMedicine.class);
+    private final static Logger LOGGER = LoggerFactory.getLogger(Invitation.class);
 
     public void generateInvitation(Appointment appointment) throws ParseException, SocketException, NullPointerException {
 
@@ -55,7 +54,7 @@ public class PeanutMedicine {
         //save file
         ClassLoader classLoader = this.getClass().getClassLoader();
         String invitationsPath = classLoader.getResource("invitations").getPath();
-        LOGGER.debug("generateInvitation:invitationsPath:" + invitationsPath.toString());
+        LOGGER.debug("generateInvitation:invitationsPath: " + invitationsPath);
 
         File icsFile = new File(invitationsPath + "/" + patient.getName() + "" + patient.getSurname() + "-" + term.toString() + ".ics");
         LOGGER.debug("generateInvitation:icsFile:" + icsFile.getPath());

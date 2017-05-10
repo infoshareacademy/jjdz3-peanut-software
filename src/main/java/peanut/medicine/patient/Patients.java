@@ -1,4 +1,4 @@
-package peanut.medicine.patient2doctor;
+package peanut.medicine.patient;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

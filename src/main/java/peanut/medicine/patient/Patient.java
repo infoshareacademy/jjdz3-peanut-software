@@ -1,4 +1,4 @@
-package peanut.medicine.patient2doctor;
+package peanut.medicine.patient;
 
 /**
  * Created by bartman3000 on 2017-03-12.

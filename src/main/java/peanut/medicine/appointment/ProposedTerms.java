@@ -2,7 +2,7 @@ package peanut.medicine.appointment;
 
 import peanut.medicine.doctor.Doctor;
 import peanut.medicine.mainMenu.InputReader;
-import peanut.medicine.patient2doctor.Patient;
+import peanut.medicine.patient.Patient;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -13,11 +13,11 @@ import java.util.List;
 public class ProposedTerms {
 
     public Appointment chooseOneTerm(List<Appointment> appointments) {
+        System.out.println("Odpowiedni lekarz i 2 najlepsze terminy: \n");
         for (Appointment appointment : appointments) {
             int apId = appointments.indexOf(appointment) + 1;
             String doctorFullName = appointment.getDoctor().getFullName();
             String term = appointment.getTerm().toString();
-            System.out.println("Odpowiedni lekarz i 2 najlepsze terminy: \n");
             System.out.println("[" + apId + "] " + doctorFullName + " " + term);
         }
 
