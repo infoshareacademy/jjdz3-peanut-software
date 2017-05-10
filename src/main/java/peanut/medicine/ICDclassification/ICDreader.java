@@ -1,7 +1,6 @@
-package peanut.medicine.ICDReader;
+package peanut.medicine.ICDclassification;
 
 import peanut.medicine.mainMenu.InputReader;
-//import infoshare.academy.peanut.medicine.iCalendar.IcalendarWriterICS;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -14,21 +13,14 @@ import java.util.stream.Stream;
 /**
  * Created by Matheo on 15.03.2017.
  */
-public class ICDreaderclass {
+public class ICDreader {
 
-    public static void main(String args[]) {
+    public static void readICDclassification() {
 
-        {
-             usingBufferedReader();
-        }}
-
-    public static void usingBufferedReader()
-    {
         String fileName = "icd.txt";
         List<String> list = new ArrayList<>();
 
         try (Stream<String> stream = Files.lines(Paths.get(fileName))) {
-
             list = stream
                     .collect(Collectors.toList());
 
@@ -36,20 +28,15 @@ public class ICDreaderclass {
             e.printStackTrace();
         }
 
-        list.forEach(System.out::println); // each line of icd.txt file shown on console one by one
+        // each line of icd.txt file shown on console one by one
+        list.forEach(System.out::println);
 
-//  ICD value input
+        //  ICD value input
         System.out.println("ICD code: ");
         InputReader inputReader = new InputReader();
         String inputString = inputReader.getValueString();
 
-//            BufferedReader bufferRead = new BufferedReader(new InputStreamReader(System.in));
-//            String inputString = bufferRead.readLine();
-
         System.out.println("ICD code : " + inputString);
-
-//        String fileName = "icd.txt";
-//        List<String> list = new ArrayList<>();
 
         try (Stream<String> stream = Files.lines(Paths.get(fileName))) {
 
@@ -72,9 +59,4 @@ public class ICDreaderclass {
             e.printStackTrace();
         }
     }
-
-
-
-
-
 }

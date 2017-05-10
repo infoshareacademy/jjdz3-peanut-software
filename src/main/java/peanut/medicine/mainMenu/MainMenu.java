@@ -2,7 +2,7 @@ package peanut.medicine.mainMenu;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import peanut.medicine.ICDReader.ICDreaderclass;
+import peanut.medicine.ICDclassification.ICDreader;
 import peanut.medicine.appointment.Appointment;
 import peanut.medicine.appointment.BestTerms;
 import peanut.medicine.appointment.Invitation;
@@ -74,8 +74,7 @@ public class MainMenu {
                     }
                     break;
                 case ICD_CLASSIFICATION:
-                    ICDreaderclass icd = new ICDreaderclass();
-                    icd.usingBufferedReader();
+                    ICDreader.readICDclassification();
                     break;
                 default: break;
             }
