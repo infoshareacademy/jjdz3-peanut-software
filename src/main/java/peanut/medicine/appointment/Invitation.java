@@ -13,20 +13,20 @@ import peanut.medicine.patient.Patient;
 
 import java.io.File;
 import java.net.SocketException;
-import java.text.ParseException;
 import java.time.LocalDate;
 
 /**
- * Created by Mariusz Szymanski on 2017-05-10.
+ * Created by bartman3000 on 2017-03-12.
+ * Edited by Mariusz Szymanski on 2017-05-10.
  */
 public class Invitation {
 
     private final static Logger LOGGER = LoggerFactory.getLogger(Invitation.class);
 
-    public void generateInvitation(Appointment appointment) throws ParseException, SocketException, NullPointerException {
+    public void generateInvitationForPatient(Appointment appointment) throws SocketException {
 
-        LOGGER.info("generateInvitation()");
-        LOGGER.debug("generateInvitation:appointmnet:" + appointment.toString());
+        LOGGER.info("generateInvitationForPatient()");
+        LOGGER.debug("generateInvitationForPatient:appointmnet:" + appointment.toString());
 
         //Creating a new calendar
         Calendar calendar = new Calendar();
@@ -54,14 +54,15 @@ public class Invitation {
         //save file
         ClassLoader classLoader = this.getClass().getClassLoader();
         String invitationsPath = classLoader.getResource("invitations").getPath();
-        LOGGER.debug("generateInvitation:invitationsPath: " + invitationsPath);
+        LOGGER.debug("generateInvitationForPatient:invitationsPath: " + invitationsPath);
 
         File icsFile = new File(invitationsPath + "/" + patient.getName() + "" + patient.getSurname() + "-" + term.toString() + ".ics");
-        LOGGER.debug("generateInvitation:icsFile:" + icsFile.getPath());
+        LOGGER.debug("generateInvitationForPatient:icsFile:" + icsFile.getPath());
 
         IcalendarWriterICS IcalendarWriterICS = new IcalendarWriterICS();
         IcalendarWriterICS.writeCalendar(calendar, icsFile);
 
         LOGGER.info("Invitation saved in:" + icsFile.getPath());
+        System.out.println("Termin wizyty został zapisany w kalendarzu.");
     }
 }

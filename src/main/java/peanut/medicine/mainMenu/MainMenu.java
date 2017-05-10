@@ -69,7 +69,7 @@ public class MainMenu {
                         Patient patientChosen = patients.choosePatient();
                         List<Appointment> appointmentsBestTerms = appointments.findBestTerms(patientChosen, doctors);
                         Appointment visit = proposedTerms.chooseOneTerm(appointmentsBestTerms);
-                        invitation.generateInvitation(visit);
+                        invitation.generateInvitationForPatient(visit);
                         IcalendarVEvent.addVisitForDoctor(visit);
                     }
                     break;

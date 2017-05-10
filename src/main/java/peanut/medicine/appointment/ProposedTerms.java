@@ -8,7 +8,8 @@ import java.time.LocalDate;
 import java.util.List;
 
 /**
- * Created by Mariusz Szymanski on 2017-05-10.
+ * Created by bartman3000 on 2017-03-12.
+ * Edited by Mariusz Szymanski on 2017-05-10.
  */
 public class ProposedTerms {
 

@@ -14,7 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Mariusz Szymanski on 2017-05-09.
+ * Created by bartman3000 on 2017-03-12.
+ * Edited by Mariusz Szymanski on 2017-05-09.
  */
 public class DoctorCalendars {
 

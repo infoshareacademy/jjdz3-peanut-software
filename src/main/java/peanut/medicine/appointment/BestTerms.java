@@ -16,7 +16,8 @@ import static java.time.DayOfWeek.SATURDAY;
 import static java.time.DayOfWeek.SUNDAY;
 
 /**
- * Created by Mariusz Szymanski on 2017-05-10.
+ * Created by bartman3000 on 2017-03-12.
+ * Edited by Mariusz Szymanski on 2017-05-10.
  */
 public class BestTerms {
 
