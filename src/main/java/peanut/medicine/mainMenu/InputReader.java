@@ -29,8 +29,7 @@ public class InputReader {
             scanner.nextLine();
             LOGGER.debug(String.valueOf(number));
             return number;
-        } catch (InputMismatchException e)
-        {
+        } catch (InputMismatchException e) {
             scanner.nextLine();
             return 99;
         }
@@ -41,6 +40,5 @@ public class InputReader {
         String answer = scanner.nextLine();
         LOGGER.debug(answer);
         return answer ;
-
     }
 }
