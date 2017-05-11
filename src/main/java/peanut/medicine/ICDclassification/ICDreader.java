@@ -17,7 +17,7 @@ public class ICDreader {
 
     public static void readICDclassification() {
 
-        String fileName = "icd.txt";
+        String fileName = "src/main/resources/icd/icd.txt";
         List<String> list = new ArrayList<>();
 
         try (Stream<String> stream = Files.lines(Paths.get(fileName))) {
