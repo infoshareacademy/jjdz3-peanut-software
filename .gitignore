@@ -1,4 +1,5 @@
 .idea/
 target/
-jjdz3-peanut-software.iml
+logs/
+out/
 *.iml

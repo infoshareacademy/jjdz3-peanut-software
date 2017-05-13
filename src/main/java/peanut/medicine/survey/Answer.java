@@ -2,7 +2,7 @@
  * Created by bartman3000 on 2017-02-03.
  */
 
-package peanut.medicine.newSurvey;
+package peanut.medicine.survey;
 
 public class Answer {
     private Integer number;

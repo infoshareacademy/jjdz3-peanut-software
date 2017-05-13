@@ -1,12 +1,8 @@
-package peanut.medicine.ICDReader;
+package peanut.medicine.ICDclassification;
 
-import peanut.medicine.AnswerReader;
-//import infoshare.academy.peanut.medicine.iCalendar.IcalendarWriterICS;
+import peanut.medicine.mainMenu.InputReader;
 
-import java.io.BufferedReader;
-import java.io.File;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -17,21 +13,14 @@ import java.util.stream.Stream;
 /**
  * Created by Matheo on 15.03.2017.
  */
-public class ICDreaderclass {
+public class ICDreader {
 
-    public static void main(String args[]) {
+    public static void readICDclassification() {
 
-        {
-             usingBufferedReader();
-        }}
-
-    public static void usingBufferedReader()
-    {
-        String fileName = "icd.txt";
+        String fileName = "src/main/resources/icd/icd.txt";
         List<String> list = new ArrayList<>();
 
         try (Stream<String> stream = Files.lines(Paths.get(fileName))) {
-
             list = stream
                     .collect(Collectors.toList());
 
@@ -39,20 +28,15 @@ public class ICDreaderclass {
             e.printStackTrace();
         }
 
-        list.forEach(System.out::println); // each line of icd.txt file shown on console one by one
+        // each line of icd.txt file shown on console one by one
+        list.forEach(System.out::println);
 
-//  ICD value input
+        //  ICD value input
         System.out.println("ICD code: ");
-        AnswerReader answerReader = new AnswerReader();
-        String inputString = answerReader.getValueString();
-
-//            BufferedReader bufferRead = new BufferedReader(new InputStreamReader(System.in));
-//            String inputString = bufferRead.readLine();
+        InputReader inputReader = new InputReader();
+        String inputString = inputReader.getValueString();
 
         System.out.println("ICD code : " + inputString);
-
-//        String fileName = "icd.txt";
-//        List<String> list = new ArrayList<>();
 
         try (Stream<String> stream = Files.lines(Paths.get(fileName))) {
 
@@ -75,9 +59,4 @@ public class ICDreaderclass {
             e.printStackTrace();
         }
     }
-
-
-
-
-
 }
