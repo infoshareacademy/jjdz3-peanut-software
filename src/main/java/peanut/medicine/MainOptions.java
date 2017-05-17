@@ -5,10 +5,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import peanut.medicine.Exceptions.WrongOptionsExeption;
 import peanut.medicine.iCalendar.IcalendarVEvent;
-import peanut.medicine.patient2doctor.Agenda;
-import peanut.medicine.patient2doctor.Appointment;
 import peanut.medicine.survey.JsonFileMap;
 import peanut.medicine.survey.Survey;
+import peanut.medicine.survey.SurveyResult;
+
 import java.util.List;
 
 /**
@@ -61,23 +61,23 @@ public class MainOptions {
                     agenda.printDoctors();
                     break;
                 case ADD_SURVEY_PATIENT:
-                    Patient patient = survey.runSurvey();
-                    agenda.addSurveyResult(patient);
+                    SurveyResult surveyResult = survey.runSurvey();
+                    agenda.addSurveyResult(surveyResult);
                     break;
                 case PRINT_SURVEY_PATIENT:
-                    agenda.showAllPatientResults();
+                    agenda.showAllPatientSurveys();
                     break;
                 case FIND_BEST_TERM:
-                    if(agenda.getPatients().isEmpty())
+                    if(agenda.getSurveyResults().isEmpty())
                     {
                         System.out.println("\nNie wprowadzono jeszcze żadnych kwestionariuszy.");
                     }
                     else
                     {
-                        Patient patientSurvey = agenda.chooseSurveyToFindTerms();
-                        List<Appointment> bestTerms = agenda.findBestTerms(patientSurvey, agenda.getDoctors());
+                        SurveyResult surveyResultSurvey = agenda.chooseSurveyToFindTerms();
+                        List<Appointment> bestTerms = agenda.findBestTerms(surveyResultSurvey, agenda.getDoctors());
                         Appointment visit = agenda.chooseOneTermFromProposed(bestTerms);
-                        agenda.generateInvitation(visit);
+                        IcalendarVEvent.generateInvitation(visit);
                         IcalendarVEvent.addVisitForDoctor(visit);
                     }
                     break;

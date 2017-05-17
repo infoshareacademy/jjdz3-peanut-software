@@ -1,6 +1,6 @@
-package peanut.medicine;
+package peanut.medicine.survey;
 
-public class Patient {
+public class SurveyResult {
 
     private String name;
     private String surname;

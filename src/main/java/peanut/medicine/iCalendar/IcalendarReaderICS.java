@@ -6,6 +6,9 @@ import net.fortuna.ical4j.model.Calendar;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 /**
  * Created by moody on 16.02.17.
@@ -26,5 +29,17 @@ public class IcalendarReaderICS {
             System.out.println(e);
         }
       return null;
+    }
+
+    public static LocalDate getDateTimeFromICalParam(String dtstamp)
+    {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+        try {
+            return LocalDate.parse(dtstamp,formatter);
+        } catch (DateTimeParseException e)
+        {
+            formatter = DateTimeFormatter.ofPattern("yyyyMMdd'T'HHmmss");
+            return LocalDate.parse(dtstamp,formatter);
+        }
     }
 }

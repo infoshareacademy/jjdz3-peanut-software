@@ -1,7 +1,6 @@
 package peanut.medicine.survey;
 
 import peanut.medicine.AnswerReader;
-import peanut.medicine.Patient;
 
 import java.util.List;
 
@@ -40,10 +39,10 @@ public class Survey {
         return surveyDisplay;
     }
 
-    public Patient runSurvey()
+    public SurveyResult runSurvey()
     {
         AnswerReader answerReader = new AnswerReader();
-        Patient patient = new Patient();
+        SurveyResult surveyResult = new SurveyResult();
 
         for(Question q : this.getQuestions())
         {
@@ -68,9 +67,9 @@ public class Survey {
                 }
             }
 
-            patient.setParam(q.getName(),answerToSave);
+            surveyResult.setParam(q.getName(),answerToSave);
         }
 
-        return patient;
+        return surveyResult;
     }
 }
