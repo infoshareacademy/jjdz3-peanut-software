@@ -20,7 +20,7 @@ public class IcalendarMeeting {
         TimeZone timezone = registry.getTimeZone( "Europe/Warsaw");
         VTimeZone tz = timezone.getVTimeZone();
 
-        // PeanutMedicine Date is on: April 1, 2017, 9:00 am
+        // Agenda Date is on: April 1, 2017, 9:00 am
         java.util.Calendar startDate = new GregorianCalendar();
         startDate.setTimeZone(timezone);
         startDate.set(java.util.Calendar.MONTH, java.util.Calendar.APRIL);

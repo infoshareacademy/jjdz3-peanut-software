@@ -10,6 +10,7 @@ import net.fortuna.ical4j.util.UidGenerator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import peanut.medicine.AnswerReader;
+import peanut.medicine.Patient;
 import peanut.medicine.iCalendar.IcalendarReaderICS;
 import peanut.medicine.iCalendar.IcalendarWriterICS;
 
@@ -27,15 +28,15 @@ import java.util.stream.Collectors;
 import static java.time.DayOfWeek.SATURDAY;
 import static java.time.DayOfWeek.SUNDAY;
 
-public class PeanutMedicine {
+public class Agenda {
 
-    private final static Logger LOGGER = LoggerFactory.getLogger(PeanutMedicine.class);
+    private final static Logger LOGGER = LoggerFactory.getLogger(Agenda.class);
 
     private IcalendarReaderICS IcalendarReader;
     private List<Doctor> doctors;
     private List<Patient> patients;
 
-    public PeanutMedicine()
+    public Agenda()
     {
         this.doctors = new ArrayList<Doctor>();
         this.patients = new ArrayList<Patient>();

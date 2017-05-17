@@ -1,4 +1,4 @@
-package peanut.medicine.patient2doctor;
+package peanut.medicine;
 
 public class Patient {
 

@@ -5,9 +5,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import peanut.medicine.Exceptions.WrongOptionsExeption;
 import peanut.medicine.iCalendar.IcalendarVEvent;
+import peanut.medicine.patient2doctor.Agenda;
 import peanut.medicine.patient2doctor.Appointment;
-import peanut.medicine.patient2doctor.PeanutMedicine;
-import peanut.medicine.patient2doctor.Patient;
 import peanut.medicine.survey.JsonFileMap;
 import peanut.medicine.survey.Survey;
 import java.util.List;
@@ -35,7 +34,7 @@ public class MainOptions {
 
     public void mainLoop() throws Exception {
 
-        PeanutMedicine peanutMedicine = new PeanutMedicine();
+        Agenda agenda = new Agenda();
         JsonFileMap jsonReader = new JsonFileMap();
         Survey survey = jsonReader.makeSurveyFromJson("survey.json");
 
@@ -54,32 +53,31 @@ public class MainOptions {
                 }
             }
 
-            // MainMenuEnum selectedOption = MainMenuEnum.createFromInt(answerReader.getValueInt());
             switch (selectedOption) {
                 case EXIT:
                     break;
                 case READ_DOCTORS_ICALS:
-                    peanutMedicine.getDoctorsEvents();
-                    peanutMedicine.printDoctors();
+                    agenda.getDoctorsEvents();
+                    agenda.printDoctors();
                     break;
                 case ADD_SURVEY_PATIENT:
                     Patient patient = survey.runSurvey();
-                    peanutMedicine.addSurveyResult(patient);
+                    agenda.addSurveyResult(patient);
                     break;
                 case PRINT_SURVEY_PATIENT:
-                    peanutMedicine.showAllPatientResults();
+                    agenda.showAllPatientResults();
                     break;
                 case FIND_BEST_TERM:
-                    if(peanutMedicine.getPatients().isEmpty())
+                    if(agenda.getPatients().isEmpty())
                     {
                         System.out.println("\nNie wprowadzono jeszcze żadnych kwestionariuszy.");
                     }
                     else
                     {
-                        Patient patientSurvey = peanutMedicine.chooseSurveyToFindTerms();
-                        List<Appointment> bestTerms = peanutMedicine.findBestTerms(patientSurvey,peanutMedicine.getDoctors());
-                        Appointment visit = peanutMedicine.chooseOneTermFromProposed(bestTerms);
-                        peanutMedicine.generateInvitation(visit);
+                        Patient patientSurvey = agenda.chooseSurveyToFindTerms();
+                        List<Appointment> bestTerms = agenda.findBestTerms(patientSurvey, agenda.getDoctors());
+                        Appointment visit = agenda.chooseOneTermFromProposed(bestTerms);
+                        agenda.generateInvitation(visit);
                         IcalendarVEvent.addVisitForDoctor(visit);
                     }
                     break;

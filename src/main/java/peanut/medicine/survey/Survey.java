@@ -1,7 +1,7 @@
 package peanut.medicine.survey;
 
 import peanut.medicine.AnswerReader;
-import peanut.medicine.patient2doctor.Patient;
+import peanut.medicine.Patient;
 
 import java.util.List;
 
