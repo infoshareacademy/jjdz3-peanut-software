@@ -4,9 +4,6 @@ import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * Created by bartman3000 on 2017-03-11.
- */
 public class Doctor {
 
     private String name;

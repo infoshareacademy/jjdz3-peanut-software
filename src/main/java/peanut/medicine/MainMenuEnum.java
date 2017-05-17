@@ -7,7 +7,6 @@ import peanut.medicine.Exceptions.WrongOptionsExeption;
  */
 public enum MainMenuEnum {
 
-
     EXIT(0, "Wyjście z programu"),
     READ_DOCTORS_ICALS(1, "Wczytaj kalendarze lekarzy"),
     ADD_SURVEY_PATIENT(2, "Dodaj kwestionariusz"),
@@ -40,11 +39,7 @@ public enum MainMenuEnum {
         try {
             return MainMenuEnum.values()[option];
         }catch (ArrayIndexOutOfBoundsException e){
-          //  System.err.println("Wprowadz poprwaną liczbę !!");
-            throw new WrongOptionsExeption("Wprowadz poprawną opcję !");
+            throw new WrongOptionsExeption("Wprowadź poprawną opcję!");
         }
-
     }
-
-
 }

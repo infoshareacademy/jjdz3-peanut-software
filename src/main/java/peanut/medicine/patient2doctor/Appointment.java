@@ -1,29 +1,25 @@
 package peanut.medicine.patient2doctor;
 
-import peanut.medicine.newSurvey.SurveyResultPatient;
 import java.time.LocalDate;
 
-/**
- * Created by bartman3000 on 2017-03-12.
- */
 public class Appointment {
 
-    private SurveyResultPatient surveyResultPatient;
+    private Patient patient;
     private Doctor doctor;
     private LocalDate term;
 
-    public Appointment(SurveyResultPatient surveyResultPatient, Doctor doctor, LocalDate term) {
-        this.surveyResultPatient = surveyResultPatient;
+    public Appointment(Patient patient, Doctor doctor, LocalDate term) {
+        this.patient = patient;
         this.doctor = doctor;
         this.term = term;
     }
 
-    public SurveyResultPatient getSurveyResultPatient() {
-        return surveyResultPatient;
+    public Patient getPatient() {
+        return patient;
     }
 
-    public void setSurveyResultPatient(SurveyResultPatient surveyResultPatient) {
-        this.surveyResultPatient = surveyResultPatient;
+    public void setPatient(Patient patient) {
+        this.patient = patient;
     }
 
     public Doctor getDoctor() {
@@ -44,6 +40,6 @@ public class Appointment {
 
     public String toString()
     {
-        return this.surveyResultPatient.displayPatient() + " " + this.doctor.toString() + " "+this.term.getYear()+"-"+this.term.getMonth()+"-"+term.getDayOfMonth();
+        return this.patient.displayPatient() + " " + this.doctor.toString() + " "+this.term.getYear()+"-"+this.term.getMonth()+"-"+term.getDayOfMonth();
     }
 }

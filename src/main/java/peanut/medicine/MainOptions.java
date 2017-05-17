@@ -7,10 +7,9 @@ import peanut.medicine.Exceptions.WrongOptionsExeption;
 import peanut.medicine.iCalendar.IcalendarVEvent;
 import peanut.medicine.patient2doctor.Appointment;
 import peanut.medicine.patient2doctor.PeanutMedicine;
-import peanut.medicine.newSurvey.SurveyResultPatient;
-import peanut.medicine.newSurvey.JsonFileMap;
-import peanut.medicine.newSurvey.Survey;
-
+import peanut.medicine.patient2doctor.Patient;
+import peanut.medicine.survey.JsonFileMap;
+import peanut.medicine.survey.Survey;
 import java.util.List;
 
 /**
@@ -64,20 +63,20 @@ public class MainOptions {
                     peanutMedicine.printDoctors();
                     break;
                 case ADD_SURVEY_PATIENT:
-                    SurveyResultPatient patient = survey.runSurvey();
+                    Patient patient = survey.runSurvey();
                     peanutMedicine.addSurveyResult(patient);
                     break;
                 case PRINT_SURVEY_PATIENT:
                     peanutMedicine.showAllPatientResults();
                     break;
                 case FIND_BEST_TERM:
-                    if(peanutMedicine.getSurveyResultPatients().isEmpty())
+                    if(peanutMedicine.getPatients().isEmpty())
                     {
                         System.out.println("\nNie wprowadzono jeszcze żadnych kwestionariuszy.");
                     }
                     else
                     {
-                        SurveyResultPatient patientSurvey = peanutMedicine.chooseSurveyToFindTerms();
+                        Patient patientSurvey = peanutMedicine.chooseSurveyToFindTerms();
                         List<Appointment> bestTerms = peanutMedicine.findBestTerms(patientSurvey,peanutMedicine.getDoctors());
                         Appointment visit = peanutMedicine.chooseOneTermFromProposed(bestTerms);
                         peanutMedicine.generateInvitation(visit);
@@ -91,8 +90,6 @@ public class MainOptions {
                 default:
                     System.out.println("Błędne parametry");
             }
-             // readMainOptions();
-
         }
         answerReader.close();
     }

@@ -1,13 +1,9 @@
-package peanut.medicine.newSurvey;
+package peanut.medicine.survey;
 
 import org.apache.commons.lang.math.NumberUtils;
-
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by bartman3000 on 2017-02-03.
- */
 public class Question {
 
     private int number;
@@ -79,16 +75,11 @@ public class Question {
 
     public boolean isValidOpenAnswer(String answer)
     {
-        String answerType = NumberUtils.isNumber(answer) ? "Integer" : answer.getClass().getSimpleName();
-
-//        System.out.println("answerType:"+answerType);
-
         if(answer.isEmpty())
         {
             System.out.println("Podaj odpowiedź.");
             return false;
         }
-
         return true;
     }
 

@@ -1,12 +1,10 @@
 package peanut.medicine.iCalendar;
 
-
 import net.fortuna.ical4j.model.*;
 import net.fortuna.ical4j.model.component.VEvent;
 import net.fortuna.ical4j.model.component.VTimeZone;
 import net.fortuna.ical4j.model.property.Uid;
 import net.fortuna.ical4j.util.UidGenerator;
-
 import java.net.SocketException;
 import java.util.GregorianCalendar;
 
@@ -60,21 +58,9 @@ public class IcalendarMeeting {
         }
         Uid uid = ug.generateUid();
         meeting.getProperties().add(uid);
-/*
-        // add attendees..
-        Attendee dev1 = new Attendee(URI.create("mailto:dev1@mycompany.com"));
-        dev1.getParameters().add(Role.REQ_PARTICIPANT);
-        dev1.getParameters().add(new Cn("Developer 1"));
-        meeting.getProperties().add(dev1);
 
-        Attendee dev2 = new Attendee(URI.create("mailto:dev2@mycompany.com"));
-        dev2.getParameters().add(Role.OPT_PARTICIPANT);
-        dev2.getParameters().add(new Cn("Developer 2"));
-        meeting.getProperties().add(dev2);
-*/
         // Add the event and print
         calendar.getComponents().add(meeting);
-
         return calendar;
     }
 }

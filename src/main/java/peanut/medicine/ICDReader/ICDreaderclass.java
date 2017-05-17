@@ -1,12 +1,7 @@
 package peanut.medicine.ICDReader;
 
 import peanut.medicine.AnswerReader;
-//import infoshare.academy.peanut.medicine.iCalendar.IcalendarWriterICS;
-
-import java.io.BufferedReader;
-import java.io.File;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -41,18 +36,11 @@ public class ICDreaderclass {
 
         list.forEach(System.out::println); // each line of icd.txt file shown on console one by one
 
-//  ICD value input
+        //  ICD value input
         System.out.println("ICD code: ");
         AnswerReader answerReader = new AnswerReader();
         String inputString = answerReader.getValueString();
-
-//            BufferedReader bufferRead = new BufferedReader(new InputStreamReader(System.in));
-//            String inputString = bufferRead.readLine();
-
         System.out.println("ICD code : " + inputString);
-
-//        String fileName = "icd.txt";
-//        List<String> list = new ArrayList<>();
 
         try (Stream<String> stream = Files.lines(Paths.get(fileName))) {
 
@@ -75,9 +63,5 @@ public class ICDreaderclass {
             e.printStackTrace();
         }
     }
-
-
-
-
 
 }

@@ -12,7 +12,6 @@ import org.slf4j.LoggerFactory;
 import peanut.medicine.AnswerReader;
 import peanut.medicine.iCalendar.IcalendarReaderICS;
 import peanut.medicine.iCalendar.IcalendarWriterICS;
-import peanut.medicine.newSurvey.SurveyResultPatient;
 
 import java.io.File;
 import java.net.SocketException;
@@ -28,26 +27,23 @@ import java.util.stream.Collectors;
 import static java.time.DayOfWeek.SATURDAY;
 import static java.time.DayOfWeek.SUNDAY;
 
-/**
- * Created by bartman3000 on 2017-03-11.
- */
 public class PeanutMedicine {
 
     private final static Logger LOGGER = LoggerFactory.getLogger(PeanutMedicine.class);
 
     private IcalendarReaderICS IcalendarReader;
     private List<Doctor> doctors;
-    private List<SurveyResultPatient> surveyResultPatients;
+    private List<Patient> patients;
 
     public PeanutMedicine()
     {
         this.doctors = new ArrayList<Doctor>();
-        this.surveyResultPatients = new ArrayList<SurveyResultPatient>();
+        this.patients = new ArrayList<Patient>();
     }
 
-    public List<SurveyResultPatient> getSurveyResultPatients()
+    public List<Patient> getPatients()
     {
-        return this.surveyResultPatients;
+        return this.patients;
     }
 
     public void printDoctors()
@@ -64,7 +60,6 @@ public class PeanutMedicine {
     {
         return this.doctors;
     }
-
 
     public List<Doctor> getDoctorsEvents()
     {
@@ -120,15 +115,15 @@ public class PeanutMedicine {
         return elementsDir.listFiles();
     }
 
-    public List<Appointment> findBestTerms (SurveyResultPatient surveyResultPatient, List<Doctor> Alldoctors)
+    public List<Appointment> findBestTerms (Patient patient, List<Doctor> Alldoctors)
     {
         LOGGER.info("findBestTerms()");
-        LOGGER.debug("findBestTerms:surveyResultPatient:"+surveyResultPatient.toString());
+        LOGGER.debug("findBestTerms:patient:"+ patient.toString());
         LOGGER.debug("findBestTerms:Alldoctors:"+Alldoctors);
 
         List<Appointment> appointments = new ArrayList<>();
-        String specialization = surveyResultPatient.getPreferedSpecialization();
-        String preferedDay = surveyResultPatient.getPreferedDay();
+        String specialization = patient.getPreferedSpecialization();
+        String preferedDay = patient.getPreferedDay();
         LOGGER.debug("findBestTerms:specialization:"+specialization);
 
         //take only doctor with specialization
@@ -170,13 +165,12 @@ public class PeanutMedicine {
 
             for (LocalDate term : terms)
             {
-                Appointment appointment = new Appointment(surveyResultPatient, doctor, term);
+                Appointment appointment = new Appointment(patient, doctor, term);
                 appointments.add(appointment);
             }
         }
         return appointments;
     }
-
 
     protected static <T> void moveElementToTop(List<T> items, T input){
         int i = items.indexOf(input);
@@ -214,7 +208,7 @@ public class PeanutMedicine {
         calendar.getProperties().add(CalScale.GREGORIAN);
 
         LocalDate term = appointment.getTerm();
-        SurveyResultPatient surveyResultPatient = appointment.getSurveyResultPatient();
+        Patient patient = appointment.getPatient();
 
         java.util.Calendar calendar2 = java.util.Calendar.getInstance();
         calendar2.set(java.util.Calendar.MONTH, term.getMonthValue()-1);
@@ -235,7 +229,7 @@ public class PeanutMedicine {
         String invitationsPath = classLoader.getResource("invitations").getPath();
         LOGGER.debug("generateInvitation:invitationsPath:"+invitationsPath.toString());
 
-        File icsFile = new File(invitationsPath+"/"+ surveyResultPatient.getName()+""+ surveyResultPatient.getSurname()+"-"+term.toString()+".ics");
+        File icsFile = new File(invitationsPath+"/"+ patient.getName()+""+ patient.getSurname()+"-"+term.toString()+".ics");
         LOGGER.debug("generateInvitation:icsFile:"+icsFile.getPath());
 
         IcalendarWriterICS IcalendarWriterICS = new IcalendarWriterICS();
@@ -244,23 +238,23 @@ public class PeanutMedicine {
         LOGGER.info("Invitation saved in:"+icsFile.getPath());
     }
 
-    public void addSurveyResult(SurveyResultPatient patient)
+    public void addSurveyResult(Patient patient)
     {
-        this.surveyResultPatients.add(patient);
+        this.patients.add(patient);
     }
 
     public void showAllPatientResults()
     {
         LOGGER.info("showAllPatientResults()");
-        if(!this.surveyResultPatients.isEmpty())
+        if(!this.patients.isEmpty())
         {
-            int surveysCnt = this.surveyResultPatients.size();
+            int surveysCnt = this.patients.size();
             System.out.println("\n --------------------------------");
             System.out.println("\n Liczba kwestionariuszy: "+surveysCnt);
 
             for (int i = 0; i < surveysCnt; i++)
             {
-                SurveyResultPatient survey = surveyResultPatients.get(i);
+                Patient survey = patients.get(i);
                 System.out.println("\nId:"+i+"____________");
                 System.out.println(survey.displayPatient());
             }
@@ -268,13 +262,13 @@ public class PeanutMedicine {
         }
         else
         {
-            System.out.println("Nie wprowadzono jeszcze żadnyck kwestionariuszy.");
+            System.out.println("Nie wprowadzono jeszcze żadnych kwestionariuszy.");
         }
     }
 
-    public SurveyResultPatient chooseSurveyToFindTerms() throws ParseException, SocketException {
+    public Patient chooseSurveyToFindTerms() throws ParseException, SocketException {
 
-        SurveyResultPatient survey = new SurveyResultPatient();
+        Patient survey = new Patient();
         Boolean isSurveyChosen = false;
         while (!isSurveyChosen)
         {
@@ -284,7 +278,7 @@ public class PeanutMedicine {
 
             try {
 
-                survey = surveyResultPatients.get(surveyId);
+                survey = patients.get(surveyId);
                 isSurveyChosen = true;
                 return survey;
             }
@@ -309,7 +303,7 @@ public class PeanutMedicine {
             System.out.println(i+"."+doctorS+" : "+ termS);
         }
 
-        Appointment appointmentChosen = new Appointment(new SurveyResultPatient(),new Doctor("","",""),LocalDate.now());
+        Appointment appointmentChosen = new Appointment(new Patient(),new Doctor("","",""),LocalDate.now());
         Boolean isTermChosen = false;
         while (!isTermChosen)
         {

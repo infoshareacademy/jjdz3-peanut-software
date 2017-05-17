@@ -40,7 +40,6 @@ public class AnswerReader {
         System.out.println();
         String answer = scanner.nextLine();
         LOGGER.debug(answer);
-        return answer ;
-
+        return answer;
     }
 }

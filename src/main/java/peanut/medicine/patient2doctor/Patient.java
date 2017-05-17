@@ -1,9 +1,6 @@
-package peanut.medicine.newSurvey;
+package peanut.medicine.patient2doctor;
 
-/**
- * Created by bartman3000 on 2017-03-12.
- */
-public class SurveyResultPatient {
+public class Patient {
 
     private String name;
     private String surname;

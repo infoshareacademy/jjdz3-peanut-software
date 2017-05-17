@@ -1,10 +1,7 @@
-/**
- * Created by bartman3000 on 2017-02-03.
- */
-
-package peanut.medicine.newSurvey;
+package peanut.medicine.survey;
 
 import peanut.medicine.AnswerReader;
+import peanut.medicine.patient2doctor.Patient;
 
 import java.util.List;
 
@@ -39,15 +36,14 @@ public class Survey {
                     surveyDisplay = surveyDisplay + "\n" + answer.getNumber() + " : " + answer.getText();
                 }
             }
-
         }
         return surveyDisplay;
     }
 
-    public SurveyResultPatient runSurvey()
+    public Patient runSurvey()
     {
         AnswerReader answerReader = new AnswerReader();
-        SurveyResultPatient surveyResultPatient = new SurveyResultPatient();
+        Patient patient = new Patient();
 
         for(Question q : this.getQuestions())
         {
@@ -72,9 +68,9 @@ public class Survey {
                 }
             }
 
-            surveyResultPatient.setParam(q.getName(),answerToSave);
+            patient.setParam(q.getName(),answerToSave);
         }
 
-        return surveyResultPatient;
+        return patient;
     }
 }

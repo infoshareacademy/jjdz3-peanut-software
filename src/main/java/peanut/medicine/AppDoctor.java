@@ -12,24 +12,10 @@ public class AppDoctor {
 
     public static void main(String[] args) throws Exception {
 
-        final String appName = "Medicine V 1.08" ;
-        System.out.printf(appName+"\n");
-
-       MainOptions mainOptions = new MainOptions();
-       mainOptions.mainLoop();
-       //mainOptions.readMainOptions();
-
-       // SurveyJsonReader surveyJsonReader = new SurveyJsonReader() ;
-       // SurveyQuestionList surveyQuestionList = surveyJsonReader.readfromJson();
-
-        /*
-        SurveyPrinter surveyPrinter = new SurveyPrinter();
-        surveyPrinter.surveyPrint(surveyQuestionList);
-        //surveyShowQuestions.printQuestions(surveyQuestionList);
-*/
+        final String appName = "Peanut Medicine V 1.1" ;
+        LOGGER.info(appName + "starts" );
+        System.out.println(appName+"\n");
+        MainOptions mainOptions = new MainOptions();
+        mainOptions.mainLoop();
     }
-
-
-
-
 }

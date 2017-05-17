@@ -1,13 +1,8 @@
-/**
- * Created by bartman3000 on 2017-02-03.
- */
-
-package peanut.medicine.newSurvey;
+package peanut.medicine.survey;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import java.io.File;
 import java.nio.file.Files;
 

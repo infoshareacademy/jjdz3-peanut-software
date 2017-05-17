@@ -35,8 +35,8 @@ public class IcalendarVEvent {
         Calendar doctorCalendar = iReader.readCalendar(icsFile);
 
         // Create the event
-        String patientName = appointment.getSurveyResultPatient().getName() + " " + appointment.getSurveyResultPatient().getSurname();
-        String eventName = "Appointment for patient " + patientName;
+        String patientName = appointment.getPatient().getName() + " " + appointment.getPatient().getSurname();
+        String eventName = "Appointment with patient " + patientName;
 
         LocalDate term = appointment.getTerm();
         java.util.Calendar calendar = java.util.Calendar.getInstance();
