@@ -1,4 +1,4 @@
 Manifest-Version: 1.0
-Main-Class: AppDoctor
+Main-Class: peanut.medicine.AppDoctor
 Class-Path: lib/
 
