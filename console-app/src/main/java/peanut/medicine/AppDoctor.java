@@ -5,7 +5,7 @@ import org.slf4j.LoggerFactory;
 import peanut.medicine.mainMenu.MainMenu;
 
 /**
- * Created by moody on 16.02.17.
+ * Created by moody on 16.02.17
  */
 public class AppDoctor {
 
@@ -13,7 +13,7 @@ public class AppDoctor {
 
     public static void main(String[] args) throws Exception {
 
-        final String appName = "Medicine ver. 1.09";
+        final String appName = "Medicine ver. 1.0";
         System.out.printf(appName + "\n");
 
         MainMenu mainMenu = new MainMenu();
