@@ -48,6 +48,7 @@ public class SpecializationReportRestService {
         Map<String, Integer> statistics = preferredSpecializations.getSpecializationsStatistics();
         statistics.put(specialization, value);
         preferredSpecializations.setSpecializationsStatistics(statistics);
+        preferredSpecializations.writeReportToFile(statistics);
 
         return getPreferredSpecializations();
     }
