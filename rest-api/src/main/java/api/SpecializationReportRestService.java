@@ -32,14 +32,7 @@ public class SpecializationReportRestService {
     @Path("/specializations/all")
     public Response getPreferredSpecializations() {
         Map<String, Integer> statistics = preferredSpecializations.getSpecializationsStatistics();
-        String json;
-        try {
-            json = new ObjectMapper().writeValueAsString(statistics);
-        } catch (JsonProcessingException e) {
-            LOG.debug("Json Processing Exception");
-            return Response.status(Response.Status.NOT_FOUND).build();
-        }
-        return Response.status(Response.Status.OK).entity(json).build();
+        return this.generateResponse(statistics);
     }
 
     @GET
@@ -47,10 +40,13 @@ public class SpecializationReportRestService {
     public Response getPreferredSpecializationQuantity(
             @PathParam("specialization") String specialization) {
         Map<String, Integer> statistics = preferredSpecializations
-                .getSpecializationsStatistics()
-                .entrySet().stream()
+                .getSpecializationsStatistics().entrySet().stream()
                 .filter(map -> specialization.equals(map.getKey()))
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+        return this.generateResponse(statistics);
+    }
+
+    private Response generateResponse(Map<String, Integer> statistics) {
         String json;
         try {
             json = new ObjectMapper().writeValueAsString(statistics);
