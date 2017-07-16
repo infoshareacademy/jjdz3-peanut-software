@@ -22,6 +22,7 @@
             <p>Get reports via a RESTful API</p>
         </div>
     </div>
+    <hr>
     <div class="row">
         <div class="col-sm-6">
             <h4>API ENDPOINTS</h4>
@@ -30,6 +31,52 @@
         <div class="col-sm-6">
         </div>
     </div>
+    <hr>
+    <div class="row">
+        <div class="col-sm-6">
+            <h4>ALL SURVEYS</h4>
+            <p>List of all registered surveys</p>
+            <p>Content-Type: application/json</p>
+        </div>
+        <div class="col-sm-6">
+            <p>{hostname}/peanut-api/reports/surveys</p>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-sm-6">
+            <h4>SELECTED SURVEY</h4>
+            <p>Returns selected survey by id</p>
+            <p>Content-Type: application/json</p>
+        </div>
+        <div class="col-sm-6">
+            <p>{hostname}/peanut-api/reports/surveys?id={id}</p>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-sm-6">
+            <h4>REPORT OF ALL PREFERRED SPECIALIZATIONS</h4>
+            <p>List of all preferred specializations</p>
+            <p>Content-Type: application/json</p>
+        </div>
+        <div class="col-sm-6">
+            <p>{hostname}/peanut-api/reports/specializations/all</p>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-sm-6">
+            <h4>SELECTED SPECIALIZATIONS</h4>
+            <p>Show number of visit for selected specialization</p>
+            <p>Content-Type: application/json</p>
+        </div>
+        <div class="col-sm-6">
+            <p>{hostname}/peanut-api/reports/specialization/{specialization}</p>
+        </div>
+    </div>
+    <hr>
+
 </div>
 </body>
 </html>
