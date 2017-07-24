@@ -19,7 +19,7 @@ import java.util.List;
  */
 
 @Path("/surveys")
-@Produces(MediaType.APPLICATION_JSON)
+@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
 public class SurveysReportRestService {
 
     @EJB
