@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN" name="peanut">
+        <Appenders>
+            <Console name="Console" target="SYSTEM_OUT">
+                <PatternLayout pattern="%highlight{%d | %-18marker [%-5level] %-27logger{1.} [%t:%line] %enc{%msg}%n%throwable}{FATAL=brown, ERROR=red, WARN=yellow, INFO=white, DEBUG=green, TRACE=cyan}"/>
+            </Console>
+
+            <File name="MonitoringFile" fileName="logs/app.log" append="true" bufferedIO="true" bufferSize="8192">
+                <PatternLayout>
+                    <Pattern>%highlight{%d | %-18marker [%-5level] %-27logger{1.} [%t:%line] %enc{%msg}%n%throwable}{FATAL=white, ERROR=red, WARN=yellow, INFO=white, DEBUG=green, TRACE=cyan}</Pattern>
+                </PatternLayout>
+            </File>
+        </Appenders>
+
+        <Loggers>
+            <Root level="trace">
+                <AppenderRef ref="Console"/>
+                <AppenderRef ref="MonitoringFile"/>
+            </Root>
+        </Loggers>
+</Configuration>

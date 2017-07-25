@@ -4,7 +4,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import domain.PreferredSpecializations;
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
 import javax.ws.rs.GET;
@@ -16,6 +15,8 @@ import javax.ws.rs.core.Response;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import static org.slf4j.LoggerFactory.getLogger;
+
 /**
  * @author Mariusz Szymanski
  */
@@ -23,7 +24,7 @@ import java.util.stream.Collectors;
 @Produces(MediaType.APPLICATION_JSON)
 public class SpecializationReportRestService {
 
-    private Logger LOG = LoggerFactory.getLogger(SpecializationReportRestService.class);
+    private static final Logger LOGGER = getLogger(SpecializationReportRestService.class);
 
     @Inject
     private PreferredSpecializations preferredSpecializations;
@@ -51,8 +52,8 @@ public class SpecializationReportRestService {
         try {
             json = new ObjectMapper().writeValueAsString(statistics);
         } catch (JsonProcessingException e) {
-            LOG.debug("Json Processing Exception");
-            return Response.status(Response.Status.NOT_FOUND).build();
+            LOGGER.debug("Json Processing Exception: " + e);
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
         }
         return Response.status(Response.Status.OK).entity(json).build();
     }
