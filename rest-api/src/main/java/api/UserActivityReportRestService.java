@@ -32,7 +32,7 @@ public class UserActivityReportRestService {
     private UserActivityStorageService activityStorageService;
 
     @GET
-    @Path("/usersActivity/all")
+    @Path("/usersActivity")
     public Response getUsersActivity() {
 
         ObjectMapper mapper = new ObjectMapper()

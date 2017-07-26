@@ -30,16 +30,16 @@ public class SpecializationReportRestService {
     private PreferredSpecializations preferredSpecializations;
 
     @GET
-    @Path("/specializations/all")
+    @Path("/specialization")
     public Response getPreferredSpecializations() {
         Map<String, Integer> statistics = preferredSpecializations.getSpecializationsStatistics();
         return this.generateResponse(statistics);
     }
 
     @GET
-    @Path("/specialization/{specialization}")
+    @Path("/specialization/{name}")
     public Response getPreferredSpecializationQuantity(
-            @PathParam("specialization") String specialization) {
+            @PathParam("name") String specialization) {
         Map<String, Integer> statistics = preferredSpecializations
                 .getSpecializationsStatistics().entrySet().stream()
                 .filter(map -> specialization.equals(map.getKey()))

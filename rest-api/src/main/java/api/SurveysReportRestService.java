@@ -21,7 +21,7 @@ import static org.slf4j.LoggerFactory.getLogger;
  * @author Mariusz Szymanski
  */
 
-@Path("/surveys")
+@Path("/survey")
 @Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
 public class SurveysReportRestService {
 
