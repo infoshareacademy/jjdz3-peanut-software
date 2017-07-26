@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Peanut Medicine Reports Api</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+<body>
+<nav class="navbar navbar-inverse">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand">
+                <span class="glyphicon glyphicon-link"></span> PEANUT MEDICINE REPORTS API</a>
+        </div>
+        <p class="navbar-text navbar-right">Current version: 1.0</p>
+    </div>
+</nav>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12 text-center">
+            <h1>Peanut Medicine Reports</h1>
+            <p>Get reports via a RESTful API</p>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-sm-6">
+            <h4>API ENDPOINTS</h4>
+            <p>Below are described the REST endpoints available that you can use to search for reports</p>
+        </div>
+        <div class="col-sm-6">
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-sm-6">
+            <h4>ALL SURVEYS</h4>
+            <p>List of all registered surveys</p>
+            <p>Content-Type: application/json</p>
+        </div>
+        <div class="col-sm-6">
+            <br>
+            <p>{hostname}/peanut-api/reports/survey</p>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-sm-6">
+            <h4>SELECTED SURVEY</h4>
+            <p>Returns selected survey by id</p>
+            <p>Content-Type: application/json</p>
+        </div>
+        <div class="col-sm-6">
+            <br>
+            <p>{hostname}/peanut-api/reports/survey/{id}</p>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-sm-6">
+            <h4>REPORT OF ALL PREFERRED SPECIALIZATIONS</h4>
+            <p>List of all preferred specializations</p>
+            <p>Content-Type: application/json</p>
+        </div>
+        <div class="col-sm-6">
+            <br>
+            <p>{hostname}/peanut-api/reports/specialization</p>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-sm-6">
+            <h4>SELECTED SPECIALIZATIONS</h4>
+            <p>Show number of visit for selected specialization</p>
+            <p>Content-Type: application/json</p>
+        </div>
+        <div class="col-sm-6">
+            <br>
+            <p>{hostname}/peanut-api/reports/specialization/{name}</p>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-sm-6">
+            <h4>USERS ACTIVITIES</h4>
+            <p>Shows users activities</p>
+            <p>User email, login date-time, logout date-time</p>
+            <p>Content-Type: application/json</p>
+        </div>
+        <div class="col-sm-6">
+            <br>
+            <p>{hostname}/peanut-api/reports/usersActivity</p>
+        </div>
+    </div>
+    <hr>
+</div>
+</body>
+</html>

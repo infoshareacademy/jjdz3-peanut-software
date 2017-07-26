@@ -2,6 +2,7 @@ package api;
 
 import domain.Survey;
 import domain.SurveyStorageService;
+import org.slf4j.Logger;
 
 import javax.ejb.EJB;
 import javax.json.Json;
@@ -14,13 +15,17 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
 
+import static org.slf4j.LoggerFactory.getLogger;
+
 /**
  * @author Mariusz Szymanski
  */
 
-@Path("/surveys")
-@Produces(MediaType.APPLICATION_JSON)
+@Path("/survey")
+@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
 public class SurveysReportRestService {
+
+    private static final Logger LOGGER = getLogger(SurveysReportRestService.class);
 
     @EJB
     private SurveyStorageService surveyStorage;
