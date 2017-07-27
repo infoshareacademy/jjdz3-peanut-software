@@ -14,7 +14,7 @@ public class CronExpression {
     public static Trigger fireEveryMinuteStartFromNow(int startHr, int startMin) {
         if (startMin == 59) startMin = 0;
         String cronExpression = "0 " + (startMin + 1) + "/1 " + startHr + " * * ? *";
-        String description = "Fire every minute starting at " + startHr + ":" + startMin;
+        String description = "Fire every minute starting at " + startHr + ":" + (startMin + 1);
         return TriggerBuilder.newTrigger()
                 .withIdentity("fireEveryMinuteFromNow", GROUP_NAME)
                 .withSchedule(cronSchedule(description, cronExpression))
