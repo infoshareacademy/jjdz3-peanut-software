@@ -3,11 +3,16 @@ package quartz;
 import org.quartz.CronScheduleBuilder;
 import org.quartz.Trigger;
 import org.quartz.TriggerBuilder;
+import org.slf4j.Logger;
+
+import static org.slf4j.LoggerFactory.getLogger;
 
 /**
  * @author Mariusz Szymanski
  */
 public class CronExpression {
+
+    private static final Logger LOGGER = getLogger(CronExpression.class);
 
     private static final String GROUP_NAME = "ReportsMailSenderWithCroneScheduler";
 
@@ -22,7 +27,7 @@ public class CronExpression {
     }
 
     private static CronScheduleBuilder cronSchedule(String description, String cronExpression) {
-        System.out.println(description + " -> (" + cronExpression + ")");
+        LOGGER.info(description + " -> (" + cronExpression + ")");
         return CronScheduleBuilder.cronSchedule(cronExpression);
     }
 }

@@ -6,15 +6,20 @@ import org.quartz.SchedulerException;
 import org.quartz.SchedulerFactory;
 import org.quartz.JobDataMap;
 import org.quartz.JobDetail;
+import org.slf4j.Logger;
 
 import java.util.Calendar;
 import java.util.Date;
 import java.util.concurrent.CountDownLatch;
 
+import static org.slf4j.LoggerFactory.getLogger;
+
 /**
  * @author Mariusz Szymanski
  */
 public class CronSchedulerTrigger implements ILatch {
+
+    private static final Logger LOGGER = getLogger(CronSchedulerTrigger.class);
 
     private CountDownLatch latch;
 
@@ -40,12 +45,12 @@ public class CronSchedulerTrigger implements ILatch {
         int hour = rightNow.get(Calendar.HOUR_OF_DAY);
         int min = rightNow.get(Calendar.MINUTE);
 
-        System.out.println("Current time: " + new Date());
+        LOGGER.info("Current time: " + new Date());
 
         scheduler.scheduleJob(jobDetail, CronExpression.fireEveryMinuteStartFromNow(hour, min));
 
         latch.await();
-        System.out.println("All triggers executed. Shutdown scheduler");
+        LOGGER.info("All triggers executed. Shutdown scheduler");
         scheduler.shutdown();
     }
 
