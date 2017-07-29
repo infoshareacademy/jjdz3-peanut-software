@@ -52,8 +52,8 @@ public class ICDBuilder {
 
         return records.stream()
                 .filter(e -> Objects.equals(e.getSubsectionNumber(), subsectionNumber))
-                .collect(Collectors.groupingBy(Record::getSubsectionNumber, Collectors.toList()))
-                .get(subsectionNumber)
+                .filter(distinctByKey(Record::getMainCategory))
+                .collect(Collectors.toList())
                 .stream().map(record -> new MainCategory(
                         record.getMainCategoryNumber(),
                         record.getMainCategory(),
