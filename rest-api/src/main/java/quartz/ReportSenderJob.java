@@ -31,10 +31,6 @@ public class ReportSenderJob implements Job {
 
     private static int count;
 
-    public static void main(String[] args) {
-
-    }
-
     @Override
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
 
