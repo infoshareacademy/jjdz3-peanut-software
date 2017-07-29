@@ -28,6 +28,7 @@ public class CronSchedulerTrigger implements ILatch {
     }
 
     public void fireJob() throws SchedulerException, InterruptedException {
+
         SchedulerFactory schedulerFactory = new org.quartz.impl.StdSchedulerFactory();
         Scheduler scheduler = schedulerFactory.getScheduler();
         scheduler.start();
@@ -50,8 +51,8 @@ public class CronSchedulerTrigger implements ILatch {
         scheduler.scheduleJob(jobDetail, CronExpression.fireEveryMinuteStartFromNow(hour, min));
 
         latch.await();
-        LOGGER.info("All triggers executed. Shutdown scheduler");
-        scheduler.shutdown();
+//        LOGGER.info("All triggers executed. Shutdown scheduler");
+//        scheduler.shutdown();
     }
 
     @Override
