@@ -5,12 +5,15 @@ import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
 import domain.Survey;
+import domain.SurveyStorageService;
 import domain.UserActivity;
 import org.quartz.Job;
 import org.quartz.JobDetail;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.slf4j.Logger;
+import javax.ejb.Stateless;
+import javax.inject.Inject;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
@@ -26,6 +29,7 @@ import static org.slf4j.LoggerFactory.getLogger;
 public class ReportSenderJob implements Job {
 
     private static final String PEANUT_API_SERVICE_URL = "http://localhost:8080/peanut-api/reports/";
+    private static final String REPORT_RECIPIENT_EMAIL = "bartlomiej.olewinski@ifresearch.org";
 
     private static final Logger LOGGER = getLogger(ReportSenderJob.class);
 
@@ -46,7 +50,7 @@ public class ReportSenderJob implements Job {
         HtmlReportBuilder builder = new HtmlReportBuilder();
         String htmlReport = builder.prepareReport(specialization, surveys, usersActivity);
         Mailer mailer = new Mailer();
-        mailer.sendMail("bartlomiej.olewinski@ifresearch.org", "Peanut Daily Report", htmlReport);
+        mailer.sendMail(REPORT_RECIPIENT_EMAIL, "Peanut Daily Report", htmlReport);
 
         LOGGER.info("ReportSenderJob end (in milliseconds): " + jobExecutionContext.getJobRunTime() + ", key: " + jobDetail.getKey());
         LOGGER.info("ReportSenderJob next scheduled time: " + jobExecutionContext.getNextFireTime());
