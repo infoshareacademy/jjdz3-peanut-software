@@ -55,11 +55,6 @@ public class CronSchedulerTrigger implements ILatch {
 
     }
 
-    public List<String> getJobs() throws SchedulerException, InterruptedException
-    {
-        return scheduler.getJobGroupNames();
-    }
-
     @Override
     public void countDown() {
         latch.countDown();
