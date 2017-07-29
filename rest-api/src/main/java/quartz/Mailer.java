@@ -1,5 +1,7 @@
 package quartz;
 
+import org.slf4j.Logger;
+
 import java.util.*;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
@@ -7,7 +9,11 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 
+import static org.slf4j.LoggerFactory.getLogger;
+
 public class Mailer {
+
+    private static final Logger LOGGER = getLogger(Mailer.class);
 
     public static final String HOST = "smtp.gmail.com";
     public static final int PORT = 587;
@@ -47,6 +53,7 @@ public class Mailer {
             Transport.send(message);
 
             System.out.println("Sent message successfully....");
+            LOGGER.debug("Mail " + subject + " sent to to:" + to + " from " + FROM);
 
         } catch (Exception mex) {
             mex.printStackTrace();

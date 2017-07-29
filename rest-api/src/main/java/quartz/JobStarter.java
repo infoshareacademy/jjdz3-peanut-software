@@ -12,10 +12,6 @@ public class JobStarter {
         CronSchedulerTrigger trigger = new CronSchedulerTrigger(0);
         try {
             trigger.fireJob();
-
-//            Mailer mailer = new Mailer();
-//            mailer.sendMail("bartlomiej.olewinski@ifresearch.org", "Peanut Daily Report", "report here");
-
        } catch (InterruptedException ie)
         {
  //TODO: exception catch
